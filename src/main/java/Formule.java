@@ -7,7 +7,7 @@ public class Formule {
 
     }
 
-//écrit la formule en format DIMACS
+//Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
     public void ecrireFormule(){
 
 
