@@ -1,3 +1,4 @@
+package lecteur;
 /**
  * Interface générique d'un accès séquenciel de modèle 1 d'élemnts de type T
  */
