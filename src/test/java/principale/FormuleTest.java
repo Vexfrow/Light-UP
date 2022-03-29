@@ -32,18 +32,17 @@ public class FormuleTest {
         assertTrue(f.verifListe(y, f.caractereVar));
     }
 
-    @Test
-    public void nbVariableTest(){
-        Formule f = new Formule("(x10 + x20)");
-        Formule f1 = new Formule("( x10  + x24 ) ");
-        Formule f2 = new Formule("( -x65  + x20 ) ");
-        Formule f4 = new Formule("");
 
-        assertTrue(f.nbVariable() == 20);
-        assertTrue(f1.nbVariable()== 24);
-        assertTrue(f2.nbVariable() == 65);
-        assertTrue(f4.nbVariable() == 0);
+    @Test
+    public void maxClauseTest(){
+        Formule f = new Formule("(x10 + x20)");
+
+        assertTrue(f.maxClause("x10 + x20") == 20);
+        assertTrue(f.maxClause("( x10  + x24 ) ") == 24);
+        assertTrue(f.maxClause("( -x65  + x20 ) ") == 65);
+        assertTrue(f.maxClause("") == 0);
     }
+
 
     @Test
     public void nbClauseTest(){
@@ -52,9 +51,11 @@ public class FormuleTest {
         Formule f2 = new Formule("( -x65  + x20 ) ");
         Formule f4 = new Formule("");
         
-        assertTrue(f.nbClause() == 3);
-        assertTrue(f1.nbClause()== 1);
-        assertTrue(f2.nbClause() == 1);
+        System.out.println(f.nbClauseEtVariable());
+        assertTrue(f.nbClauseEtVariable().equals("24 3"));
+        assertTrue(f1.nbClauseEtVariable().equals("24 1"));
+        assertTrue(f2.nbClauseEtVariable().equals("65 1"));
+        assertTrue(f4.nbClauseEtVariable().equals("0 0"));
     }
 
 }

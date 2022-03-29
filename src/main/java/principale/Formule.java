@@ -10,7 +10,7 @@ import lecteur.LecteurFormule;
 public class Formule {
     private String formule;
     public char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
-    public char[] simplification = {' ', 'X', 'A', '(', ')'};
+    public char[] simplification = {' ', 'X', 'A', '(', ')', '*', '^', '&'};
 
     
     public Formule(String s){
@@ -19,9 +19,9 @@ public class Formule {
 
 
 
-    /*
+/*
     Permet de simplifier la formule afin de la rendre 
-    */
+*/
     public String simplification(String formule){
         String t ="";
         int i =0;
@@ -40,34 +40,38 @@ public class Formule {
 
 
 
-/* Renvoie le nombre de variable (la plus haute) 
-
-A REVVVOIIIIIRRRRRRRR §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/
-    public int nbVariable(){
+/* 
+Renvoie la plus haute variable d'une clause
+*/
+    public int maxClause(String formule){
         int i = 0;
-        int x = 0;
-        int y = 0;
-        boolean avant = false;
+        int actuel = 0;
+        int max = 0;
+
         while(i < formule.length()){
-            if(verifListe(formule.charAt(i), caractereVar) && !avant){
-                avant = true;
-                x = 10* Character.getNumericValue(formule.charAt(i));
-            }else if(verifListe(formule.charAt(i), caractereVar)){
-                x = x + Character.getNumericValue(formule.charAt(i));
-                avant = false;
-            }
-            if(x > y){
-                y = x;
+            if(verifListe(formule.charAt(i), caractereVar)){
+                actuel = actuel*10 + Character.getNumericValue(formule.charAt(i));
+                
+            }else if(formule.charAt(i) == '+' || formule.charAt(i) == '|' || formule.charAt(i) == 'v'){
+                if(actuel > max){
+                    max = actuel;
+                }
+                actuel = 0;
             }
             i++;
         }
+        if(actuel > max){
+            max = actuel;
+        }
 
-        return y;
+        return max;
     }
 
 
 
-/* verifie si un caractère fait partie d'une liste de caractère*/
+/* 
+Verifie si un caractère fait partie d'une liste de caractère
+*/
     public boolean verifListe(char x, char[] liste){
         int i = 0;
         while(i<liste.length){
@@ -82,20 +86,30 @@ A REVVVOIIIIIRRRRRRRR §§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 
 
 
-    /* Recupère le nombre de clause de la formule*/
-    public int nbClause(){
+/* 
+Recupère le nombre de clause de la formule ainsi que le nombre de variable (la plus grande variable)
+*/
+    public String nbClauseEtVariable(){
         int i = 0;
+        int max = 0;
+
         LecteurFormule lect = new LecteurFormule(formule);
         lect.demarrer();
         while(!lect.finDeSequence()){
+            if(max < maxClause(lect.elementCourant())){
+                max = maxClause(lect.elementCourant());
+            }
             i++;
             lect.avancer();
         }
-        return i;
+        String resultat = "" + max +" " + i;
+        return resultat;
     }
 
 
-//Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
+/*
+Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
+*/
     public void ecrireFormule() throws IOException{
         File fichier = new File("fichierDIMACS.txt");
             if (!fichier.exists()) {
@@ -107,9 +121,9 @@ A REVVVOIIIIIRRRRRRRR §§§§§§§§§§§§§§§§§§§§§§§§§§§§§
         LecteurFormule lect = new LecteurFormule(formule);
 
         lect.demarrer();
-        bw.write("p cnf " + nbVariable() + " " + nbClause() + "\n");
+        bw.write("p cnf " + nbClauseEtVariable());
         while(!lect.finDeSequence()){
-            bw.write(simplification(lect.elementCourant()) + " \n");
+            bw.write("\n" +simplification(lect.elementCourant()));
             lect.avancer();
         }
         bw.close();

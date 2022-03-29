@@ -26,7 +26,7 @@ public class LecteurFormule implements AccesSequentielModele1<String>{
     @Override
     public void avancer() {
         elementActuel = "";
-        while(i < formule.length() && formule.charAt(i) != '*' && formule.charAt(i) != '&' ){
+        while(i < formule.length() && formule.charAt(i) != '*' && formule.charAt(i) != '&' && formule.charAt(i) != '^' ){
             elementActuel = elementActuel + formule.charAt(i);
             i++;
         }
