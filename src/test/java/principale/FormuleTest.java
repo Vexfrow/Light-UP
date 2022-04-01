@@ -51,7 +51,6 @@ public class FormuleTest {
         Formule f2 = new Formule("( -x65  + x20 ) ");
         Formule f4 = new Formule("");
         
-        System.out.println(f.nbClauseEtVariable());
         assertTrue(f.nbClauseEtVariable().equals("24 3"));
         assertTrue(f1.nbClauseEtVariable().equals("24 1"));
         assertTrue(f2.nbClauseEtVariable().equals("65 1"));

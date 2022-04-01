@@ -127,7 +127,7 @@ Transforme notre formule disjontive en une formule DIMACS (voir le sujet du proj
             lect.avancer();
         }
         bw.close();
-        System.out.println("Sauvegarde da a formule dans le fichier suivant : " + cheminAbsoluDuFichier);
+        System.out.println("Sauvegarde de la formule dans le fichier suivant : " + cheminAbsoluDuFichier);
 
 
     }
