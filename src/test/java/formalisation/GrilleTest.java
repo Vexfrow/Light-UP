@@ -1,12 +1,30 @@
 package formalisation;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Arrays;
 
 public class GrilleTest {
-    
 
+    private static int[][] grille;
+    
+    @Before
+    public void test(){
+        grille = new int[3][3];
+        grille[0][0] = -2;
+        grille[0][1] = -2;
+        grille[0][2] = -2;
+
+        grille[1][0] = -2;
+        grille[1][1] = -2;
+        grille[1][2] = -1;
+        
+        grille[2][0] = -2;
+        grille[2][1] = -1;
+        grille[2][2] = -2;
+
+    }
 
     @Test
     public void entierGrilleTest(){
@@ -25,23 +43,22 @@ public class GrilleTest {
 
     @Test
     public void adjacentTest(){
-        int[][] grille = new int[3][3];
-        grille[0][0] = -2;
-        grille[0][1] = -2;
-        grille[0][2] = -2;
-
-        grille[1][0] = -2;
-        grille[1][1] = -2;
-        grille[1][2] = -1;
-        
-        grille[2][0] = -2;
-        grille[2][1] = -1;
-        grille[2][2] = -2;
-
         Grille f = new Grille(grille);
 
+        int[] test = f.adjacent(2);
+        int i = 0;
+        while(i < test.length){
+            System.out.println(test[i]);
+            i++;
+        }
+    }
 
-        int[] test = f.adjacent(8);
+
+    @Test
+    public void adjacentUniqueTest(){
+        Grille f = new Grille(grille);
+
+        int[] test = f.adjacenteUnique(2);
 
         int i = 0;
         while(i < test.length){

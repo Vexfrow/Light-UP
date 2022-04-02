@@ -73,6 +73,8 @@ public class Principale{
         Grille g = new Grille(grille);
 
         g.regle1();
+        g.regle2();
+        g.regle4();
 
     }
 

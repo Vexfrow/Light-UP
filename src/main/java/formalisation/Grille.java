@@ -60,7 +60,8 @@ public class Grille {
 
 
     /*
-        Renvoie la liste de toutes les cases adjacentes à la case mise en paramètre
+        Renvoie la liste de toutes les cases adjacentes à la case mise en paramètre.
+        Une case est dîtes adjacente à une autre si elles sont sur la même ligne/colonne et ne sont pas séparrées par une case noire (il n'y a pas d'histoire de distance)
     */
     public int[] adjacent(int CASE){
         int posLigne = getLigne(CASE);
@@ -125,13 +126,17 @@ public class Grille {
     }
 
 
-
+    /*
+        Renvoie la ligne correspondant à la case mise en paramètre
+    */
     public int getLigne(int CASE){
         return CASE/nbLignes;
     }
 
 
-
+    /*
+        Renvoie la colonne correspondant à la case mise en paramètre
+    */
     public int getColonne(int CASE){
         return CASE%nbColonnes;
     }
@@ -144,8 +149,82 @@ public class Grille {
     public int entierGrille(int[] CASE){
         return (CASE[0]*nbLignes+CASE[1]);
     }
-    
 
+
+    /*
+        Renvoie l'entier correspondant à la dernière case blanche de la grille
+    */  
+    private int derniereCaseBlanche(){
+        int i = nbColonnes*nbLignes-1;
+        while(i >= 0 && grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){
+            i = i-1;
+        }
+        return i;
+    }
+
+
+    /*
+        Renvoie l'entier correspondant à la dernière case noire de la grille
+    */  
+    private int derniereCaseNoire(){
+        int i = nbColonnes*nbLignes-1;
+        while(i >= 0 && grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
+            i = i-1;
+        }
+        return i;
+    }
+
+
+    /*
+        Renvoie la liste de toutes les cases adjacentes unique à la case mise en paramètre.
+        Une case est dîtes adjacente unique à une autre si elles sont sur la même ligne/colonne et ne sont pas séparrées par une case noire (les cases doivent être cote à cote)
+    */
+    public int[] adjacenteUnique(int CASE){
+        int posLigne = getLigne(CASE);
+        int posCol = getColonne(CASE);
+
+        int pos = 0;
+        int[] truc = new int[4];
+
+       if(posLigne-1 >= 0 && grille[posLigne-1][posCol]==CASE_BLANCHE){
+            int [] machin = {posLigne-1,posCol};
+            truc[pos] = entierGrille(machin);
+            pos++;
+        }
+
+       if(posLigne+1 < nbLignes && grille[posLigne+1][posCol]==CASE_BLANCHE){
+            int [] machin = {posLigne+1,posCol};
+            truc[pos] = entierGrille(machin);
+            pos++;
+        }
+
+        if(posCol-1 >= 0 && grille[posLigne][posCol-1]==CASE_BLANCHE){
+            int [] machin = {posLigne,posCol-1};
+            truc[pos] = entierGrille(machin);
+            pos++;
+        }
+
+        if(posCol+1 < nbColonnes && grille[posLigne][posCol+1]==CASE_BLANCHE){
+            int [] machin = {posLigne,posCol+1};
+            truc[pos] = entierGrille(machin);
+            pos++;
+        }
+        
+        int[] res = new int[pos];
+        int m = 0;
+        while(m < pos){
+            res[m] = truc[m];
+            m++;
+        }
+
+        return res;
+    }
+
+
+
+    /*
+        Ecris dans un fichier la formule correspondant à la première règle
+    */  
     public void regle1() throws IOException{
         File fichier = new File("regle1.txt");
         if (!fichier.exists()) {
@@ -164,7 +243,12 @@ public class Grille {
                     bw.write(" | "+adjacent[j]);
                     j++;
                 }
-                bw.write(" ) & ");
+
+                if(i != derniereCaseBlanche()){
+                    bw.write(") & ");
+                }else{
+                    bw.write(")");
+                }
             }
             i++;
         }
@@ -174,5 +258,98 @@ public class Grille {
 
     }
 
+
+    /*
+        Ecris dans un fichier la formule correspondant à la quatrième règle
+    */  
+    public void regle4() throws IOException{
+        File fichier = new File("regle4.txt");
+        if (!fichier.exists()) {
+            fichier.createNewFile();
+        }
+        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+
+        int i =0;
+        while(i < nbColonnes*nbLignes){
+            if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){
+                if(i != derniereCaseNoire()){
+                    bw.write("(-" +i + ") & ");
+                }else{
+                    bw.write("(-" +i + ") ");
+                }
+            }
+            i++;
+        }
+        bw.close();
+        System.out.println("Sauvegarde de la regle QUATRO dans le fichier suivant : " + cheminAbsoluDuFichier);
+    }
+
+
+
+    /*
+        Ecris dans un fichier la formule correspondant à la deuxième règle
+    */  
+    public void regle2() throws IOException{
+        File fichier = new File("regle2.txt");
+        if (!fichier.exists()) {
+            fichier.createNewFile();
+        }
+        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+
+        int i =0;
+        while(i <= derniereCaseBlanche()){
+            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
+                int j = 0;
+                int[] adjacent = adjacent(i);
+                while(j < adjacent.length){
+                    if(j!= adjacent.length-1 || i != derniereCaseBlanche()){
+                        bw.write("(-"+i+" | -"+adjacent[j] + ") & ");
+                    }else{
+                        bw.write("(-"+i+" | -"+adjacent[j] + ")");
+                    }
+                    j++;
+                }
+            }
+            i++;
+        }
+        bw.close();
+        System.out.println("Sauvegarde de la regle DUE dans le fichier suivant : " + cheminAbsoluDuFichier);
+    }
+
+
+
+
+    /*
+        Ecris dans un fichier la formule correspondant à la deuxième règle
+    */  
+    public void regle3() throws IOException{
+        File fichier = new File("regle3.txt");
+        if (!fichier.exists()) {
+            fichier.createNewFile();
+        }
+        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+
+        int i =0;
+        while(i <= derniereCaseBlanche()){
+            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
+                int j = 0;
+                int[] adjacent = adjacent(i);
+                while(j < adjacent.length){
+                    if(j!= adjacent.length-1 || i != derniereCaseBlanche()){
+                        bw.write("(-"+i+" | -"+adjacent[j] + ") & ");
+                    }else{
+                        bw.write("(-"+i+" | -"+adjacent[j] + ")");
+                    }
+                    j++;
+                }
+            }
+            i++;
+        }
+        bw.close();
+        System.out.println("Sauvegarde de la regle TRES dans le fichier suivant : " + cheminAbsoluDuFichier);
+    }
     
 }
