@@ -75,6 +75,7 @@ public class Principale{
         g.regle1();
         g.regle2();
         g.regle4();
+        g.regle3();
 
     }
 

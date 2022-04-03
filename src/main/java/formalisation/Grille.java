@@ -222,6 +222,26 @@ public class Grille {
 
 
 
+    private int[] supprimerElementTab(int[] tab, int e){
+        int i = 0;
+        int pos = 0;
+        int[] res = new int[tab.length-1];
+        System.out.println(tab.length);
+        System.out.println(res.length);
+        while(i < tab.length){
+            if(tab[i] != e){
+                System.out.println("pos = " + pos);
+                System.out.println("i = " + i);
+                res[pos] = tab[i];
+                pos++;
+            }
+            i++;
+        }
+        return res;
+    }
+
+
+
     /*
         Ecris dans un fichier la formule correspondant à la première règle
     */  
@@ -240,12 +260,12 @@ public class Grille {
                 int j = 0;
                 int[] adjacent = adjacent(i);
                 while(j < adjacent.length){
-                    bw.write(" | "+adjacent[j]);
+                    bw.write(" + "+adjacent[j]);
                     j++;
                 }
 
                 if(i != derniereCaseBlanche()){
-                    bw.write(") & ");
+                    bw.write(") * ");
                 }else{
                     bw.write(")");
                 }
@@ -274,7 +294,7 @@ public class Grille {
         while(i < nbColonnes*nbLignes){
             if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){
                 if(i != derniereCaseNoire()){
-                    bw.write("(-" +i + ") & ");
+                    bw.write("(-" +i + ") * ");
                 }else{
                     bw.write("(-" +i + ") ");
                 }
@@ -305,9 +325,9 @@ public class Grille {
                 int[] adjacent = adjacent(i);
                 while(j < adjacent.length){
                     if(j!= adjacent.length-1 || i != derniereCaseBlanche()){
-                        bw.write("(-"+i+" | -"+adjacent[j] + ") & ");
+                        bw.write("(-"+i+" + -"+adjacent[j] + ") * ");
                     }else{
-                        bw.write("(-"+i+" | -"+adjacent[j] + ")");
+                        bw.write("(-"+i+" + -"+adjacent[j] + ")");
                     }
                     j++;
                 }
@@ -333,19 +353,80 @@ public class Grille {
         BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
 
         int i =0;
-        while(i <= derniereCaseBlanche()){
-            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
+        while(i <= derniereCaseNoire()){
+
+            // Le cas où c'est une case noir avec un chiffre 0
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE0){
                 int j = 0;
-                int[] adjacent = adjacent(i);
+                int[] adjacent = adjacenteUnique(i);
                 while(j < adjacent.length){
-                    if(j!= adjacent.length-1 || i != derniereCaseBlanche()){
-                        bw.write("(-"+i+" | -"+adjacent[j] + ") & ");
-                    }else{
-                        bw.write("(-"+i+" | -"+adjacent[j] + ")");
+                    bw.write("(-"+adjacent[j] + " * ");
+                    j++;
+                }
+                bw.write(" ) * ");
+            }
+
+
+            // Le cas où c'est une case noir avec un chiffre 1
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE1){
+                int j = 0;
+                int[] adjacent = adjacenteUnique(i);
+                bw.write("( ");
+
+                while(j < adjacent.length){
+                    bw.write("("+adjacent[j] + " * ");
+
+                    int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+                    int m = 0;
+                    while(m < adjSansJ.length){
+                        bw.write("-"+adjSansJ[m] + " * ");
+                        m++;
+                    }
+                    bw.write(" ) + ");
+                    j++;
+                }
+                bw.write(" ) * ");
+            }
+
+
+            // Le cas où c'est une case noir avec un chiffre 2
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE2){
+                int j = 0;
+                int[] adjacent = adjacenteUnique(i);
+                bw.write("( ");
+
+                while(j < adjacent.length){
+
+                    int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+                    int m = 0;
+                    while(m < adjSansJ.length){
+                        bw.write("("+adjacent[j] + " * ");
+                        bw.write(adjSansJ[m] + " * ");
+
+                        int[] adjSansJ2 = supprimerElementTab(adjSansJ, adjSansJ[m]);
+
+                        int n = 0;
+                        while(n < adjSansJ2.length){
+                            bw.write("-"+adjSansJ2[n] + " * ");
+                            n++;
+                        }
+                        bw.write(" ) + ");
+                        m++;
                     }
                     j++;
                 }
+                bw.write(" ) * ");
             }
+
+
+
+
+
+
+
+
+
+
             i++;
         }
         bw.close();
