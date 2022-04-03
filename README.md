@@ -8,6 +8,8 @@ https://docs.google.com/document/d/1annpiqCQHVSbV3NaXJXIaBOU0MPcDkrnbnlqkd_BojQ/
 
 
 
-28/03 - Thomas :
-Modification des classes lecteur et formule. 
-La transformation de la formule en un fichier DIMACS fonctionne très bien, au détail près que la fonction nbVar ne fonctionne pas (il faudrais refaire le code de la fonction)
+A la date du 03/04 :
+Les règles 1, 2 et 4 fonctionnent correctement. 
+TODO : Finir la règle 3 et trouver un moyen de faire une forme normale conjonctive
+
+SAT - SOLVEUR
