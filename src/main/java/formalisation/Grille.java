@@ -151,29 +151,6 @@ public class Grille {
     }
 
 
-    /*
-        Renvoie l'entier correspondant à la dernière case blanche de la grille
-    */  
-    private int derniereCaseBlanche(){
-        int i = nbColonnes*nbLignes-1;
-        while(i >= 0 && grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){
-            i = i-1;
-        }
-        return i;
-    }
-
-
-    /*
-        Renvoie l'entier correspondant à la dernière case noire de la grille
-    */  
-    private int derniereCaseNoire(){
-        int i = nbColonnes*nbLignes-1;
-        while(i >= 0 && grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
-            i = i-1;
-        }
-        return i;
-    }
-
 
     /*
         Renvoie la liste de toutes les cases adjacentes unique à la case mise en paramètre.
@@ -221,17 +198,15 @@ public class Grille {
     }
 
 
-
+/*
+    Prend un tableau et un élément contenue dans le tableau et renvoie le tableau sans cet élément
+*/ 
     private int[] supprimerElementTab(int[] tab, int e){
         int i = 0;
         int pos = 0;
         int[] res = new int[tab.length-1];
-        System.out.println(tab.length);
-        System.out.println(res.length);
         while(i < tab.length){
             if(tab[i] != e){
-                System.out.println("pos = " + pos);
-                System.out.println("i = " + i);
                 res[pos] = tab[i];
                 pos++;
             }
@@ -242,195 +217,182 @@ public class Grille {
 
 
 
-    /*
-        Ecris dans un fichier la formule correspondant à la première règle
-    */  
-    public void regle1() throws IOException{
-        File fichier = new File("regle1.txt");
-        if (!fichier.exists()) {
-            fichier.createNewFile();
-        }
-        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
 
+/*
+    Renvoie la formule correspondant à la première règle
+*/  
+    public String regle1(){
+
+        Formule resRegle1 = new Formule();
         int i =0;
         while(i < nbColonnes*nbLignes){
+            String resCase = "";
+
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
-                bw.write("(" + i);
+                Formule resC = new Formule("(" +i);
+
                 int j = 0;
                 int[] adjacent = adjacent(i);
+
                 while(j < adjacent.length){
-                    bw.write(" + "+adjacent[j]);
+                    resC.disjonction(adjacent[j]);
                     j++;
                 }
+                resCase = resCase + resC.getFormule()+")";
 
-                if(i != derniereCaseBlanche()){
-                    bw.write(") * ");
-                }else{
-                    bw.write(")");
-                }
+                Formule resCaseF = new Formule(resCase);
+                resRegle1.conjonction(resCaseF);
             }
             i++;
         }
-        bw.close();
-        System.out.println("Sauvegarde de la regle UNO dans le fichier suivant : " + cheminAbsoluDuFichier);
-
+        return resRegle1.getFormule();
 
     }
 
 
-    /*
-        Ecris dans un fichier la formule correspondant à la quatrième règle
-    */  
-    public void regle4() throws IOException{
-        File fichier = new File("regle4.txt");
-        if (!fichier.exists()) {
-            fichier.createNewFile();
-        }
-        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+
+
+/*
+    Renvoie la formule correspondant à la quatrième règle
+*/  
+    public String regle4() throws IOException{
+        Formule resRegle4 = new Formule();
 
         int i =0;
         while(i < nbColonnes*nbLignes){
             if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){
-                if(i != derniereCaseNoire()){
-                    bw.write("(-" +i + ") * ");
-                }else{
-                    bw.write("(-" +i + ") ");
-                }
+                Formule caseN = new Formule("(-" + i +")");
+                resRegle4.conjonction(caseN);
             }
             i++;
         }
-        bw.close();
-        System.out.println("Sauvegarde de la regle QUATRO dans le fichier suivant : " + cheminAbsoluDuFichier);
+        return resRegle4.getFormule();
     }
 
 
 
-    /*
-        Ecris dans un fichier la formule correspondant à la deuxième règle
-    */  
-    public void regle2() throws IOException{
-        File fichier = new File("regle2.txt");
-        if (!fichier.exists()) {
-            fichier.createNewFile();
-        }
-        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
-
+/*
+    Renvoie la formule correspondant à la deuxième règle
+*/  
+    public String regle2() throws IOException{
+        Formule resRegle3 = new Formule();
         int i =0;
-        while(i <= derniereCaseBlanche()){
+        while(i <= nbColonnes*nbLignes){
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){
                 int j = 0;
                 int[] adjacent = adjacent(i);
                 while(j < adjacent.length){
-                    if(j!= adjacent.length-1 || i != derniereCaseBlanche()){
-                        bw.write("(-"+i+" + -"+adjacent[j] + ") * ");
-                    }else{
-                        bw.write("(-"+i+" + -"+adjacent[j] + ")");
-                    }
+                    Formule resCase = new Formule("(-"+i+" + -"+adjacent[j] + ")");
+                    resRegle3.conjonction(resCase);
                     j++;
                 }
             }
             i++;
         }
-        bw.close();
-        System.out.println("Sauvegarde de la regle DUE dans le fichier suivant : " + cheminAbsoluDuFichier);
+        return resRegle3.getFormule();
     }
 
 
 
 
+
+
     /*
-        Ecris dans un fichier la formule correspondant à la deuxième règle
+        Ecris dans un fichier la formule correspondant à la troisième règle
     */  
-    public void regle3() throws IOException{
-        File fichier = new File("regle3.txt");
-        if (!fichier.exists()) {
-            fichier.createNewFile();
-        }
-        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
-
+    public String regle3() throws IOException{
+        Formule resRegle3 = new Formule();
         int i =0;
-        while(i <= derniereCaseNoire()){
-
+        while(i <= nbColonnes*nbLignes){
+            Formule res = new Formule();
+            
             // Le cas où c'est une case noir avec un chiffre 0
             if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE0){
+                Formule resCase = new Formule();
                 int j = 0;
                 int[] adjacent = adjacenteUnique(i);
                 while(j < adjacent.length){
-                    bw.write("(-"+adjacent[j] + " * ");
+                    Formule casj = new Formule("-"+adjacent[j]);
+                    resCase.conjonction(casj);
                     j++;
                 }
-                bw.write(" ) * ");
+                res = resCase;
             }
 
 
-            // Le cas où c'est une case noir avec un chiffre 1
-            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE1){
+            // // Le cas où c'est une case noir avec un chiffre 1
+            // if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE1){
+            //     int j = 0;
+            //     res = "(";
+            //     int[] adjacent = adjacenteUnique(i);
+
+            //     while(j < adjacent.length){
+            //         String resCase = "("+adjacent[j];
+
+            //         int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+            //         int m = 0;
+            //         while(m < adjSansJ.length){
+            //             resCase = f.conjonction(resCase, "-"+adjSansJ[m]);
+            //             m++;
+            //         }
+            //         res = f.disjonction(res, resCase+")");
+            //         j++;
+            //     }
+            //     res= res+")";
+            // }
+
+
+
+
+            // // Le cas où c'est une case noir avec un chiffre 2
+            // if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE2){
+            //     int j = 0;
+            //     int[] adjacent = adjacenteUnique(i);
+            //     bw.write("( ");
+
+            //     while(j < adjacent.length){
+
+            //         int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+            //         int m = 0;
+            //         while(m < adjSansJ.length){
+            //             bw.write("("+adjacent[j] + " * ");
+            //             bw.write(adjSansJ[m] + " * ");
+
+            //             int[] adjSansJ2 = supprimerElementTab(adjSansJ, adjSansJ[m]);
+
+            //             int n = 0;
+            //             while(n < adjSansJ2.length){
+            //                 bw.write("-"+adjSansJ2[n] + " * ");
+            //                 n++;
+            //             }
+            //             bw.write(" ) + ");
+            //             m++;
+            //         }
+            //         j++;
+            //     }
+            //     bw.write(" ) * ");
+            // }
+
+
+
+            // Le cas où c'est une case noir avec un chiffre 4
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE4){
+                Formule resCase = new Formule();
                 int j = 0;
                 int[] adjacent = adjacenteUnique(i);
-                bw.write("( ");
-
                 while(j < adjacent.length){
-                    bw.write("("+adjacent[j] + " * ");
-
-                    int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-                    int m = 0;
-                    while(m < adjSansJ.length){
-                        bw.write("-"+adjSansJ[m] + " * ");
-                        m++;
-                    }
-                    bw.write(" ) + ");
+                    resCase.conjonction(adjacent[j]);
                     j++;
                 }
-                bw.write(" ) * ");
+                res = resCase;
             }
+            
 
-
-            // Le cas où c'est une case noir avec un chiffre 2
-            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE2){
-                int j = 0;
-                int[] adjacent = adjacenteUnique(i);
-                bw.write("( ");
-
-                while(j < adjacent.length){
-
-                    int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-                    int m = 0;
-                    while(m < adjSansJ.length){
-                        bw.write("("+adjacent[j] + " * ");
-                        bw.write(adjSansJ[m] + " * ");
-
-                        int[] adjSansJ2 = supprimerElementTab(adjSansJ, adjSansJ[m]);
-
-                        int n = 0;
-                        while(n < adjSansJ2.length){
-                            bw.write("-"+adjSansJ2[n] + " * ");
-                            n++;
-                        }
-                        bw.write(" ) + ");
-                        m++;
-                    }
-                    j++;
-                }
-                bw.write(" ) * ");
-            }
-
-
-
-
-
-
-
-
-
-
+            resRegle3.conjonction(res);
             i++;
         }
-        bw.close();
-        System.out.println("Sauvegarde de la regle TRES dans le fichier suivant : " + cheminAbsoluDuFichier);
+
+        return resRegle3.getFormule();
     }
     
 }

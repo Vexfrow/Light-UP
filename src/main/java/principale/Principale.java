@@ -1,6 +1,10 @@
 package principale;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
+import formalisation.Formule;
 import formalisation.Grille;
 
 
@@ -71,11 +75,20 @@ public class Principale{
 
 
         Grille g = new Grille(grille);
+        // System.out.println(g.regle3());
 
-        g.regle1();
-        g.regle2();
-        g.regle4();
-        g.regle3();
+
+        File fichier = new File("FormuleFinale.txt");
+        if (!fichier.exists()) {
+            fichier.createNewFile();
+        }
+        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+        String regle4 = g.regle2();
+        bw.write(regle4);
+        bw.close();
+
+
 
     }
 

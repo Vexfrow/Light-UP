@@ -40,30 +40,4 @@ public class GrilleTest {
         assertTrue(f.entierGrille(test3)== (5));
     }
 
-
-    @Test
-    public void adjacentTest(){
-        Grille f = new Grille(grille);
-
-        int[] test = f.adjacent(2);
-        int i = 0;
-        while(i < test.length){
-            System.out.println(test[i]);
-            i++;
-        }
-    }
-
-
-    @Test
-    public void adjacentUniqueTest(){
-        Grille f = new Grille(grille);
-
-        int[] test = f.adjacenteUnique(2);
-
-        int i = 0;
-        while(i < test.length){
-            System.out.println(test[i]);
-            i++;
-        }
-    }
 }
