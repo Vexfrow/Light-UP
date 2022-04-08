@@ -11,6 +11,7 @@ import lecteur.LecteurFormule;
 public class Formule {
     private String formule;
     private int nbVarDif;
+    private int[] variable;
 
     public static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
     public static char[] simplification = {' ','X','a', 'A', '(', ')', '*', '^', '&', 'x'};
@@ -18,10 +19,9 @@ public class Formule {
     public static char[] conjonction = {'*', '^', '&'};
     public static char[] negation = {'!', '-'};
 
-    private int[] variable;
 
 /*
-        Constructeur avec paramètre
+    Constructeur avec paramètre
 */
     public Formule(String s){
         formule = s;
@@ -32,7 +32,7 @@ public class Formule {
 
 
 /*
-        Constructeur sans paramètre
+    Constructeur sans paramètre (Formule vide)
 */
     public Formule(){
         formule = "";
@@ -43,7 +43,7 @@ public class Formule {
 
 
 /*
-    Permet de simplifier la formule afin de faciliter son écriture en un format DIMACS
+    Permet de simplifier la formule en supprimant les caractères superflues, afin de faciliter son écriture en un format DIMACS
 */
     public String supprimerSuperflue(){
         String t ="";
@@ -65,7 +65,7 @@ public class Formule {
 
 
 /* 
-    Renvoie le nombre de variable de la formule
+   Simplifie la fonction
 */
     public void simplifierDisjonction(){
         int i = 0;
@@ -81,10 +81,10 @@ public class Formule {
 
 
 /* 
-    Renvoie le nombre de variable de la formule
+    Renvoie le nombre de variable de la formule (variable négative == variable positive)
 */
     public int nbVariable(){
-        int[] tab= new int[100];
+        int[] tab= new int[1000];
         int posTab = 0;
 
         int i = 0;
@@ -117,10 +117,10 @@ public class Formule {
 
 
 /* 
-    Remplis la liste des variables
+    Remplis la liste des variables (variable négative != variable positive)
 */
 public void remplirListeVariable(){
-    int[] tab= new int[100];
+    int[] tab= new int[1000];
     int posTab = 0;
 
     int i = 0;
@@ -172,7 +172,7 @@ public void remplirListeVariable(){
 
 
 /* 
-    Verifie si un caractère fait partie d'une liste de caractère
+    Verifie si un caractère appartient à une liste de caractère
 */
     public boolean appartient(char x, char[] liste){
         int i = 0;
@@ -187,7 +187,7 @@ public void remplirListeVariable(){
     }
 
 /* 
-    Verifie si un int fait partie d'une liste de int. posTab indique où la liste est finis, pasTab est forcément inférieur à la liste
+    Verifie si un int appartient à une liste de int. posTab indique où la liste est finis, posTab est forcément inférieur à la liste
 */
     public boolean appartient(int x, int[] liste, int posTab){
         int i = 0;
@@ -204,7 +204,7 @@ public void remplirListeVariable(){
 
 
 /* 
-    Recupère le nombre de clause de la formule ainsi que le nombre de variable (la plus grande variable)
+    Recupère le nombre de clause de la formule ainsi que le nombre de variable différente (variable négative == variable positive)
 */
     public String nbClauseEtVariable(){
         int i = 0;
@@ -309,14 +309,18 @@ public void remplirListeVariable(){
     }
 
 
-
+/*
+    Permet de récuperer la formule
+*/
     public String getFormule(){
         return formule;
     }
 
 
 
-
+/*
+    TODO
+*/
     public Formule distribution(){
 
         return this;

@@ -26,11 +26,11 @@ public class FormuleTest {
         char y = '3';
         char r = 'z';
 
-        assertTrue(f.appartient(x, f.caractereVar));
-        assertTrue(f.appartient(u, f.simplification));
-        assertTrue(!f.appartient(u, f.caractereVar));
-        assertTrue(!f.appartient(r, f.caractereVar));
-        assertTrue(f.appartient(y, f.caractereVar));
+        assertTrue(f.appartient(x, Formule.caractereVar));
+        assertTrue(f.appartient(u, Formule.simplification));
+        assertTrue(!f.appartient(u, Formule.caractereVar));
+        assertTrue(!f.appartient(r, Formule.caractereVar));
+        assertTrue(f.appartient(y, Formule.caractereVar));
     }
 
 
