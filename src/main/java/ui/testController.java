@@ -34,8 +34,7 @@ public class testController{
             int SIZE = 7;
             int length = SIZE;
             int width = SIZE;
-            AnchorPane root = new AnchorPane();
-            GridPane roote = new GridPane();  
+            GridPane root = new GridPane();  
             Button finish = new Button();  
 
             for(int y = 0; y < length; y++){
@@ -55,7 +54,7 @@ public class testController{
                     // Iterate the Index using the loops
                     GridPane.setRowIndex(tf,y);
                     GridPane.setColumnIndex(tf,x);    
-                    roote.getChildren().add(tf);
+                    root.getChildren().add(tf);
                     //root.getChildren().add(roote);
                 }    
             }
