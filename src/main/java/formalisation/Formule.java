@@ -22,6 +22,7 @@ public class Formule {
 
 /*
     Constructeur avec paramètre
+    Crée un objet formule à partir du string formule fourni
 */
     public Formule(String s){
         formule = s;
@@ -33,6 +34,7 @@ public class Formule {
 
 /*
     Constructeur sans paramètre (Formule vide)
+    Crée un objet formule vide 
 */
     public Formule(){
         formule = "";
@@ -44,6 +46,8 @@ public class Formule {
 
 /*
     Permet de simplifier la formule en supprimant les caractères superflues, afin de faciliter son écriture en un format DIMACS
+    Utilisé dans ecrireDimacs()
+    Supprime les caractères inutiles de chaque clause (voir la liste nommé : "simplification" afin de voir les caractères supprimé de chaque clauses)
 */
     public String supprimerSuperflue(){
         String t ="";
@@ -65,12 +69,13 @@ public class Formule {
 
 
 /* 
-   Simplifie la fonction
+   Simplifie les clauses
+   Si la formule est une clause, cette fonction permet de la simplifie
 */
     public void simplifierDisjonction(){
         int i = 0;
         while(i< variable.length){
-            if(appartient(-variable[i], variable, variable.length)){
+            if(appartient(-variable[i], variable, variable.length)){ //Si une clause contient une variable et son inverse, alors la clause est égale à 1 et on peut dont la supprimer
                 formule = "";
                 variable = new int[0];
                 nbVarDif = 0;
@@ -117,7 +122,7 @@ public class Formule {
 
 
 /* 
-    Remplis la liste des variables (variable négative != variable positive)
+    Remplis la liste des variables de la formule (variable négative != variable positive)
 */
 public void remplirListeVariable(){
     int[] tab= new int[1000];
@@ -187,7 +192,7 @@ public void remplirListeVariable(){
     }
 
 /* 
-    Verifie si un int appartient à une liste de int. posTab indique où la liste est finis, posTab est forcément inférieur à la liste
+    Verifie si un entier appartient à une liste d'entier. posTab indique où la liste est finis, posTab est forcément inférieur à la liste
 */
     public boolean appartient(int x, int[] liste, int posTab){
         int i = 0;
