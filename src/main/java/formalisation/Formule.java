@@ -274,10 +274,10 @@ public void remplirListeVariable(){
 */
     public String conjonction(Formule formule2){
 
-        if(nbVarDif==0){
-            formule = (""+formule + formule2.getFormule());
+        if(nbVarDif==0 || formule2.nbVariable() == 0){
+            formule = (""+formule+ formule2.getFormule());
         }else{
-            formule = (formule + " * " + formule2.getFormule());
+            formule = (formule  + " * " + formule2.getFormule());
         }
         nbVarDif = nbVariable();
         return formule;
@@ -304,9 +304,9 @@ public void remplirListeVariable(){
 */
     public String disjonction(Formule formule2){
 
-        if(nbVarDif==0){
+        if(nbVarDif==0 || formule2.nbVariable() == 0){
             formule = (""+formule+ formule2.getFormule());
-        }else if(formule2.nbVariable() != 0){
+        }else{
             formule = (formule  + " + " + formule2.getFormule());
         }
         nbVarDif = nbVariable();

@@ -71,6 +71,7 @@ public class FormuleTest {
         Formule f = new Formule("(1 + 2");
         Formule f1 = new Formule("1 + 2");
         Formule f2 = new Formule("(");
+        Formule f3 = new Formule(")");
         
         assertTrue(f.disjonction(5).equals("(1 + 2 + 5"));
         assertTrue(f.disjonction(5).equals("(1 + 2 + 5 + 5"));
@@ -79,6 +80,7 @@ public class FormuleTest {
 
         assertTrue(f.disjonction(f1).equals("(1 + 2 + 5 + 5 + 1 + 2 + 5"));
         assertTrue(f2.conjonction(f1).equals("(5 * 1 + 2 + 5"));
+        assertTrue(f2.conjonction(f3).equals("(5 * 1 + 2 + 5)"));
         
     }
 

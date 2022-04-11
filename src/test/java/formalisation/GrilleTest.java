@@ -28,15 +28,11 @@ public class GrilleTest {
     @Test
     public void entierGrilleTest(){
         Grille f = new Grille("Truc", 3, 3);
-        int[] test = {0,0};
-        int[] test1 = {1,0};
-        int[] test2 = {0,1};
-        int[] test3 = {1,2};
 
-        assertTrue(f.entierGrille(test) == (0));
-        assertTrue(f.entierGrille(test1)== (3));
-        assertTrue(f.entierGrille(test2)== (1));
-        assertTrue(f.entierGrille(test3)== (5));
+        assertTrue(f.entierGrille(0,0) == (0));
+        assertTrue(f.entierGrille(1,0)== (3));
+        assertTrue(f.entierGrille(0,1)== (1));
+        assertTrue(f.entierGrille(1,2)== (5));
     }
 
 }
