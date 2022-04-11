@@ -295,6 +295,34 @@ public class Grille {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
         Ecris dans un fichier la formule correspondant à la troisième règle
         On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
@@ -319,58 +347,219 @@ public class Grille {
             }
 
 
+
+
+
+
+
+
             // // Le cas où c'est une case noir avec un chiffre 1
-            // if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE1){
-            //     int j = 0;
-            //     res = "(";
-            //     int[] adjacent = adjacenteUnique(i);
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE1){
+                Formule resCase = new Formule();
+                Formule f = new Formule("(");
+                Formule f2 = new Formule(")");
+                int[] adjacent = adjacenteUnique(i);
 
-            //     while(j < adjacent.length){
-            //         String resCase = "("+adjacent[j];
+                if(adjacent.length == 1){
+                    resCase.conjonction(f);
+                    for(int n = 0; n < adjacent.length; n++){
+                        resCase.conjonction(adjacent[n]);
+                    }
+                    resCase.conjonction(f2);
 
-            //         int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-            //         int m = 0;
-            //         while(m < adjSansJ.length){
-            //             resCase = f.conjonction(resCase, "-"+adjSansJ[m]);
-            //             m++;
-            //         }
-            //         res = f.disjonction(res, resCase+")");
-            //         j++;
-            //     }
-            //     res= res+")";
-            // }
+                }else if(adjacent.length == 2){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        resF.disjonction(-adjacent[j]);  
+                        j++;
+                    }
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+
+                    j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            resF = new Formule(f.getFormule());
+                            resF.disjonction(adjacent[j]);
+                            resF.disjonction(adjSansJ[m]);
+                            resF.disjonction(f2);
+                            resCase.conjonction(resF);
+                        }
+                        j++;
+                    }
+
+
+                }else if(adjacent.length == 3){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        resF.disjonction(-adjacent[j]);  
+                        j++;
+                    }
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+
+
+
+                    j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+
+                        int m = 0;
+                        while(m < adjSansJ.length){
+                            int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
+
+
+                            int n = 0;
+                            while(n < adjSansM.length){
+                                Formule resF1 = new Formule(f.getFormule());
+                                resF1.disjonction(-adjacent[j]);
+                                resF1.disjonction(-adjSansJ[m]);
+                                resF1.disjonction(-adjSansM[n]);
+                                resF1.disjonction(f2);
+                                resCase.conjonction(resF1);
+
+
+                                resF = new Formule(f.getFormule());
+                                resF.disjonction(adjacent[j]);
+                                resF.disjonction(adjSansJ[m]);
+                                resF.disjonction(adjSansM[n]);
+                                resF.disjonction(f2);
+                                resCase.conjonction(resF);
+                                n++;
+                            }
+                            m++;
+                        }
+                        j++;
+                    }
+
+
+
+                }else if(adjacent.length == 4){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+
+                        int m = 0;
+                        while(m < adjSansJ.length){
+                            int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
+
+
+                            int n = 0;
+                            while(n < adjSansM.length){
+                                Formule resF1 = new Formule(f.getFormule());
+                                resF1.disjonction(-adjacent[j]);
+                                resF1.disjonction(-adjSansJ[m]);
+                                resF1.disjonction(-adjSansM[n]);
+                                resF1.disjonction(f2);
+                                resCase.conjonction(resF1);
+
+
+                                resF = new Formule(f.getFormule());
+                                resF.disjonction(adjacent[j]);
+                                resF.disjonction(adjSansJ[m]);
+                                resF.disjonction(adjSansM[n]);
+                                resF.disjonction(f2);
+                                resCase.conjonction(resF);
+                                n++;
+                            }
+                            m++;
+                        }
+                        j++;
+                    }
+
+
+
+                }
+                res.conjonction(resCase);
+
+            }
 
 
 
 
-            // // Le cas où c'est une case noir avec un chiffre 2
-            // if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE2){
-            //     int j = 0;
-            //     int[] adjacent = adjacenteUnique(i);
-            //     bw.write("( ");
+            // Le cas où c'est une case noir avec un chiffre 2
+            if(grille[getLigne(i)][getColonne(i)] == CASE_NOIR_CHIFFRE2){
+                Formule resCase = new Formule();
+                Formule f = new Formule("(");
+                Formule f2 = new Formule(")");
+                int[] adjacent = adjacenteUnique(i);
 
-            //     while(j < adjacent.length){
+                if(adjacent.length == 2){
+                    resCase.conjonction(f);
+                    for(int n = 0; n < adjacent.length; n++){
+                        resCase.conjonction(adjacent[n]);
+                    }
+                    resCase.conjonction(f2);
 
-            //         int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-            //         int m = 0;
-            //         while(m < adjSansJ.length){
-            //             bw.write("("+adjacent[j] + " * ");
-            //             bw.write(adjSansJ[m] + " * ");
+                }else if(adjacent.length == 3){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        resF.disjonction(-adjacent[j]);  
+                        j++;
+                    }
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
 
-            //             int[] adjSansJ2 = supprimerElementTab(adjSansJ, adjSansJ[m]);
+                    j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            resF = new Formule(f.getFormule());
+                            resF.disjonction(adjacent[j]);
+                            resF.disjonction(adjSansJ[m]);
+                            resF.disjonction(f2);
+                            resCase.conjonction(resF);
+                        }
+                        j++;
+                    }
 
-            //             int n = 0;
-            //             while(n < adjSansJ2.length){
-            //                 bw.write("-"+adjSansJ2[n] + " * ");
-            //                 n++;
-            //             }
-            //             bw.write(" ) + ");
-            //             m++;
-            //         }
-            //         j++;
-            //     }
-            //     bw.write(" ) * ");
-            // }
+
+
+                }else{
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+
+                        int m = 0;
+                        while(m < adjSansJ.length){
+                            int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
+
+
+                            int n = 0;
+                            while(n < adjSansM.length){
+                                Formule resF1 = new Formule(f.getFormule());
+                                resF1.disjonction(-adjacent[j]);
+                                resF1.disjonction(-adjSansJ[m]);
+                                resF1.disjonction(-adjSansM[n]);
+                                resF1.disjonction(f2);
+                                resCase.conjonction(resF1);
+
+
+                                resF = new Formule(f.getFormule());
+                                resF.disjonction(adjacent[j]);
+                                resF.disjonction(adjSansJ[m]);
+                                resF.disjonction(adjSansM[n]);
+                                resF.disjonction(f2);
+                                resCase.conjonction(resF);
+                                n++;
+                            }
+                            m++;
+                        }
+                        j++;
+                    }
+
+
+
+                }
+                res.conjonction(resCase);
+
+            }
 
 
             // Le cas où c'est une case noir avec un chiffre 3
@@ -379,6 +568,7 @@ public class Grille {
                 Formule f = new Formule("(");
                 Formule f2 = new Formule(")");
                 int[] adjacent = adjacenteUnique(i);
+
                 if(adjacent.length == 3){
                     resCase.conjonction(f);
                     for(int n = 0; n < adjacent.length; n++){
@@ -433,6 +623,154 @@ public class Grille {
         }
 
         return resRegle3.getFormule();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public String regle3bis() throws IOException{
+        Formule res = new Formule();
+        Formule f = new Formule("(");
+        Formule f2 = new Formule(")");
+
+        int i =0;
+        while(i < nbColonnes*nbLignes){
+            int carre = grille[getLigne(i)][getColonne(i)];
+            if(carre != CASE_BLANCHE && carre != CASE_NOIR_SANS_CHIFFRE){
+
+                int[] adj = adjacent(i);
+
+                if(carre == adj.length){                //Si le numéro de la case correspond au nombre de case adjacente
+                    Formule resCase = new Formule();
+                    int j = 0;
+                    int[] adjacent = adjacenteUnique(i);
+                    while(j < adjacent.length){
+                        resCase.conjonction(adjacent[j]);
+                        j++;
+                    }
+                    res = new Formule(resCase.getFormule());
+
+
+
+
+                }else if(carre == adj.length+1){    //Si il y a une case de + que le numéro indiqué
+                    Formule resCase = new Formule();
+                    Formule resF = new Formule(f.getFormule());
+
+                    int j = 0;
+                    while(j < adj.length){
+                        resF.disjonction(-adj[j]);  
+                        j++;
+                    }
+
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+                    j = 0;
+                    while(j < adj.length){
+                        int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            resF = new Formule(f.getFormule());
+                            resF.disjonction(adj[j]);
+                            resF.disjonction(adjSansJ[m]);
+                            resF.disjonction(f2);
+                            resCase.conjonction(resF);
+                        }
+                        j++;
+                    }
+
+
+
+                }else if(carre == adj.length+2){             //Si il y a deux case de + que le numéro indiqué
+                    Formule resCase = new Formule();
+                    Formule resF = new Formule(f.getFormule());
+
+                    int j = 0;
+                    while(j < adj.length){
+                        resF.disjonction(-adj[j]);  
+                        j++;
+                    }
+
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+                    j = 0;
+                    while(j < adj.length){
+                        int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            resF = new Formule(f.getFormule());
+                            resF.disjonction(adj[j]);
+                            resF.disjonction(adjSansJ[m]);
+                            resF.disjonction(f2);
+                            resCase.conjonction(resF);
+                        }
+                        j++;
+                    }
+
+
+                }else if(carre == adj.length+2){}
+
+
+
+            }
+
+
+
+        }
+
+        return res.getFormule();
     }
     
 }

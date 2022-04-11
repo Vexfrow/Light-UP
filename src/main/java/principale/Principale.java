@@ -86,7 +86,7 @@ public class Principale{
         grille2[0][2] = -2;
 
         grille2[1][0] = -2;
-        grille2[1][1] = 3;
+        grille2[1][1] = 2;
         grille2[1][2] = -2;
 
         grille2[2][0] = -2;
@@ -104,7 +104,7 @@ public class Principale{
         }
         File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
         BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
-        String regle2 = g.regle3();
+        String regle2 = g2.regle3();
         bw.write(regle2);
         bw.close();
 
