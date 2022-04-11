@@ -367,11 +367,65 @@ public class Grille {
                     }
                     resCase.conjonction(f2);
 
+
                 }else if(adjacent.length == 2){
                     Formule resF = new Formule(f.getFormule());
                     int j = 0;
                     while(j < adjacent.length){
+                        resF.disjonction(adjacent[j]);  
+                        j++;
+                    }
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+
+                    resF = new Formule(f.getFormule());
+                    j = 0;
+                    while(j < adjacent.length){
                         resF.disjonction(-adjacent[j]);  
+                        j++;
+                    }
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+
+
+
+                }else if(adjacent.length == 3){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        resF.disjonction(adjacent[j]);  
+                        j++;
+                    }
+
+                    resF.conjonction(f2);
+                    resCase.conjonction(resF);
+                    System.out.println("resF = " +resF.getFormule());
+                    System.out.println("resCase = " +resCase.getFormule());
+
+                    j = 0;
+                    while(j < adjacent.length){
+                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            resF = new Formule(f.getFormule());
+                            resF.disjonction(-adjacent[j]);
+                            resF.disjonction(-adjSansJ[m]);
+                            resF.disjonction(f2);
+                            resCase.conjonction(resF);
+
+                            System.out.println("resF = " +resF.getFormule());
+                            System.out.println("resCase = " +resCase.getFormule());
+                        }
+                        j++;
+                    }
+
+
+
+
+                }else if(adjacent.length == 4){
+                    Formule resF = new Formule(f.getFormule());
+                    int j = 0;
+                    while(j < adjacent.length){
+                        resF.disjonction(adjacent[j]);  
                         j++;
                     }
                     resF.conjonction(f2);
@@ -382,94 +436,17 @@ public class Grille {
                         int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
                         for(int m = 0; m < adjSansJ.length; m++){
                             resF = new Formule(f.getFormule());
-                            resF.disjonction(adjacent[j]);
-                            resF.disjonction(adjSansJ[m]);
+                            resF.disjonction(-adjacent[j]);
+                            resF.disjonction(-adjSansJ[m]);
                             resF.disjonction(f2);
                             resCase.conjonction(resF);
+
+                            System.out.println("resF = " +resF.getFormule());
+                            System.out.println("resCase = " +resCase.getFormule());
                         }
                         j++;
                     }
 
-
-                }else if(adjacent.length == 3){
-                    Formule resF = new Formule(f.getFormule());
-                    int j = 0;
-                    while(j < adjacent.length){
-                        resF.disjonction(-adjacent[j]);  
-                        j++;
-                    }
-                    resF.conjonction(f2);
-                    resCase.conjonction(resF);
-
-
-
-                    j = 0;
-                    while(j < adjacent.length){
-                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-
-                        int m = 0;
-                        while(m < adjSansJ.length){
-                            int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
-
-
-                            int n = 0;
-                            while(n < adjSansM.length){
-                                Formule resF1 = new Formule(f.getFormule());
-                                resF1.disjonction(-adjacent[j]);
-                                resF1.disjonction(-adjSansJ[m]);
-                                resF1.disjonction(-adjSansM[n]);
-                                resF1.disjonction(f2);
-                                resCase.conjonction(resF1);
-
-
-                                resF = new Formule(f.getFormule());
-                                resF.disjonction(adjacent[j]);
-                                resF.disjonction(adjSansJ[m]);
-                                resF.disjonction(adjSansM[n]);
-                                resF.disjonction(f2);
-                                resCase.conjonction(resF);
-                                n++;
-                            }
-                            m++;
-                        }
-                        j++;
-                    }
-
-
-
-                }else if(adjacent.length == 4){
-                    Formule resF = new Formule(f.getFormule());
-                    int j = 0;
-                    while(j < adjacent.length){
-                        int[] adjSansJ = supprimerElementTab(adjacent, adjacent[j]);
-
-                        int m = 0;
-                        while(m < adjSansJ.length){
-                            int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
-
-
-                            int n = 0;
-                            while(n < adjSansM.length){
-                                Formule resF1 = new Formule(f.getFormule());
-                                resF1.disjonction(-adjacent[j]);
-                                resF1.disjonction(-adjSansJ[m]);
-                                resF1.disjonction(-adjSansM[n]);
-                                resF1.disjonction(f2);
-                                resCase.conjonction(resF1);
-
-
-                                resF = new Formule(f.getFormule());
-                                resF.disjonction(adjacent[j]);
-                                resF.disjonction(adjSansJ[m]);
-                                resF.disjonction(adjSansM[n]);
-                                resF.disjonction(f2);
-                                resCase.conjonction(resF);
-                                n++;
-                            }
-                            m++;
-                        }
-                        j++;
-                    }
 
 
 
