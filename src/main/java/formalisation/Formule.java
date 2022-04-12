@@ -3,7 +3,6 @@
 */
 
 package formalisation;
-import java.io.*;
 
 import lecteur.LecteurFormule;
 
@@ -229,27 +228,17 @@ public void remplirListeVariable(){
 /*
     Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
 */
-    public void ecrireFormule() throws IOException{
-        File fichier = new File("fichierDIMACS.txt");
-            if (!fichier.exists()) {
-                fichier.createNewFile();
-            }
-        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
-
+    public String formuleDIMACS() {
+        String formuleDIMACS = ("p cnf " + nbClauseEtVariable());
         LecteurFormule lect = new LecteurFormule(formule);
 
         lect.demarrer();
-        bw.write("p cnf " + nbClauseEtVariable());
         while(!lect.finDeSequence()){
             Formule f = new Formule(lect.elementCourant());
-            bw.write("\n" + f.supprimerSuperflue());
+            formuleDIMACS = formuleDIMACS + ("\n" + f.supprimerSuperflue());
             lect.avancer();
         }
-        bw.close();
-        System.out.println("Sauvegarde de la formule dans le fichier suivant : " + cheminAbsoluDuFichier);
-
-
+        return formuleDIMACS;
     }
 
 
@@ -258,21 +247,20 @@ public void remplirListeVariable(){
 /*
     Prend une variable, puis fait la conjonction entre la formule et la variable.
 */
-    public String conjonction(int variable){
+    public void conjonction(int variable){
         if(nbVarDif==0){
             formule = (""+formule + variable);
         }else{
             formule = (formule + " * " + variable);
         }
         nbVarDif = nbVariable();
-        return formule;
     }
 
 
 /*
     Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
 */
-    public String conjonction(Formule formule2){
+    public void conjonction(Formule formule2){
 
         if(nbVarDif==0 || formule2.nbVariable() == 0){
             formule = (""+formule+ formule2.getFormule());
@@ -280,14 +268,13 @@ public void remplirListeVariable(){
             formule = (formule  + " * " + formule2.getFormule());
         }
         nbVarDif = nbVariable();
-        return formule;
     }
 
 
 /*
     Prend une variable, puis fait la disjonction entre la formule et la variable.
 */
-    public String disjonction(int variable){
+    public void disjonction(int variable){
 
         if(nbVarDif==0){
             formule = (""+formule+ variable);
@@ -295,14 +282,13 @@ public void remplirListeVariable(){
             formule = (formule  + " + " + variable);
         }
         nbVarDif = nbVariable();
-        return formule;
     }
 
 
 /*
     Prend une autre formule, puis fait la disjonction entre la formule actuel et la nouvelle.
 */
-    public String disjonction(Formule formule2){
+    public void disjonction(Formule formule2){
 
         if(nbVarDif==0 || formule2.nbVariable() == 0){
             formule = (""+formule+ formule2.getFormule());
@@ -310,7 +296,6 @@ public void remplirListeVariable(){
             formule = (formule  + " + " + formule2.getFormule());
         }
         nbVarDif = nbVariable();
-        return formule;
     }
 
 
@@ -322,13 +307,19 @@ public void remplirListeVariable(){
     }
 
 
-
-/*
-    TODO
-*/
-    public Formule distribution(){
-
-        return this;
+    public void ouvrirParenthese(){
+        formule = formule + "(";
     }
+
+    public void fermerParenthese(){
+        formule = formule + ")";
+    }
+
+    public void reinitialiser(){
+        formule = "";
+        nbVarDif = 0;
+        variable = new int[0];
+    }
+    
     
 }

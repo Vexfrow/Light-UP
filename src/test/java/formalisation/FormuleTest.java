@@ -70,17 +70,20 @@ public class FormuleTest {
     public void disjonctionTest(){
         Formule f = new Formule("(1 + 2");
         Formule f1 = new Formule("1 + 2");
-        Formule f2 = new Formule("(");
-        Formule f3 = new Formule(")");
-        
-        assertTrue(f.disjonction(5).equals("(1 + 2 + 5"));
-        assertTrue(f.disjonction(5).equals("(1 + 2 + 5 + 5"));
-        assertTrue(f1.disjonction(5).equals("1 + 2 + 5"));
-        assertTrue(f2.disjonction(5).equals("(5"));
 
-        assertTrue(f.disjonction(f1).equals("(1 + 2 + 5 + 5 + 1 + 2 + 5"));
-        assertTrue(f2.conjonction(f1).equals("(5 * 1 + 2 + 5"));
-        assertTrue(f2.conjonction(f3).equals("(5 * 1 + 2 + 5)"));
+        f.disjonction(5);
+        assertTrue(f.getFormule().equals("(1 + 2 + 5"));
+
+        f.disjonction(5);
+        f1.disjonction(5);
+
+        assertTrue(f.getFormule().equals("(1 + 2 + 5 + 5"));
+        assertTrue(f1.getFormule().equals("1 + 2 + 5"));
+
+        f.disjonction(f1);
+
+        assertTrue(f.getFormule().equals("(1 + 2 + 5 + 5 + 1 + 2 + 5"));
+
         
     }
 

@@ -1,7 +1,6 @@
 package lecteur;
 import org.junit.Test;
 
-import lecteur.LecteurFormule;
 import static org.junit.Assert.*;
 
 public class LecteurFormuleTest {
