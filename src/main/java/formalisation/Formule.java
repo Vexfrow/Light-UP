@@ -8,9 +8,12 @@ import lecteur.LecteurFormule;
 
 
 public class Formule {
-    private String formule;
-    private int nbVarDif;
-    private int[] variable;
+
+    private int[] tabVar;
+    private int posVar;
+
+    private Clause[] tabClause;
+    private int posTabClause;
 
     public static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
     public static char[] simplification = {' ','X','a', 'A', '(', ')', '*', '^', '&', 'x'};
@@ -21,156 +24,73 @@ public class Formule {
 
 /*
     Constructeur avec paramètre
-    Crée un objet formule à partir du string formule fourni
+    Crée un objet formule à partir du string formule fournis
 */
     public Formule(String s){
-        formule = s;
-        nbVarDif = nbVariable();
-        remplirListeVariable();
+        tabVar = new int[100];
+        posVar = 0;
+
+        tabClause = new Clause[1000];
+        posTabClause = 0;
+        remplirTabClause(s);
+        remplirTabVar();
+
 
     }
 
 
-/*
+
+
+    /*
     Constructeur sans paramètre (Formule vide)
     Crée un objet formule vide 
-*/
+    */
     public Formule(){
-        formule = "";
-        nbVarDif = 0;
-        variable = new int[0];
+        tabClause = new Clause[1000];
+        posTabClause = 0;
+
+        tabVar = new int[100];
+        posVar = 0;
     }
 
 
 
-/*
-    Permet de simplifier la formule en supprimant les caractères superflues, afin de faciliter son écriture en un format DIMACS
-    Utilisé dans ecrireDimacs()
-    Supprime les caractères inutiles de chaque clause (voir la liste nommé : "simplification" afin de voir les caractères supprimé de chaque clauses)
-*/
-    public String supprimerSuperflue(){
-        String t ="";
-        int i =0;
-        while(i < formule.length()){
-            if(appartient(formule.charAt(i),disjonction)){
-                t = t+ ' ';
-            }else if(formule.charAt(i) == '!'){
-                t = t+ '-';
-            }else if(!appartient(formule.charAt(i), simplification)){
-                t = t+ formule.charAt(i);
-            }
-            i++;
+
+    /*
+        Permet de remplir la liste de clauses à partir d'une formule textuelle
+    */
+    private void remplirTabClause(String formule){
+        LecteurFormule lectF = new LecteurFormule(formule);
+
+        lectF.demarrer();
+        while(!lectF.finDeSequence()){
+            tabClause[posTabClause] =  new Clause (lectF.elementCourant());
+            posTabClause++;
+            lectF.avancer();
         }
-        return t;
     }
 
 
 
-
-/* 
-   Simplifie les clauses
-   Si la formule est une clause, cette fonction permet de la simplifie
-*/
-    public void simplifierDisjonction(){
+    /*
+        Permet de remplir la liste des variables
+    */
+    private void remplirTabVar() {
         int i = 0;
-        while(i< variable.length){
-            if(appartient(-variable[i], variable, variable.length)){ //Si une clause contient une variable et son inverse, alors la clause est égale à 1 et on peut dont la supprimer
-                formule = "";
-                variable = new int[0];
-                nbVarDif = 0;
+        while(i < posTabClause){
+            int j = 0;
+            Clause c = tabClause[i];
+            while(j < c.posTabVar){
+                if(!appartient(c.tabVariable[j])){
+                    tabVar[posVar] = c.tabVariable[j];
+                    posVar++;
+                }
+                j++;
             }
             i++;
         }
     }
 
-
-/* 
-    Renvoie le nombre de variable de la formule (variable négative == variable positive)
-*/
-    public int nbVariable(){
-        int[] tab= new int[1000];
-        int posTab = 0;
-
-        int i = 0;
-        int actuel = -1;
-
-        while(i < formule.length()){
-            if(appartient(formule.charAt(i), caractereVar)){
-                if(actuel == -1){
-                    actuel = Character.getNumericValue(formule.charAt(i));
-                }else{
-                    actuel = actuel*10 + Character.getNumericValue(formule.charAt(i));
-                }
-            }else if(appartient(formule.charAt(i), disjonction) ||  appartient(formule.charAt(i), conjonction)){
-                if(!appartient(actuel,tab,posTab)){
-                    tab[posTab] = actuel;
-                    posTab ++;
-                }
-                actuel = -1;
-            }
-            i++;
-        }
-        if(!appartient(actuel,tab,posTab) && actuel != -1){
-            tab[posTab] = actuel;
-            posTab ++;
-        }
-
-        return posTab;
-    }
-
-
-
-/* 
-    Remplis la liste des variables de la formule (variable négative != variable positive)
-*/
-public void remplirListeVariable(){
-    int[] tab= new int[1000];
-    int posTab = 0;
-
-    int i = 0;
-    int actuel = -1;
-    boolean neg = false;
-
-    while(i < formule.length()){
-        if(appartient(formule.charAt(i), caractereVar)){
-            if(actuel == -1){
-                actuel = Character.getNumericValue(formule.charAt(i));
-            }else{
-                actuel = actuel*10 + Character.getNumericValue(formule.charAt(i));
-            }
-        }else if(appartient(formule.charAt(i), negation)){
-            neg = true;
-
-        }else if(appartient(formule.charAt(i), disjonction) ||  appartient(formule.charAt(i), conjonction)){
-            if(neg && !appartient(-actuel,tab,posTab)){
-                tab[posTab] = -actuel;
-                posTab ++;
-                neg = false;
-            }else if(!neg && !appartient(actuel,tab,posTab)){
-                tab[posTab] = actuel;
-                posTab ++;
-            }
-            actuel = -1;
-        }
-        
-        i++;
-    }
-    if(neg && !appartient(-actuel,tab,posTab) && actuel != -1){
-        tab[posTab] = -actuel;
-        posTab ++;
-    }else if(!neg && !appartient(actuel,tab,posTab) && actuel != -1){
-        tab[posTab] = actuel;
-        posTab ++;
-    }
-
-    variable = new int[posTab];
-    int j = 0;
-    while(j < posTab){
-        variable[j] = tab[j];
-        j++;
-    }
-
-}
 
 
 
@@ -187,41 +107,21 @@ public void remplirListeVariable(){
             i++;
         }
         return false;
-
     }
 
-/* 
-    Verifie si un entier appartient à une liste d'entier. posTab indique où la liste est finis, posTab est forcément inférieur à la liste
-*/
-    public boolean appartient(int x, int[] liste, int posTab){
+
+
+    public boolean appartient(int x){
         int i = 0;
-        while(i<posTab){
-            if(x == liste[i]){
+        while(i<posVar){
+            if(x == tabVar[i]){
                 return true;
             }
             i++;
         }
         return false;
-
     }
 
-
-
-/* 
-    Recupère le nombre de clause de la formule ainsi que le nombre de variable différente (variable négative == variable positive)
-*/
-    public String nbClauseEtVariable(){
-        int i = 0;
-
-        LecteurFormule lect = new LecteurFormule(formule);
-        lect.demarrer();
-        while(!lect.finDeSequence()){
-            i++;
-            lect.avancer();
-        }
-        String resultat = "" + nbVarDif +" " + i;
-        return resultat;
-    }
 
 
 
@@ -229,97 +129,26 @@ public void remplirListeVariable(){
     Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
 */
     public String formuleDIMACS() {
-        String formuleDIMACS = ("p cnf " + nbClauseEtVariable());
-        LecteurFormule lect = new LecteurFormule(formule);
+        String formuleDIMACS = ("p cnf " + posVar + " " + posTabClause +'\n');
+        int i = 0;
 
-        lect.demarrer();
-        while(!lect.finDeSequence()){
-            Formule f = new Formule(lect.elementCourant());
-            formuleDIMACS = formuleDIMACS + ("\n" + f.supprimerSuperflue());
-            lect.avancer();
+        while(i < posTabClause){
+            formuleDIMACS = formuleDIMACS + tabClause[i].toString() + "\n";
+            i++;
         }
         return formuleDIMACS;
     }
 
 
 
-
-/*
-    Prend une variable, puis fait la conjonction entre la formule et la variable.
-*/
-    public void conjonction(int variable){
-        if(nbVarDif==0){
-            formule = (""+formule + variable);
-        }else{
-            formule = (formule + " * " + variable);
-        }
-        nbVarDif = nbVariable();
-    }
-
-
 /*
     Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
 */
-    public void conjonction(Formule formule2){
-
-        if(nbVarDif==0 || formule2.nbVariable() == 0){
-            formule = (""+formule+ formule2.getFormule());
-        }else{
-            formule = (formule  + " * " + formule2.getFormule());
-        }
-        nbVarDif = nbVariable();
+    public void conjonction(Clause c){
+        tabClause[posTabClause] = c;
+        posTabClause++;
     }
 
-
-/*
-    Prend une variable, puis fait la disjonction entre la formule et la variable.
-*/
-    public void disjonction(int variable){
-
-        if(nbVarDif==0){
-            formule = (""+formule+ variable);
-        }else{
-            formule = (formule  + " + " + variable);
-        }
-        nbVarDif = nbVariable();
-    }
-
-
-/*
-    Prend une autre formule, puis fait la disjonction entre la formule actuel et la nouvelle.
-*/
-    public void disjonction(Formule formule2){
-
-        if(nbVarDif==0 || formule2.nbVariable() == 0){
-            formule = (""+formule+ formule2.getFormule());
-        }else{
-            formule = (formule  + " + " + formule2.getFormule());
-        }
-        nbVarDif = nbVariable();
-    }
-
-
-/*
-    Permet de récuperer la formule
-*/
-    public String getFormule(){
-        return formule;
-    }
-
-
-    public void ouvrirParenthese(){
-        formule = formule + "(";
-    }
-
-    public void fermerParenthese(){
-        formule = formule + ")";
-    }
-
-    public void reinitialiser(){
-        formule = "";
-        nbVarDif = 0;
-        variable = new int[0];
-    }
     
     
 }
