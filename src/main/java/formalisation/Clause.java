@@ -1,7 +1,7 @@
 package formalisation;
 
 public class Clause {
-    public int[] tabVariable = new int[100];
+    public String[] tabVariable = new String[100];
     public int posTabVar;
 
     private static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
@@ -11,7 +11,7 @@ public class Clause {
 
 
 
-    public Clause(int[] tabV, int posTabV){
+    public Clause(String[] tabV, int posTabV){
         tabVariable = tabV;
         posTabVar = posTabV;
     }
@@ -53,12 +53,12 @@ public class Clause {
                 neg = true;
 
             }else if(appartient(formule.charAt(i), disjonction)){
-                if(neg && !appartientTabVar(-actuel)){
-                    tabVariable[posTabVar] = -actuel;
+                if(neg && !appartientTabVar("-"+actuel)){
+                    tabVariable[posTabVar] = "-"+actuel;
                     posTabVar ++;
                     neg = false;
-                }else if(!neg && !appartientTabVar(actuel)){
-                    tabVariable[posTabVar] = actuel;
+                }else if(!neg && !appartientTabVar(""+actuel)){
+                    tabVariable[posTabVar] = ""+actuel;
                     posTabVar ++;
                 }
                 vide = true;
@@ -66,11 +66,11 @@ public class Clause {
             
             i++;
         }
-        if(neg && !appartientTabVar(-actuel) && !vide){
-            tabVariable[posTabVar] = -actuel;
+        if(neg && !appartientTabVar("-"+actuel) && !vide){
+            tabVariable[posTabVar] = "-"+actuel;
             posTabVar ++;
-        }else if(!neg && !appartientTabVar(actuel) && !vide){
-            tabVariable[posTabVar] = actuel;
+        }else if(!neg && !appartientTabVar(""+actuel) && !vide){
+            tabVariable[posTabVar] = ""+actuel;
             posTabVar ++;
         }
 
@@ -95,10 +95,10 @@ public class Clause {
     /* 
     Verifie si une variable appartient à la liste de variable
     */
-    public boolean appartientTabVar(int x){
+    public boolean appartientTabVar(String x){
         int i = 0;
         while(i<posTabVar){
-            if(x == tabVariable[i]){
+            if(x.equals(tabVariable[i])){
                 return true;
             }
             i++;
@@ -106,6 +106,21 @@ public class Clause {
         return false;
 
     }
+
+
+
+    public boolean appartientTabVar(Clause[] x, int posTabC){
+        int i = 0;
+        while(i<posTabC){
+            if(this.equals(x[i])){
+                return true;
+            }
+            i++;
+        }
+        return false;
+
+    }
+
 
 
     public String toString(){

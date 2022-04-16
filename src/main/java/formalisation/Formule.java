@@ -9,7 +9,7 @@ import lecteur.LecteurFormule;
 
 public class Formule {
 
-    private int[] tabVar;
+    private String[] tabVar;
     private int posVar;
 
     private Clause[] tabClause;
@@ -27,7 +27,7 @@ public class Formule {
     Crée un objet formule à partir du string formule fournis
 */
     public Formule(String s){
-        tabVar = new int[100];
+        tabVar = new String[100];
         posVar = 0;
 
         tabClause = new Clause[1000];
@@ -49,7 +49,7 @@ public class Formule {
         tabClause = new Clause[1000];
         posTabClause = 0;
 
-        tabVar = new int[100];
+        tabVar = new String[100];
         posVar = 0;
     }
 
@@ -111,10 +111,10 @@ public class Formule {
 
 
 
-    public boolean appartient(int x){
+    public boolean appartient(String x){
         int i = 0;
         while(i<posVar){
-            if(x == tabVar[i]){
+            if(x.equals(tabVar[i])){
                 return true;
             }
             i++;
@@ -148,6 +148,19 @@ public class Formule {
         tabClause[posTabClause] = c;
         posTabClause++;
     }
+
+
+    // public void conjonction(Formule c){
+    //     int i = 0;
+    //     while(i < c.posTabClause){
+    //         if(!c.tabClause[i].appartientTabClause(tabClause, posTabClause)){
+                
+    //         }
+
+    //     }
+    //     tabClause[posTabClause] = c;
+    //     posTabClause++;
+    // }
 
     
     
