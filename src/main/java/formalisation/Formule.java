@@ -9,17 +9,12 @@ import lecteur.LecteurFormule;
 
 public class Formule {
 
-    private String[] tabVar;
-    private int posVar;
+    public String[] tabVar;
+    public int posTabVar;
+    private int nbVar;
 
-    private Clause[] tabClause;
-    private int posTabClause;
-
-    public static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
-    public static char[] simplification = {' ','X','a', 'A', '(', ')', '*', '^', '&', 'x'};
-    public static char[] disjonction = {'+','|','v'};
-    public static char[] conjonction = {'*', '^', '&'};
-    public static char[] negation = {'!', '-'};
+    public Clause[] tabClause;
+    public int posTabClause;
 
 
 /*
@@ -28,7 +23,8 @@ public class Formule {
 */
     public Formule(String s){
         tabVar = new String[100];
-        posVar = 0;
+        posTabVar = 0;
+        nbVar = 0;
 
         tabClause = new Clause[1000];
         posTabClause = 0;
@@ -39,8 +35,6 @@ public class Formule {
     }
 
 
-
-
     /*
     Constructeur sans paramètre (Formule vide)
     Crée un objet formule vide 
@@ -48,9 +42,10 @@ public class Formule {
     public Formule(){
         tabClause = new Clause[1000];
         posTabClause = 0;
+        nbVar = 0;
 
         tabVar = new String[100];
-        posVar = 0;
+        posTabVar = 0;
     }
 
 
@@ -82,8 +77,11 @@ public class Formule {
             Clause c = tabClause[i];
             while(j < c.posTabVar){
                 if(!appartient(c.tabVariable[j])){
-                    tabVar[posVar] = c.tabVariable[j];
-                    posVar++;
+                    tabVar[posTabVar] = c.tabVariable[j];
+                    posTabVar++;
+                    if(!estNegatif(c.tabVariable[j])){
+                        nbVar++;
+                    }
                 }
                 j++;
             }
@@ -94,26 +92,12 @@ public class Formule {
 
 
 
-
-/* 
-    Verifie si un caractère appartient à une liste de caractère
-*/
-    public boolean appartient(char x, char[] liste){
-        int i = 0;
-        while(i<liste.length){
-            if(x == liste[i]){
-                return true;
-            }
-            i++;
-        }
-        return false;
-    }
-
-
-
+    /*
+        Permet de verifier si une variable est presente dans la liste des variables
+    */
     public boolean appartient(String x){
         int i = 0;
-        while(i<posVar){
+        while(i<posTabVar){
             if(x.equals(tabVar[i])){
                 return true;
             }
@@ -124,12 +108,24 @@ public class Formule {
 
 
 
+    /*
+        Permet de verifier si une variable est presente dans la liste des variables
+    */
+    public boolean estNegatif(String x){
+        if(x.length()>0){
+            return (x.charAt(0) == '-');
+        }
+        return false;
+    }
 
-/*
-    Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
-*/
+
+
+
+    /*
+        Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
+    */
     public String formuleDIMACS() {
-        String formuleDIMACS = ("p cnf " + posVar + " " + posTabClause +'\n');
+        String formuleDIMACS = ("p cnf " + nbVar + " " + posTabClause +'\n');
         int i = 0;
 
         while(i < posTabClause){
@@ -141,26 +137,25 @@ public class Formule {
 
 
 
-/*
-    Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
-*/
+    /*
+        Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
+    */
     public void conjonction(Clause c){
-        tabClause[posTabClause] = c;
-        posTabClause++;
+        if(!c.appartientTabClause(tabClause, posTabClause)){
+            tabClause[posTabClause] = c;
+            posTabClause++;
+            remplirTabVar();
+        }
     }
 
 
-    // public void conjonction(Formule c){
-    //     int i = 0;
-    //     while(i < c.posTabClause){
-    //         if(!c.tabClause[i].appartientTabClause(tabClause, posTabClause)){
-                
-    //         }
-
-    //     }
-    //     tabClause[posTabClause] = c;
-    //     posTabClause++;
-    // }
+    public void conjonction(Formule f){
+        int i = 0;
+        while(i < f.posTabClause){
+            conjonction(f.tabClause[i]);
+            i++;
+        }
+    }
 
     
     

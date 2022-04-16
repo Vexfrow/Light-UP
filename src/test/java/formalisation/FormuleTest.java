@@ -1,92 +1,130 @@
-// package formalisation;
+package formalisation;
 
-// import org.junit.Test;
+import org.junit.Test;
 
-// import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
-// public class FormuleTest {
+import org.junit.Before;
 
-//     @Test
-//     public void simplificationTest(){
-//         Formule f = new Formule("(x10 + x20)");
-//         Formule f1 = new Formule("( a10  + a20 ) ");
-//         Formule f2 = new Formule("( -10  + 20 ) ");
+public class FormuleTest {
 
-//         assertTrue(f.supprimerSuperflue().equals("10 20"));
-//         assertTrue(f1.supprimerSuperflue().equals("10 20"));
-//         assertTrue(f2.supprimerSuperflue().equals("-10 20"));
-//     }
+        Clause c;
+        Clause c1;
+        Clause c2;
+        Clause c3;
+        Clause c4;
+
+
+    @Before
+    public void test(){
+        String s = "(-20 + -27)";
+        String s1 = "(-0 + -2)";
+        String s2 = "(-2 + -0)";
+        String s3 = "(-2 + -0 + -1)";
+        String s4 = "(-27 + -20)";
+
+        c = new Clause(s);
+        c1 = new Clause(s1);
+        c2 = new Clause(s2);
+        c3 = new Clause(s3);
+        c4 = new Clause(s4);
+
+    }
+
+
+
+    @Test
+    public void remplirListeVariableTest(){
+        Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
+        Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
+        Formule f3 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0 + -1)");
+
+        assert(f1.tabVar[0].equals("-20"));
+        assert(f1.tabVar[1].equals("-27"));
+        assert(f1.tabVar[2].equals("-0"));
+        assert(f1.tabVar[3].equals("-2"));
+        assert(f1.posTabVar == 4);
+
+        assert(f2.tabVar[0].equals("-20"));
+        assert(f2.tabVar[1].equals("-27"));
+        assert(f2.tabVar[2].equals("-0"));
+        assert(f2.tabVar[3].equals("-2"));
+        assert(f2.posTabVar == 4);
+
+        assert(f3.tabVar[0].equals("-20"));
+        assert(f3.tabVar[1].equals("-27"));
+        assert(f3.tabVar[2].equals("-0"));
+        assert(f3.tabVar[3].equals("-2"));
+        assert(f3.tabVar[4].equals("-1"));
+        assert(f3.posTabVar == 5);
+
+
+    }
+
+    @Test
+    public void remplirTabClauseTest(){
+        Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
+        Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
+        Formule f3 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0 + -1)");
+
+        System.out.println(f1.tabClause[0].toString());
+        System.out.println(c.toString());
+
+        System.out.println(f1.tabClause[0].posTabVar);
+        System.out.println(c.posTabVar);
+
+        assert(f1.tabClause[0].toString().equals(c.toString()));
+        assert(f1.tabClause[1].toString().equals(c1.toString()));
+        assert(f1.posTabClause == 2);
+
+        assert(f2.tabClause[0].toString().equals(c.toString()));
+        assert(f2.tabClause[1].toString().equals(c1.toString()));
+        assert(f2.tabClause[2].toString().equals(c2.toString()));
+        assert(f2.posTabClause == 3);
+
+        assert(f3.tabClause[0].toString().equals(c.toString()));
+        assert(f3.tabClause[1].toString().equals(c1.toString()));
+        assert(f3.tabClause[2].toString().equals(c3.toString()));
+        assert(f3.posTabClause == 3);
+
+
+    }
     
 
-//     @Test
-//     public void appartientTest(){
-//         Formule f = new Formule("(10 + 20)");
-//         char x = '0';
-//         char u = 'X';
-//         char y = '3';
-//         char r = 'z';
 
-//         assertTrue(f.appartient(x, Formule.caractereVar));
-//         assertTrue(f.appartient(u, Formule.simplification));
-//         assertTrue(!f.appartient(u, Formule.caractereVar));
-//         assertTrue(!f.appartient(r, Formule.caractereVar));
-//         assertTrue(f.appartient(y, Formule.caractereVar));
-//     }
+    public void conjonctionTest(){
+        Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
 
+        assert(f1.posTabClause == 2);
 
-//     @Test
-//     public void nbVariableTest(){
-//         Formule f = new Formule("(10 + 20)");
-//         Formule f1 = new Formule("( 10 ) ");
-//         Formule f2 = new Formule("( -65  + 20 + 0) ");
-//         Formule f3 = new Formule("");
-//         Formule f4 = new Formule("(10 + 20) * ( 10  + 24 ) * ( 10  + 24 )");
-//         Formule f5 = new Formule("0");
+        f1.conjonction(c);
+        assert(!(f1.posTabClause == 3));
+        assert(f1.posTabClause == 2);
 
-//         assertTrue(f.nbVariable() == 2);
-//         assertTrue(f1.nbVariable() == 1);
-//         assertTrue(f2.nbVariable() == 3);
-//         assertTrue(f3.nbVariable() == 0);
-//         assertTrue(f4.nbVariable() == 3);
-//         assertTrue(f5.nbVariable() == 1);
-//     }
+        f1.conjonction(c2);
+        assert(!(f1.posTabClause == 3));
+        assert(f1.posTabClause == 2);
 
-
-//     @Test
-//     public void nbClauseEtVariableTest(){
-//         Formule f = new Formule("(10 + 20) * ( 10  + 24 ) * ( 10  + 24 )");
-//         Formule f1 = new Formule("( 10  + 24 ) ");
-//         Formule f2 = new Formule("( -65  + 20 ) ");
-//         Formule f4 = new Formule("");
-        
-//         assertTrue(f.nbClauseEtVariable().equals("3 3"));
-//         assertTrue(f1.nbClauseEtVariable().equals("2 1"));
-//         assertTrue(f2.nbClauseEtVariable().equals("2 1"));
-//         assertTrue(f4.nbClauseEtVariable().equals("0 0"));
-//     }
-
-
-//     @Test
-//     public void disjonctionTest(){
-//         Formule f = new Formule("(1 + 2");
-//         Formule f1 = new Formule("1 + 2");
-
-//         f.disjonction(5);
-//         assertTrue(f.getFormule().equals("(1 + 2 + 5"));
-
-//         f.disjonction(5);
-//         f1.disjonction(5);
-
-//         assertTrue(f.getFormule().equals("(1 + 2 + 5 + 5"));
-//         assertTrue(f1.getFormule().equals("1 + 2 + 5"));
-
-//         f.disjonction(f1);
-
-//         assertTrue(f.getFormule().equals("(1 + 2 + 5 + 5 + 1 + 2 + 5"));
-
-        
-//     }
+        f1.conjonction(c4);
+        assert(f1.posTabClause == 3);
+    }
 
 
 
-// }
+    public void estNegatifTest(){
+        Formule f1 = new Formule();
+
+        assert(f1.estNegatif("-0"));
+        assert(!f1.estNegatif(""));
+        assert(!f1.estNegatif("0"));
+        assert(f1.estNegatif("-100"));
+
+    }
+    
+
+
+
+
+
+
+}

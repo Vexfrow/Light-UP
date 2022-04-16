@@ -6,7 +6,6 @@ public class Clause {
 
     private static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
     private static char[] disjonction = {'+','|','v'};
-    private static char[] conjonction = {'*', '^', '&'};
     private static char[] negation = {'!', '-'};
 
 
@@ -92,6 +91,7 @@ public class Clause {
         return false;
     }
 
+
     /* 
     Verifie si une variable appartient à la liste de variable
     */
@@ -109,16 +109,35 @@ public class Clause {
 
 
 
-    public boolean appartientTabVar(Clause[] x, int posTabC){
+    public boolean appartientTabClause(Clause[] x, int posTabC){
         int i = 0;
         while(i<posTabC){
-            if(this.equals(x[i])){
+            if(this.equivalent(x[i])){
                 return true;
             }
             i++;
         }
         return false;
 
+    }
+
+
+    public boolean equivalent(Clause c){
+        boolean equal;
+        if(posTabVar == c.posTabVar){
+            equal = true;
+            int i = 0;
+            while(i < posTabVar && appartientTabVar(c.tabVariable[i])){
+                i++;
+            }
+            if(i < posTabVar){
+                equal = false;
+            }
+        }else{
+            equal = false;
+        }
+
+        return equal;
     }
 
 

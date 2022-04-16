@@ -215,30 +215,30 @@ public class Grille {
 */  
     public Formule regle1(){
 
-        Formule resRegle1 = new Formule(); //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
+        Formule resRegle1 = new Formule();                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
         int i =0;
-        while(i < nbColonnes*nbLignes){     //On parcours toutes les cases
+        while(i < nbColonnes*nbLignes){                             //On parcours toutes les cases
 
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){ //Si la case est une case blanche
 
                 int j = 0;
-                int[] adjacent = adjacent(i); //On récupère la liste des cases adjacentes
+                int[] adjacent = adjacent(i);                       //On récupère la liste des cases adjacentes
 
                 String[] tabClause = new String[100];
                 int posTabClause = 0;
 
-                while(j < adjacent.length){ //Pour toutes les cases adjacente à la case blanche
-                    tabClause[posTabClause] = ""+adjacent[j]; //On fait la disjonction de toutes les cases adjacente 
+                while(j < adjacent.length){                         //Pour toutes les cases adjacente à la case blanche
+                    tabClause[posTabClause] = ""+adjacent[j];       //On fait la disjonction de toutes les cases adjacentes
                     posTabClause++;
                     j++;
                 }
                 Clause c = new Clause(tabClause, posTabClause);
 
-                resRegle1.conjonction(c);    //On fait la disjonction de cette clause avec les autres 
+                resRegle1.conjonction(c);                           //On fait la disjonction de cette clause avec les autres 
             }
             i++;
         }
-        return resRegle1;  //On renvoie la formule correspondant à la règle 1
+        return resRegle1;                                           //On renvoie la formule correspondant à la règle 1
 
     }
 
@@ -250,17 +250,17 @@ public class Grille {
     On fait la conjonction de la négation de toutes les cases noires
 */  
     public Formule regle4(){
-        Formule resRegle4 = new Formule(); //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
+        Formule resRegle4 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
 
         int i =0;
-        while(i < nbColonnes*nbLignes){ //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){ //Si la case est une case noire
-                Clause caseN = new Clause("(-" + i +")"); // On crée une nouvelle formule correspondant à la clause
-                resRegle4.conjonction(caseN); // On fait la conjonction de cette clause avec les autres
+        while(i < nbColonnes*nbLignes){                                 //On parcours toutes les cases
+            if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){     //Si la case est une case noire
+                Clause caseN = new Clause("(-" + i +")");               // On crée une nouvelle clause correpondant à la règle pour la case
+                resRegle4.conjonction(caseN);                           // On fait la conjonction de cette clause avec les autres dans la formule
             }
             i++;
         }
-        return resRegle4; //On renvoie la formule correspondant à la règle 4
+        return resRegle4;                                               //On renvoie la formule correspondant à la règle 4
     }
 
 
@@ -272,24 +272,23 @@ public class Grille {
     On fait la conjonction, de la disjonction de chaque case blanche et de ses cases adjacentes
 */  
     public Formule regle2(){
-        Formule resRegle2 = new Formule(); //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
+        Formule resRegle2 = new Formule();                                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
         int i =0;
-        while(i < nbColonnes*nbLignes){ //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){ //Si la case est une case blanche
+        while(i < nbColonnes*nbLignes){                                             //On parcours toutes les cases
+            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){                 //Si la case est une case blanche
 
                 int j = 0;
-                int[] adjacent = adjacent(i);//On récupère la liste des cases adjacentes
+                int[] adjacent = adjacent(i);                                       //On récupère la liste des cases adjacentes
 
-                while(j < adjacent.length){ //On parcours la liste des cases adjacentes
-                    Clause resCase = new Clause("(-"+i+" + -"+adjacent[j] + ")"); //On crée une formule correspondant à la clause
-                    resRegle2.conjonction(resCase); //On fait la conjonction de cette clause avec les autres
+                while(j < adjacent.length){                                         //On parcours la liste des cases adjacentes
+                    Clause resCase = new Clause("(-"+i+" + -"+adjacent[j] + ")");   //On crée une clause correspondant à la règle pour la case
+                    resRegle2.conjonction(resCase);                                 //On fait la conjonction de cette clause avec les autres
                     j++;
                 }
             }
-            System.out.println(i);
             i++;
         }
-        return resRegle2; //On renvoie la formule correspondant à la règle 3
+        return resRegle2;                                                           //On renvoie la formule correspondant à la règle 3
     }
 
 
@@ -470,14 +469,14 @@ public class Grille {
 
 
 
-    // public Formule allRules(){
-    //     Formule allRules = new Formule();
-    //     allRules.conjonction(regle1());
-    //     allRules.conjonction(regle2());
-    //     allRules.conjonction(regle3());
-    //     allRules.conjonction(regle4());
+    public Formule allRules(){
+        Formule allRules = new Formule();
+        allRules.conjonction(regle1());
+        allRules.conjonction(regle2());
+        // allRules.conjonction(regle3());
+        allRules.conjonction(regle4());
 
-    //     return allRules;
-    // }
+        return allRules;
+    }
     
 }
