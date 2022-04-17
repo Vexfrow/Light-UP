@@ -79,8 +79,7 @@ public class FormuleTest {
 
         assert(f2.tabClause[0].toString().equals(c.toString()));
         assert(f2.tabClause[1].toString().equals(c1.toString()));
-        assert(f2.tabClause[2].toString().equals(c2.toString()));
-        assert(f2.posTabClause == 3);
+        assert(f2.posTabClause == 2);
 
         assert(f3.tabClause[0].toString().equals(c.toString()));
         assert(f3.tabClause[1].toString().equals(c1.toString()));
@@ -108,20 +107,6 @@ public class FormuleTest {
         f1.conjonction(c4);
         assert(f1.posTabClause == 3);
     }
-
-
-
-    public void estNegatifTest(){
-        Formule f1 = new Formule();
-
-        assert(f1.estNegatif("-0"));
-        assert(!f1.estNegatif(""));
-        assert(!f1.estNegatif("0"));
-        assert(f1.estNegatif("-100"));
-
-    }
-    
-
 
 
 

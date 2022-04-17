@@ -8,6 +8,6 @@ https://docs.google.com/document/d/1annpiqCQHVSbV3NaXJXIaBOU0MPcDkrnbnlqkd_BojQ/
 
 
 
-A la date du 12/04 :
-TODO : Opti code, interface et SAT SOLVER
+A la date du 17/04 :
+TODO : Interface et SAT SOLVER
 

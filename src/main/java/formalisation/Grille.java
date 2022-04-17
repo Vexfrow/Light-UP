@@ -225,7 +225,9 @@ public class Grille {
                 int[] adjacent = adjacent(i);                       //On récupère la liste des cases adjacentes
 
                 String[] tabClause = new String[100];
-                int posTabClause = 0;
+                tabClause[0] = ""+i;
+                int posTabClause = 1;
+
 
                 while(j < adjacent.length){                         //Pour toutes les cases adjacente à la case blanche
                     tabClause[posTabClause] = ""+adjacent[j];       //On fait la disjonction de toutes les cases adjacentes
@@ -296,175 +298,160 @@ public class Grille {
 
 
 
-//     /*
-//         Ecris dans un fichier la formule correspondant à la troisième règle
-//         On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
-//     */  
-//     public Formule regle3(){
-//         Formule res = new Formule();
-//         int i =0;
+    /*
+        Ecris dans un fichier la formule correspondant à la troisième règle
+        On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
+    */  
+    public Formule regle3(){
+        Formule res = new Formule();
+        int i =0;
 
-//         while(i < nbColonnes*nbLignes){
-//             int typeC = grille[getLigne(i)][getColonne(i)];
-//             if(typeC != CASE_BLANCHE && typeC != CASE_NOIR_SANS_CHIFFRE && typeC != CASE_NOIR_CHIFFRE0){
+        while(i < nbColonnes*nbLignes){
+            int typeC = grille[getLigne(i)][getColonne(i)];
+            if(typeC != CASE_BLANCHE && typeC != CASE_NOIR_SANS_CHIFFRE && typeC != CASE_NOIR_CHIFFRE0){
 
-//                 int[] adj = adjacenteUnique(i);
+                int[] adj = adjacenteUnique(i);
 
-//                 if(typeC == adj.length){                //Si le numéro de la case correspond au nombre de case adjacente
-//                     int j = 0;
-//                     while(j < adj.length){
-//                         res.conjonction(adj[j]);
-//                         j++;
-//                     }
-//                 }
+                if(typeC == adj.length){                //Si le numéro de la case correspond au nombre de case adjacente
+                    int j = 0;
+                    Clause c = new Clause();
+                    while(j < adj.length){
+                        c.disjonction(adj[j]);
+                        j++;
+                        res.conjonction(c);
+                    }
+                }
                 
                 
                 
-//                 else if(typeC == adj.length-1){    //Si il y a une case de + que le numéro indiqué
-//                     Formule resFirst = new Formule();
-//                     resFirst.ouvrirParenthese();
-//                     int j = 0;
-//                     while(j < adj.length){
-//                         resFirst.disjonction(-adj[j]);  
-//                         j++;
-//                     }
-//                     resFirst.fermerParenthese();
-//                     res.conjonction(resFirst);
+                else if(typeC == adj.length-1){    //Si il y a une case de + que le numéro indiqué
+                    Clause c = new Clause();
+                    int j = 0;
+                    while(j < adj.length){
+                        c.disjonction(-adj[j]);  
+                        j++;
+                    }
 
-//                     j = 0;
-//                     while(j < adj.length){
-//                         int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-//                         for(int m = 0; m < adjSansJ.length; m++){
-//                             resFirst.reinitialiser();
-//                             resFirst.ouvrirParenthese();
-//                             resFirst.disjonction(adj[j]);
-//                             resFirst.disjonction(adjSansJ[m]);
-//                             resFirst.fermerParenthese();
-//                             res.conjonction(resFirst);
-//                         }
-//                         j++;
-//                     }
-//                 }
+                    res.conjonction(c);
+
+                    j = 0;
+                    while(j < adj.length){
+                        int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            Clause c2 = new Clause();
+                            c2.disjonction(adj[j]);
+                            c2.disjonction(adjSansJ[m]);
+                            res.conjonction(c2);
+                        }
+                        j++;
+                    }
+                }
                 
                 
                 
-//                 else if(typeC == adj.length-2){       //Si il y a deux case de + que le numéro indiqué
+                else if(typeC == adj.length-2){       //Si il y a deux case de + que le numéro indiqué
                     
-//                     if(typeC == CASE_NOIR_CHIFFRE1){
-//                         Formule resFirst = new Formule();
-//                         resFirst.ouvrirParenthese();
-//                         int j = 0;
-//                         while(j < adj.length){
-//                             resFirst.disjonction(adj[j]);  
-//                             j++;
-//                         }
-
-//                         resFirst.fermerParenthese();
-//                         res.conjonction(resFirst);
+                    if(typeC == CASE_NOIR_CHIFFRE1){
+                        Clause c = new Clause();
+                        int j = 0;
+                        while(j < adj.length){
+                           c.disjonction(adj[j]);  
+                            j++;
+                        }
+                        res.conjonction(c);
 
 
-//                         j = 0;
-//                         while(j < adj.length){
-//                             int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-//                             for(int m = 0; m < adjSansJ.length; m++){
-//                                 resFirst.reinitialiser();
-//                                 resFirst.ouvrirParenthese();
-//                                 resFirst.disjonction(-adj[j]);
-//                                 resFirst.disjonction(-adjSansJ[m]);
-//                                 resFirst.fermerParenthese();
-//                                 res.conjonction(resFirst);
-//                             }
-//                             j++;
-//                         }
+                        j = 0;
+                        while(j < adj.length){
+                            int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                            for(int m = 0; m < adjSansJ.length; m++){
+                                c = new Clause();
+                                c.disjonction(-adj[j]);
+                                c.disjonction(-adjSansJ[m]);
+                                res.conjonction(c);
+                            }
+                            j++;
+                        }
                             
                             
 
 
-//                     }else{
-//                         Formule resF = new Formule();
+                    }else{
+                        Clause c = new Clause();
 
-//                         int j = 0;
-//                         while(j < adj.length){
-//                             int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                        int j = 0;
+                        while(j < adj.length){
+                            int[] adjSansJ = supprimerElementTab(adj, adj[j]);
     
-//                             int m = 0;
-//                             while(m < adjSansJ.length){
-//                                 int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
+                            int m = 0;
+                            while(m < adjSansJ.length){
+                                int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
     
     
-//                                 int n = 0;
-//                                 while(n < adjSansM.length){
-//                                     resF.reinitialiser();
-//                                     resF.ouvrirParenthese();
-//                                     resF.disjonction(-adj[j]);
-//                                     resF.disjonction(-adjSansJ[m]);
-//                                     resF.disjonction(-adjSansM[n]);
-//                                     resF.fermerParenthese();
-//                                     res.conjonction(resF);
+                                int n = 0;
+                                while(n < adjSansM.length){
+                                    c = new Clause();
+                                    c.disjonction(-adj[j]);
+                                    c.disjonction(-adjSansJ[m]);
+                                    c.disjonction(-adjSansM[n]);
+                                    res.conjonction(c);
     
-//                                     resF.reinitialiser();
-//                                     resF.ouvrirParenthese();
-//                                     resF.disjonction(adj[j]);
-//                                     resF.disjonction(adjSansJ[m]);
-//                                     resF.disjonction(adjSansM[n]);
-//                                     resF.fermerParenthese();
-//                                     res.conjonction(resF);
+                                    c = new Clause();
+                                    c.disjonction(adj[j]);
+                                    c.disjonction(adjSansJ[m]);
+                                    c.disjonction(adjSansM[n]);
+                                    res.conjonction(c);
 
-//                                     n++;
-//                                 }
-//                                 m++;
-//                             }
-//                             j++;
-//                         }
-//                     }
-//                 }
+                                    n++;
+                                }
+                                m++;
+                            }
+                            j++;
+                        }
+                    }
+                }
                 
                 
                 
-//                 else if(typeC == adj.length-3){        //Si il y a deux case de + que le numéro indiqué
-//                     Formule resFirst = new Formule();
-//                     resFirst.ouvrirParenthese();
-//                     int j = 0;
-//                     while(j < adj.length){
-//                         resFirst.disjonction(adj[j]);  
-//                         j++;
-//                     }
-//                     resFirst.fermerParenthese();
-//                     res.conjonction(resFirst);
+                else if(typeC == adj.length-3){        //Si il y a deux case de + que le numéro indiqué
+                    Clause c = new Clause();
+                    int j = 0;
+                    while(j < adj.length){
+                        c.disjonction(adj[j]);  
+                        j++;
+                    }
+                    res.conjonction(c);
 
-//                     j = 0;
-//                     while(j < adj.length){
-//                         int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-//                         for(int m = 0; m < adjSansJ.length; m++){
-//                             resFirst.reinitialiser();
-//                             resFirst.ouvrirParenthese();
-//                             resFirst.disjonction(-adj[j]);
-//                             resFirst.disjonction(-adjSansJ[m]);
-//                             resFirst.fermerParenthese();
-//                             res.conjonction(resFirst);
-//                         }
-//                         j++;
-//                     }
-//                 } 
+                    j = 0;
+                    while(j < adj.length){
+                        int[] adjSansJ = supprimerElementTab(adj, adj[j]);
+                        for(int m = 0; m < adjSansJ.length; m++){
+                            c = new Clause();
+                            c.disjonction(-adj[j]);
+                            c.disjonction(-adjSansJ[m]);
+                            res.conjonction(c);
+                        }
+                        j++;
+                    }
+                } 
 
 
 
-//             }else if(typeC == CASE_NOIR_CHIFFRE0){
-//                 int j = 0;
-//                 int[] adj = adjacenteUnique(i);
-//                 while(j < adj.length){
-//                     res.conjonction(-adj[j]);
-//                     j++;
-//                 }
-//             }
-//             i++;
-//         }
+            }else if(typeC == CASE_NOIR_CHIFFRE0){
+                int j = 0;
+                int[] adj = adjacenteUnique(i);
+                while(j < adj.length){
+                    Clause c = new Clause();
+                    c.disjonction(-adj[j]);
+                    res.conjonction(c);
+                    j++;
+                }
+            }
+            i++;
+        }
 
-//         return res;
-//     }
-
-
-
+        return res;
+    }
 
 
 
@@ -473,7 +460,7 @@ public class Grille {
         Formule allRules = new Formule();
         allRules.conjonction(regle1());
         allRules.conjonction(regle2());
-        // allRules.conjonction(regle3());
+        allRules.conjonction(regle3());
         allRules.conjonction(regle4());
 
         return allRules;

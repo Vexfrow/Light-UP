@@ -11,7 +11,9 @@ public class Formule {
 
     public String[] tabVar;
     public int posTabVar;
-    private int nbVar;
+
+    public int[] tabVarDiff;
+    public int posTabVarDiff;
 
     public Clause[] tabClause;
     public int posTabClause;
@@ -24,12 +26,16 @@ public class Formule {
     public Formule(String s){
         tabVar = new String[100];
         posTabVar = 0;
-        nbVar = 0;
+
+        tabVarDiff = new int[100];
+        posTabVarDiff = 0;
 
         tabClause = new Clause[1000];
         posTabClause = 0;
+
         remplirTabClause(s);
         remplirTabVar();
+        remplirTabVarDiff();
 
 
     }
@@ -42,7 +48,9 @@ public class Formule {
     public Formule(){
         tabClause = new Clause[1000];
         posTabClause = 0;
-        nbVar = 0;
+
+        tabVarDiff = new int[100];
+        posTabVarDiff = 0;
 
         tabVar = new String[100];
         posTabVar = 0;
@@ -59,8 +67,11 @@ public class Formule {
 
         lectF.demarrer();
         while(!lectF.finDeSequence()){
-            tabClause[posTabClause] =  new Clause (lectF.elementCourant());
-            posTabClause++;
+            Clause c =  new Clause (lectF.elementCourant());
+            if(!c.appartientTabClause(tabClause, posTabClause)){
+                tabClause[posTabClause] =  new Clause (lectF.elementCourant());
+                posTabClause++;
+            }
             lectF.avancer();
         }
     }
@@ -79,15 +90,36 @@ public class Formule {
                 if(!appartient(c.tabVariable[j])){
                     tabVar[posTabVar] = c.tabVariable[j];
                     posTabVar++;
-                    if(!estNegatif(c.tabVariable[j])){
-                        nbVar++;
-                    }
                 }
                 j++;
             }
             i++;
         }
     }
+
+
+
+
+    /*
+        Remplis la liste des variables différentes (negatif == positif)
+    */
+    private void remplirTabVarDiff() {
+        int i = 0;
+        while(i < posTabClause){
+            int j = 0;
+            Clause c = tabClause[i];
+            while(j < c.posTabVarDiff){
+                if(!appartient(c.tabVarDiff[j])){
+                    System.out.println(c.tabVarDiff[j]);
+                    tabVarDiff[posTabVarDiff] = c.tabVarDiff[j];
+                    posTabVarDiff++;
+                }
+                j++;
+            }
+            i++;
+        }
+    }
+
 
 
 
@@ -111,9 +143,13 @@ public class Formule {
     /*
         Permet de verifier si une variable est presente dans la liste des variables
     */
-    public boolean estNegatif(String x){
-        if(x.length()>0){
-            return (x.charAt(0) == '-');
+    public boolean appartient(int x){
+        int i = 0;
+        while(i<posTabVarDiff){
+            if(x == tabVarDiff[i]){
+                return true;
+            }
+            i++;
         }
         return false;
     }
@@ -125,7 +161,7 @@ public class Formule {
         Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
     */
     public String formuleDIMACS() {
-        String formuleDIMACS = ("p cnf " + nbVar + " " + posTabClause +'\n');
+        String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause +'\n');
         int i = 0;
 
         while(i < posTabClause){
@@ -137,6 +173,7 @@ public class Formule {
 
 
 
+
     /*
         Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
     */
@@ -145,6 +182,7 @@ public class Formule {
             tabClause[posTabClause] = c;
             posTabClause++;
             remplirTabVar();
+            remplirTabVarDiff();
         }
     }
 
@@ -155,6 +193,34 @@ public class Formule {
             conjonction(f.tabClause[i]);
             i++;
         }
+    }
+
+
+
+
+    public String toString(){
+        String s = "";
+        int i = 0;
+
+        while(i < posTabClause){
+            int j = 0;
+            s = s+ "(";
+            while(j < tabClause[i].posTabVar){
+                s = s + tabClause[i].tabVariable[j];
+                j++;
+                if(j < tabClause[i].posTabVar){
+                    s = s + " + ";
+                }
+
+            }
+            s = s + ")";
+            i++;
+            if(i < posTabClause){
+                s = s + " * ";
+            }
+        }
+
+        return s;
     }
 
     

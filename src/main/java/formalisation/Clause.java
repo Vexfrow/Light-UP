@@ -4,6 +4,9 @@ public class Clause {
     public String[] tabVariable = new String[100];
     public int posTabVar;
 
+    public int[] tabVarDiff = new int[100];
+    public int posTabVarDiff;
+
     private static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
     private static char[] disjonction = {'+','|','v'};
     private static char[] negation = {'!', '-'};
@@ -13,17 +16,20 @@ public class Clause {
     public Clause(String[] tabV, int posTabV){
         tabVariable = tabV;
         posTabVar = posTabV;
+        posTabVarDiff = 0;
     }
 
 
     public Clause(String clauseText){
         posTabVar = 0;
-        remplirListeVariable(clauseText);
+        posTabVarDiff = 0;
+        remplirListesVariable(clauseText);
     }
 
 
     public Clause(){
         posTabVar = 0;
+        posTabVarDiff = 0;
 
     }
 
@@ -33,7 +39,7 @@ public class Clause {
     /* 
         Remplis la liste des variables de la clause
     */
-    public void remplirListeVariable(String formule){
+    public void remplirListesVariable(String formule){
         int i = 0;
         int actuel = 0;
         boolean vide = true;
@@ -60,6 +66,11 @@ public class Clause {
                     tabVariable[posTabVar] = ""+actuel;
                     posTabVar ++;
                 }
+
+                if(!appartientTabVarDiff(actuel)){
+                    tabVarDiff[posTabVarDiff] = actuel;
+                    posTabVarDiff++;
+                }
                 vide = true;
             }
             
@@ -71,6 +82,10 @@ public class Clause {
         }else if(!neg && !appartientTabVar(""+actuel) && !vide){
             tabVariable[posTabVar] = ""+actuel;
             posTabVar ++;
+        }
+        if(!appartientTabVarDiff(actuel) && !vide){
+            tabVarDiff[posTabVarDiff] = actuel;
+            posTabVarDiff++;
         }
 
     }
@@ -99,6 +114,23 @@ public class Clause {
         int i = 0;
         while(i<posTabVar){
             if(x.equals(tabVariable[i])){
+                return true;
+            }
+            i++;
+        }
+        return false;
+
+    }
+
+
+
+    /* 
+    Verifie si une variable appartient à la liste de variable
+    */
+    public boolean appartientTabVarDiff(int x){
+        int i = 0;
+        while(i<posTabVarDiff){
+            if(x == tabVarDiff[i]){
                 return true;
             }
             i++;
@@ -151,6 +183,21 @@ public class Clause {
         }
         return res;
 
+    }
+
+
+    public void disjonction(int var){
+        tabVariable[posTabVar] = ""+var;
+        posTabVar++;
+
+        if(!appartientTabVarDiff(var)){
+            if( var < 0){
+                tabVarDiff[posTabVarDiff] = -var;
+            }else{
+                tabVarDiff[posTabVarDiff] = var;
+            }
+            posTabVarDiff++;
+        }
     }
 
 

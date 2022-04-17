@@ -29,7 +29,7 @@ public class ClauseTest {
 
 
     @Test
-    public void remplirListeVariableTest(){
+    public void remplirListesVariableTest(){
         String s = "(-20 + -27)";
         String s1 = "(-0 + -2)";
 
@@ -41,6 +41,9 @@ public class ClauseTest {
 
         assertTrue(c2.tabVariable[0].equals("-0"));
         assertTrue(c2.tabVariable[1].equals("-2"));
+
+        assertTrue(c2.tabVarDiff[0] == 0);
+        assertTrue(c2.tabVarDiff[1] == 2);
     }
 
 

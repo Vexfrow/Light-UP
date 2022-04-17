@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import formalisation.Formule;
-// import formalisation.Grille;
+import formalisation.Grille;
 
 
 public class Principale{
@@ -123,17 +123,14 @@ public class Principale{
         grille3[2][2] = -2;
 
         
-        // Grille g = new Grille(grille);
+        Grille g = new Grille(grille3);
 
-        // System.out.println(g.regle3());
-
-
-        // File fichier = new File("FormuleFinale.txt");
-        // if (!fichier.exists()) {
-        //     fichier.createNewFile();
-        // }
-        // File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
-        // BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
+        File fichier = new File("FormuleFinale.txt");
+        if (!fichier.exists()) {
+            fichier.createNewFile();
+        }
+        File cheminAbsoluDuFichier = fichier.getAbsoluteFile();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier));
 
 
         File fichier2 = new File("fichierDIMACS.txt");
@@ -143,13 +140,11 @@ public class Principale{
         File cheminAbsoluDuFichier2 = fichier2.getAbsoluteFile();
         BufferedWriter bw2 = new BufferedWriter(new FileWriter(cheminAbsoluDuFichier2));
 
-
-        //bw.write(g.allRules().getFormule());
         Formule f = new Formule("(0 + 1 + 3 + 6) * (1 + 0 + 4 + 7) * (3 + 4 + 5 + 6 + 0) * (4 + 3 + 5 + 7 + 1) * (5 + 4 + 3 + 8) * (6 + 7 + 8 + 3 + 0) * (7 + 6 + 8 + 4 + 1) * (8 + 7 + 6 + 5) * (-0 + -1) * (-0 + -3) * (-0 + -6) * (-1 + -0) * (-1 + -4) * (-1 + -7) * (-3 + -4) * (-3 + -5) * (-3 + -6) * (-3 + -0) * (-4 + -3) * (-4 + -5) * (-4 + -7) * (-4 + -1) * (-5 + -4) * (-5 + -3) * (-5 + -8) * (-6 + -7) * (-6 + -8) * (-6 + -3) * (-6 + -0) * (-7 + -6) * (-7 + -8) * (-7 + -4) * (-7 + -1) * (-8 + -7) * (-8 + -6) * (-8 + -5) * (-5 + -1) * (5 + 1) * (1 + 5) * (-2)");
+        bw.write(g.allRules().toString());
+        bw2.write(g.allRules().formuleDIMACS());
 
-        
-        bw2.write(f.formuleDIMACS());
-        // bw.close();
+        bw.close();
         bw2.close();
 
 
