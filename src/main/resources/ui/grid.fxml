@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.GridController">
+   <children>
+      <HBox VBox.vgrow="ALWAYS">
+         <children>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <GridPane gridLinesVisible="true" maxHeight="210.0" maxWidth="210.0" minHeight="210.0" minWidth="210.0" prefHeight="210.0" prefWidth="210.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="30.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                      <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="b00" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b01" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b02" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b03" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b04" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b05" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b06" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b10" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b11" layoutX="10.0" layoutY="10.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b12" layoutX="10.0" layoutY="10.0" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b13" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b14" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b15" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b16" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b20" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b21" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b22" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b23" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b24" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b25" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b26" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b30" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b31" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b32" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b33" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b34" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b35" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b36" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b40" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b41" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b42" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b43" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b44" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b45" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b46" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b50" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b51" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b52" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b53" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b54" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b55" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b56" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b60" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b61" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b62" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b63" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b64" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b65" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="b66" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </GridPane>
+                  <Button minHeight="45.0" minWidth="210.0" mnemonicParsing="false" onAction="#submit" text="Soumettre">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button minHeight="45.0" minWidth="210.0" mnemonicParsing="false" onAction="#reset" text="Réinitialiser">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <TextArea fx:id="fnc" promptText="Formule normale conjonctive associée (FNC)" wrapText="true" />
+            <TextArea fx:id="dimacs" promptText="Formule DIMACS" />
+            <TextArea fx:id="satsolver" promptText="Résultat du SAT-Solver" wrapText="true" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
