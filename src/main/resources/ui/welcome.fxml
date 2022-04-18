@@ -13,9 +13,9 @@
    <children>
       <VBox alignment="CENTER" maxWidth="400.0" prefWidth="400.0">
          <children>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #DEDEDE; -fx-border-width: 3px; -fx-border-radius: 2px; -fx-border-color: #CECECE;" text="Veuillez sélectionner un outil parmi ceux disponibles :" textAlignment="CENTER">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ECECEC; -fx-border-width: 3px; -fx-border-radius: 2px; -fx-border-color: #CECECE;" text="Veuillez sélectionner un outil parmi ceux disponibles :" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font size="14.0" />
                </font>
                <padding>
                   <Insets bottom="5.0" top="5.0" />

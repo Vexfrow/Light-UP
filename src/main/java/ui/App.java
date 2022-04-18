@@ -29,6 +29,7 @@ public class App extends Application {
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
+     
         }
         catch(Exception e)
         {
