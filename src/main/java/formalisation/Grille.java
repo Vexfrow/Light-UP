@@ -125,7 +125,12 @@ public class Grille {
         Renvoie le numéro de la ligne correspondant à la case mise en paramètre
     */
     public int getLigne(int CASE){
-        return CASE/nbLignes;
+        int res = CASE/nbLignes;
+
+        if(CASE%nbLignes == 0){
+            res = res-1;
+        }
+        return res;
     }
 
 
@@ -133,7 +138,12 @@ public class Grille {
         Renvoie le numéro de la colonne correspondant à la case mise en paramètre
     */
     public int getColonne(int CASE){
-        return CASE%nbColonnes;
+        int res = CASE%nbColonnes-1;
+
+        if(CASE%nbColonnes == 0){
+            res = nbColonnes-1;
+        }
+        return res;
     }
 
 
@@ -141,7 +151,7 @@ public class Grille {
         Renvoie l'entier correspondant aux coordonnées mises en paramètre
     */
     public int entierGrille(int ligne, int colonne){
-        return (ligne*nbLignes+colonne);
+        return (ligne*nbLignes+colonne+1);
     }
 
 
@@ -216,9 +226,8 @@ public class Grille {
     public Formule regle1(){
 
         Formule resRegle1 = new Formule();                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
-        int i =0;
-        while(i < nbColonnes*nbLignes){                             //On parcours toutes les cases
-
+        int i =1;
+        while(i <= nbColonnes*nbLignes){                             //On parcours toutes les cases
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){ //Si la case est une case blanche
 
                 int j = 0;
@@ -254,8 +263,8 @@ public class Grille {
     public Formule regle4(){
         Formule resRegle4 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
 
-        int i =0;
-        while(i < nbColonnes*nbLignes){                                 //On parcours toutes les cases
+        int i =1;
+        while(i <= nbColonnes*nbLignes){                                 //On parcours toutes les cases
             if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){     //Si la case est une case noire
                 Clause caseN = new Clause("(-" + i +")");               // On crée une nouvelle clause correpondant à la règle pour la case
                 resRegle4.conjonction(caseN);                           // On fait la conjonction de cette clause avec les autres dans la formule
@@ -275,8 +284,8 @@ public class Grille {
 */  
     public Formule regle2(){
         Formule resRegle2 = new Formule();                                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
-        int i =0;
-        while(i < nbColonnes*nbLignes){                                             //On parcours toutes les cases
+        int i =1;
+        while(i <= nbColonnes*nbLignes){                                             //On parcours toutes les cases
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){                 //Si la case est une case blanche
 
                 int j = 0;
@@ -304,9 +313,9 @@ public class Grille {
     */  
     public Formule regle3(){
         Formule res = new Formule();
-        int i =0;
+        int i =1;
 
-        while(i < nbColonnes*nbLignes){
+        while(i <= nbColonnes*nbLignes){
             int typeC = grille[getLigne(i)][getColonne(i)];
             if(typeC != CASE_BLANCHE && typeC != CASE_NOIR_SANS_CHIFFRE && typeC != CASE_NOIR_CHIFFRE0){
 

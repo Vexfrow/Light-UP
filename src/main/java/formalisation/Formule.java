@@ -161,11 +161,11 @@ public class Formule {
         Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
     */
     public String formuleDIMACS() {
-        String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause +'\n');
+        String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause );
         int i = 0;
 
         while(i < posTabClause){
-            formuleDIMACS = formuleDIMACS + tabClause[i].toString() + "\n";
+            formuleDIMACS = formuleDIMACS + '\n' + tabClause[i].toString() + '0';
             i++;
         }
         return formuleDIMACS;
