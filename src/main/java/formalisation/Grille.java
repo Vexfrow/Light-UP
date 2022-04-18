@@ -323,8 +323,8 @@ public class Grille {
 
                 if(typeC == adj.length){                //Si le numéro de la case correspond au nombre de case adjacente
                     int j = 0;
-                    Clause c = new Clause();
                     while(j < adj.length){
+                        Clause c = new Clause();
                         c.disjonction(adj[j]);
                         j++;
                         res.conjonction(c);

@@ -67,12 +67,6 @@ public class FormuleTest {
         Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
         Formule f3 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0 + -1)");
 
-        System.out.println(f1.tabClause[0].toString());
-        System.out.println(c.toString());
-
-        System.out.println(f1.tabClause[0].posTabVar);
-        System.out.println(c.posTabVar);
-
         assert(f1.tabClause[0].toString().equals(c.toString()));
         assert(f1.tabClause[1].toString().equals(c1.toString()));
         assert(f1.posTabClause == 2);

@@ -110,7 +110,6 @@ public class Formule {
             Clause c = tabClause[i];
             while(j < c.posTabVarDiff){
                 if(!appartient(c.tabVarDiff[j])){
-                    System.out.println(c.tabVarDiff[j]);
                     tabVarDiff[posTabVarDiff] = c.tabVarDiff[j];
                     posTabVarDiff++;
                 }
