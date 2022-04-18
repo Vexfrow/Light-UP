@@ -49,6 +49,17 @@ public class GridController
     //Attributs
     Stage stage = App.stage; //J'utilise cette attribut pour pouvoir accéder à l'objet Stage notamment pour rendre la fenêtre redimensionnable
 
+    //Méthode qui permet de retourner à l'accueil
+    public void backToWelcome() throws IOException
+    {
+        stage.setTitle("Acceuil");
+        App.newScene("welcome");
+        stage.setHeight(149);
+        stage.setWidth(415);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+    }
+
     //Methode qui permet de définir la grille graphiquement !
     public void clickDetected(Event event)
     {
@@ -181,7 +192,10 @@ public class GridController
             i++;
         }
 
-        
+        //On vide les zones de texte
+        fnc.setText("");
+        dimacs.setText("");
+        satsolver.setText("");
 
     }
 

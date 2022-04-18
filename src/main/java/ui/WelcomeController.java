@@ -17,19 +17,23 @@ public class WelcomeController
     public void openLightUpSolver() throws IOException
     {
             stage.setResizable(true);
-            stage.setHeight(338);
-            stage.setWidth(800);
-
-            stage.centerOnScreen();
+            stage.setTitle("Solveur de Light Up");
             
-
             App.newScene("grid");
+            stage.setHeight(432);
+            stage.setWidth(1000);
+            stage.centerOnScreen();
     }
 
     public void openSatSolver() throws IOException
     {
-            stage.setResizable(true);
-            App.newScene("satSolver");
+        stage.setResizable(true);
+        stage.setTitle("SAT-Solver");
+        
+        App.newScene("satSolver");
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.centerOnScreen();
     }
     
 }
