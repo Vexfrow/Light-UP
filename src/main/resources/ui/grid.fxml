@@ -14,14 +14,29 @@
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.GridController">
    <children>
-      <ToolBar onDragDetected="#backToWelcome" prefHeight="40.0" prefWidth="200.0">
-        <items>
-          <Button mnemonicParsing="false" onAction="#backToWelcome" text="Acceuil">
+      <ToolBar>
+         <items>
+            <Button mnemonicParsing="false" onAction="#backToWelcome" text="Accueil" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-        </items>
+            <Button mnemonicParsing="false" text="Solveur de Light Up">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#openSatSolver" text="SAT-Solver" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#help" text="Aide" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </items>
       </ToolBar>
       <HBox VBox.vgrow="ALWAYS">
          <children>

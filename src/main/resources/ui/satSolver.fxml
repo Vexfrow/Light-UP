@@ -11,14 +11,29 @@
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SatSolverController">
    <children>
-      <ToolBar onDragDetected="#backToWelcome">
-        <items>
-          <Button mnemonicParsing="false" onAction="#backToWelcome" text="Acceuil">
+      <ToolBar>
+         <items>
+            <Button mnemonicParsing="false" onAction="#backToWelcome" text="Accueil" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-        </items>
+            <Button mnemonicParsing="false" onAction="#openLightUpSolver" text="Solveur de Light Up">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" text="SAT-Solver" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#help" text="Aide" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </items>
       </ToolBar>
       <HBox VBox.vgrow="ALWAYS">
          <children>
@@ -40,7 +55,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Réinitialiser" HBox.hgrow="ALWAYS">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#reset" text="Réinitialiser" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

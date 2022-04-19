@@ -25,9 +25,11 @@ public class App extends Application {
             this.stage = stage;
             Parent root = FXMLLoader.load(getClass().getResource("welcome.fxml"));
             scene = new Scene(root);
-            stage.centerOnScreen();
             stage.setResizable(false);
             stage.setScene(scene);
+            stage.setHeight(432);
+            stage.setWidth(1000);
+            stage.centerOnScreen();
             stage.show();
      
         }
