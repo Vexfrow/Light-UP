@@ -10,7 +10,7 @@ import formalisation.Grille;
 
 public class Principale{
 
-//Classe principale du projet
+//Classe principale du projet ayant pour objectif de faire des tests d'application
 
     public static void main (String[] args) throws IOException{
 

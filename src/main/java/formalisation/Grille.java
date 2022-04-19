@@ -308,7 +308,7 @@ public class Grille {
 
 
     /*
-        Ecris dans un fichier la formule correspondant à la troisième règle
+        Renvoie la formule correspondant à la troisième règle
         On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
     */  
     public Formule regle3(){

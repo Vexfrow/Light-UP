@@ -140,7 +140,7 @@ public class Formule {
 
 
     /*
-        Permet de verifier si une variable est presente dans la liste des variables
+        Permet de verifier si une variable est presente dans la liste des variables différentes
     */
     public boolean appartient(int x){
         int i = 0;
