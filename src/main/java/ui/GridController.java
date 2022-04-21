@@ -1,9 +1,10 @@
 package ui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.net.ssl.SSLPermission;
 
 import formalisation.Grille;
 import javafx.event.Event;
@@ -15,6 +16,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import lecteur.LecteurStringParMot;
+import satsolver.DPLL;
 
 /*
 SPÉCIFICATION GridController
@@ -48,7 +51,7 @@ public class GridController
     @FXML Button b40; @FXML Button b41; @FXML Button b42; @FXML Button b43; @FXML Button b44; @FXML Button b45; @FXML Button b46;
     @FXML Button b50; @FXML Button b51; @FXML Button b52; @FXML Button b53; @FXML Button b54; @FXML Button b55; @FXML Button b56;
     @FXML Button b60; @FXML Button b61; @FXML Button b62; @FXML Button b63; @FXML Button b64; @FXML Button b65; @FXML Button b66;
-
+ 
     /* c) Attributs de la classe */
     /*
     SPÉCIFICATION tab
@@ -132,20 +135,23 @@ public class GridController
     */
     public void clickDetected(Event event)
     {
+
         Button bouton = (Button) event.getSource();
         String id = bouton.getId();
+        
         String style = bouton.getStyle();
+        System.out.println(style);
         String texte = bouton.getText();
         int j = id.charAt(1) - 48;
         int i = id.charAt(2) - 48;
         switch(style)
         {
-            case("-fx-background-color: white;"):
-                bouton.setStyle("-fx-background-color: black;");
+            case("-fx-background-color : white; -fx-background-radius : 0px;"):
+                bouton.setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
                 tab[i][j] = -1;
                 break;
 
-            case("-fx-background-color: black;"):
+            case("-fx-background-color : black; -fx-background-radius : 0px;"):
                 switch(texte)
                 {
                     case(""):
@@ -176,7 +182,7 @@ public class GridController
                     case("4"):
                         tab[i][j] = -2;
                         bouton.setText("");
-                        bouton.setStyle("-fx-background-color: white;");
+                        bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
                         break;
                 }
                 break;   
@@ -190,11 +196,20 @@ public class GridController
     Concrètement on donne tab à la partie "logique" du projet puis on affiche 
     le résultat.
     */
-    public void submit()
+    public void submit() throws IOException, InterruptedException
     {
         Grille grid = new Grille(tab);
+        String stringDimacs = grid.allRules().formuleDIMACS();
         fnc.setText(grid.allRules().toString());
-        dimacs.setText(grid.allRules().formuleDIMACS());
+        dimacs.setText(stringDimacs);
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
+        bw.write(stringDimacs);
+        bw.flush();
+        bw.close();
+        DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
+        String resultat = sat.resultat();
+        satsolver.setText(resultat);
+        resultGrid(resultat);
     }
 
     /*
@@ -204,58 +219,73 @@ public class GridController
     */
     public void reset()
     {
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        int k = 0;
+        while(k < tabButton.length)
+        {
+            tabButton[k].setText("");
+            tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+            tabButton[k].setMaxWidth(40);
+            tabButton[k].setPrefWidth(40);
+            tabButton[k].setMinWidth(40);
+            tabButton[k].setMaxHeight(40);
+            tabButton[k].setPrefHeight(40);
+            tabButton[k].setMinHeight(40);
+            k++;
+        }
         //Façon de faire un peu bourrine pour reset les boutons j'y reflechirai ultérieurement :
-        //Donc là c'est pour enlever le texte dans les boutons et les remettre en blanc
-        b00.setText(""); b00.setStyle("-fx-background-color: white;");
-        b01.setText(""); b01.setStyle("-fx-background-color: white;");
-        b02.setText(""); b02.setStyle("-fx-background-color: white;");
-        b03.setText(""); b03.setStyle("-fx-background-color: white;");
-        b04.setText(""); b04.setStyle("-fx-background-color: white;");
-        b05.setText(""); b05.setStyle("-fx-background-color: white;");
-        b06.setText(""); b06.setStyle("-fx-background-color: white;");
-        b10.setText(""); b10.setStyle("-fx-background-color: white;");
-        b11.setText(""); b11.setStyle("-fx-background-color: white;");
-        b12.setText(""); b12.setStyle("-fx-background-color: white;");
-        b13.setText(""); b13.setStyle("-fx-background-color: white;");
-        b14.setText(""); b14.setStyle("-fx-background-color: white;");
-        b15.setText(""); b15.setStyle("-fx-background-color: white;");
-        b16.setText(""); b16.setStyle("-fx-background-color: white;");
-        b20.setText(""); b20.setStyle("-fx-background-color: white;");
-        b21.setText(""); b21.setStyle("-fx-background-color: white;");
-        b22.setText(""); b22.setStyle("-fx-background-color: white;");
-        b23.setText(""); b23.setStyle("-fx-background-color: white;");
-        b24.setText(""); b24.setStyle("-fx-background-color: white;");
-        b25.setText(""); b25.setStyle("-fx-background-color: white;");
-        b26.setText(""); b26.setStyle("-fx-background-color: white;");
-        b30.setText(""); b30.setStyle("-fx-background-color: white;");
-        b31.setText(""); b31.setStyle("-fx-background-color: white;");
-        b32.setText(""); b32.setStyle("-fx-background-color: white;");
-        b33.setText(""); b33.setStyle("-fx-background-color: white;");
-        b34.setText(""); b34.setStyle("-fx-background-color: white;");
-        b35.setText(""); b35.setStyle("-fx-background-color: white;");
-        b36.setText(""); b36.setStyle("-fx-background-color: white;");
-        b40.setText(""); b40.setStyle("-fx-background-color: white;");
-        b41.setText(""); b41.setStyle("-fx-background-color: white;");
-        b42.setText(""); b42.setStyle("-fx-background-color: white;");
-        b43.setText(""); b43.setStyle("-fx-background-color: white;");
-        b44.setText(""); b44.setStyle("-fx-background-color: white;");
-        b45.setText(""); b45.setStyle("-fx-background-color: white;");
-        b46.setText(""); b46.setStyle("-fx-background-color: white;");
-        b50.setText(""); b50.setStyle("-fx-background-color: white;");
-        b51.setText(""); b51.setStyle("-fx-background-color: white;");
-        b52.setText(""); b52.setStyle("-fx-background-color: white;");
-        b53.setText(""); b53.setStyle("-fx-background-color: white;");
-        b54.setText(""); b54.setStyle("-fx-background-color: white;");
-        b55.setText(""); b55.setStyle("-fx-background-color: white;");
-        b56.setText(""); b56.setStyle("-fx-background-color: white;");
-        b60.setText(""); b60.setStyle("-fx-background-color: white;");
-        b61.setText(""); b61.setStyle("-fx-background-color: white;");
-        b62.setText(""); b62.setStyle("-fx-background-color: white;");
-        b63.setText(""); b63.setStyle("-fx-background-color: white;");
-        b64.setText(""); b64.setStyle("-fx-background-color: white;");
-        b65.setText(""); b65.setStyle("-fx-background-color: white;");
-        b66.setText(""); b66.setStyle("-fx-background-color: white;");
-
+        //Donc là c'est pour enlever le texte dans les boutons et les remettre en 
+        /*
+        b00.setText(""); b00.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b01.setText(""); b01.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b02.setText(""); b02.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b03.setText(""); b03.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b04.setText(""); b04.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b05.setText(""); b05.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b06.setText(""); b06.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b10.setText(""); b10.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b11.setText(""); b11.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b12.setText(""); b12.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b13.setText(""); b13.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b14.setText(""); b14.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b15.setText(""); b15.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b16.setText(""); b16.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b20.setText(""); b20.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b21.setText(""); b21.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b22.setText(""); b22.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b23.setText(""); b23.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b24.setText(""); b24.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b25.setText(""); b25.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b26.setText(""); b26.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b30.setText(""); b30.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b31.setText(""); b31.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b32.setText(""); b32.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b33.setText(""); b33.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b34.setText(""); b34.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b35.setText(""); b35.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b36.setText(""); b36.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b40.setText(""); b40.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b41.setText(""); b41.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b42.setText(""); b42.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b43.setText(""); b43.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b44.setText(""); b44.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b45.setText(""); b45.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b46.setText(""); b46.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b50.setText(""); b50.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b51.setText(""); b51.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b52.setText(""); b52.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b53.setText(""); b53.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b54.setText(""); b54.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b55.setText(""); b55.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b56.setText(""); b56.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b60.setText(""); b60.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b61.setText(""); b61.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b62.setText(""); b62.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b63.setText(""); b63.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b64.setText(""); b64.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b65.setText(""); b65.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        b66.setText(""); b66.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+        */
         //Ici on réinitialise le tableau tab avec des -2 partout :
         int i = 0;
         int j = 0;
@@ -276,6 +306,36 @@ public class GridController
         satsolver.setText("");
     }
 
+    public void resultGrid(String resultat)
+    {
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        int i = 0;
+        LecteurStringParMot lect = new LecteurStringParMot(resultat);
+        lect.demarrer();
+        while(!lect.finDeSequence())
+        {
+            
+            if(lect.elementCourant().charAt(0) != '-' && estChiffre(lect.elementCourant().charAt(0)))
+            {
+                tabButton[i].setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                tabButton[i].setMaxWidth(30);
+                tabButton[i].setPrefWidth(30);
+                tabButton[i].setMinWidth(30);
+                tabButton[i].setMaxHeight(30);
+                tabButton[i].setPrefHeight(30);
+                tabButton[i].setMinHeight(30);
+                
+            }
+            i++;
+            lect.avancer();
+        }
+        
+    }
+
+    public boolean estChiffre (char c){
+
+        return ( c >= '0' && c <= '9');
+    }
   
 
 

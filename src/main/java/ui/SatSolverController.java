@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import formalisation.Formule;
@@ -8,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import satsolver.DPLL;
 
 /*
 SPÉCIFICATION SatSolverController
@@ -91,10 +94,17 @@ public class SatSolverController
     puis on la donne à la partie "logique" du projet et on affiche 
     le résultat.
     */
-    public void submit()
+    public void submit() throws IOException, InterruptedException
     {
         Formule formuleSaisie = new Formule(formule.getText());
-        dimacs.setText(formuleSaisie.formuleDIMACS());
+        String stringDimacs = formuleSaisie.formuleDIMACS();
+        dimacs.setText(stringDimacs);
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
+        bw.write(stringDimacs);
+        bw.flush();
+        bw.close();
+        DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
+        satsolver.setText(sat.resultat());
     }
 
     

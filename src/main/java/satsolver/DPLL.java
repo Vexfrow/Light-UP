@@ -1,4 +1,4 @@
-package Satsolveur;
+package satsolver;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,17 +25,16 @@ public class DPLL {
         }
 
         
-        public String resultat (){
-            DPLL sat = new DPLL("./Dimac.txt");
-            boolean sortie = sat.dpll();
+        public String resultat () throws IOException, InterruptedException{
+            boolean sortie = this.dpll();
             String res = "";
             int i = 0;
             if(sortie){
-                while(i < sat.l){
-                    if(sat.var[i] == 0){
+                while(i < this.l){
+                    if(this.var[i] == 0){
                         res = res + " -"+(i+1);
                     }
-                    else if(sat.var[i] == 1){
+                    else if(this.var[i] == 1){
                         res = res + " " + (i+1);
                     }
                     i++;
