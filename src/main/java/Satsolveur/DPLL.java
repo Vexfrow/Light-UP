@@ -20,15 +20,29 @@ public class DPLL {
         public static void main (String[] args) throws InterruptedException, IOException{
             //Preparer les constructeur et lire le fichiers DIMACS
             DPLL sat = new DPLL("./Dimac.txt");
-            boolean res;
-            int i = 0;
-            System.out.println("Il y a une solution = " + (res =sat.dpll()));    
-            System.out.println("valeur d'absurde = " + sat.absurde);
-            while(i < sat.l  && res ){
-                System.out.println("var[" + (i+1)+ "] " + sat.var[i]);
-                i++;
-            }
+            boolean sortie = sat.dpll();
 
+        }
+
+        
+        public String resultat (){
+            DPLL sat = new DPLL("./Dimac.txt");
+            boolean sortie = sat.dpll();
+            String res = "";
+            int i = 0;
+            if(sortie){
+                while(i < sat.l){
+                    if(sat.var[i] == 0){
+                        res = res + " -"+(i+1);
+                    }
+                    else if(sat.var[i] == 1){
+                        res = res + " " + (i+1);
+                    }
+                    i++;
+                }
+                return res;
+            }
+            return "Insatisfaisable";
         }
     //zone constructeurs
         public DPLL (String fichier) throws IOException{
@@ -129,7 +143,6 @@ public class DPLL {
         public void suppContenu() throws IOException{
             int i = 0;
             int j = 0;
-            //System.out.println("on est a SuppContenu");
             while(i < n){
                 j =  0;
     
@@ -186,7 +199,6 @@ public class DPLL {
     
         //Supprime les clauses contenant des litteraux isoles (ajouter l'appel a DPLL)
         public boolean suppIsole() throws IOException{
-            //System.out.println("on est a SuppIsole"); 
             isoleList();
             int i = 0;
             int j = 0;
@@ -287,8 +299,6 @@ public class DPLL {
             String[] val = new String[1];
             String[] nega = new String[1];
             while(i < l){
-                
-                //System.out.println ("i = " +i);
                 nega[0] = "-" + (i+1);
                 val[0] = ""+(i+1);
     
