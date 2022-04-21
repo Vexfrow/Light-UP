@@ -18,11 +18,6 @@ public class WelcomeController
     /* a) RECUPERATION DE L'ATTRIBUT STAGE */
     Stage stage = App.stage; 
 
-    /* b) RECUPERATION DANS LE FXML "welcome.fxml" */
-    //Il n'y a rien a récupérer ici
-
-
-
     /*---------------------------- METHODES -----------------------------*/
 
     /* a) METHODES GERANT LA BARRE D'OUTIL */

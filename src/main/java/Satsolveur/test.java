@@ -1,3 +1,5 @@
+package Satsolveur;
+
 public class test {
     public static void main(String[] args){
         String st = "Une chaine pleine";
