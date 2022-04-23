@@ -1,7 +1,3 @@
-/* 
-    Classe pour manipuler les formules
-*/
-
 package formalisation;
 
 import lecteur.LecteurFormule;
@@ -9,23 +5,27 @@ import lecteur.LecteurFormule;
 
 public class Formule {
 
-    public String[] tabVar;
-    public int posTabVar;
-
+    //Tableau des variables "differentes" : -x = x dans ce cas là ; Ainsi que que l'indicateur de sa taille
     public int[] tabVarDiff;
     public int posTabVarDiff;
 
+    //Tableau des clauses ; Ainsi que que l'indicateur de sa taille
     public Clause[] tabClause;
     public int posTabClause;
 
 
-/*
+    /* 
+        Il s'agit d'une classe ayant pour but de manipuler les formules.
+        Une formule est une conjonction de plusieurs clauses
+    */
+
+
+
+    /*
     Constructeur avec paramètre
-    Crée un objet formule à partir du string formule fournis
-*/
+    Crée un objet formule à partir du string formule fournis et dont le format ressemble à : (x + x + -x) * (x + -x) * ....
+    */
     public Formule(String s){
-        tabVar = new String[100];
-        posTabVar = 0;
 
         tabVarDiff = new int[100];
         posTabVarDiff = 0;
@@ -34,7 +34,6 @@ public class Formule {
         posTabClause = 0;
 
         remplirTabClause(s);
-        remplirTabVar();
         remplirTabVarDiff();
 
 
@@ -42,8 +41,8 @@ public class Formule {
 
 
     /*
-    Constructeur sans paramètre (Formule vide)
-    Crée un objet formule vide 
+        Constructeur sans paramètre (Formule vide)
+        Crée un objet formule vide 
     */
     public Formule(){
         tabClause = new Clause[1000];
@@ -52,15 +51,15 @@ public class Formule {
         tabVarDiff = new int[100];
         posTabVarDiff = 0;
 
-        tabVar = new String[100];
-        posTabVar = 0;
     }
 
 
 
 
     /*
-        Permet de remplir la liste de clauses à partir d'une formule textuelle
+        Permet de remplir la liste de clauses à partir d'une formule sous forme d'un string
+        Algorithme : On parcours le string grâce à un lecteur de String spécifique (voir la classe "LecteurFormule") qui separt la formule en differente clause
+        et on range ces clauses dans le tableau correspondants (ont on augmente la taille)
     */
     private void remplirTabClause(String formule){
         LecteurFormule lectF = new LecteurFormule(formule);
@@ -79,29 +78,9 @@ public class Formule {
 
 
     /*
-        Permet de remplir la liste des variables
-    */
-    private void remplirTabVar() {
-        int i = 0;
-        while(i < posTabClause){
-            int j = 0;
-            Clause c = tabClause[i];
-            while(j < c.posTabVar){
-                if(!appartient(c.tabVariable[j])){
-                    tabVar[posTabVar] = c.tabVariable[j];
-                    posTabVar++;
-                }
-                j++;
-            }
-            i++;
-        }
-    }
-
-
-
-
-    /*
-        Remplis la liste des variables différentes (negatif == positif)
+        Remplis la liste des variables différentes (variable negatif == variable positif)
+        Algorithme : On parcours toutes les variables de toutes les clauses du tableau de clause. Si une variable n'est pas déjà dans le tableau -> On le rajoute
+        Sinon on ne fait rien.
     */
     private void remplirTabVarDiff() {
         int i = 0;
@@ -122,25 +101,9 @@ public class Formule {
 
 
 
-
-    /*
-        Permet de verifier si une variable est presente dans la liste des variables
-    */
-    public boolean appartient(String x){
-        int i = 0;
-        while(i<posTabVar){
-            if(x.equals(tabVar[i])){
-                return true;
-            }
-            i++;
-        }
-        return false;
-    }
-
-
-
     /*
         Permet de verifier si une variable est presente dans la liste des variables différentes
+        Algorithme : On parcours le tableau de variable et on compare l'élément courant du tableau avec l'élément mis en paramètre
     */
     public boolean appartient(int x){
         int i = 0;
@@ -157,7 +120,8 @@ public class Formule {
 
 
     /*
-        Transforme notre formule disjontive en une formule DIMACS (voir le sujet du projet si vous ne voyez pas à quoi ça ressemble)
+        Transforme notre formule disjontive en une formule DIMACS.
+        Algorithme : On parcours la liste des clauses, que l'on écrit sous forme d'un string.
     */
     public String formuleDIMACS() {
         String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause );
@@ -174,18 +138,22 @@ public class Formule {
 
 
     /*
-        Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
+        Prend une clause, puis fait la conjonction entre la formule et la clause.
+        Algorithme : Si la clause n'est pas déjà dans le tableau de clause (voir dans la Classe "CLause.java"), on rajoute cette clause à la liste
     */
     public void conjonction(Clause c){
         if(!c.appartientTabClause(tabClause, posTabClause)){
             tabClause[posTabClause] = c;
             posTabClause++;
-            remplirTabVar();
             remplirTabVarDiff();
         }
     }
 
 
+    /*
+        Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
+        Algorithme : On parcours la liste des clauses de la formule passée en paramètre et on fait la conjonction de ces clauses avec la formule actuelle.
+    */
     public void conjonction(Formule f){
         int i = 0;
         while(i < f.posTabClause){
@@ -195,7 +163,9 @@ public class Formule {
     }
 
 
-
+    /*
+        Permet d'écrire l'objet formule sous la forme d'un String du même format que celui récupéré en paramètre par le constructeur.
+    */
 
     public String toString(){
         String s = "";

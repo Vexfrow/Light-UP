@@ -22,38 +22,12 @@ public class Grille {
         -2 -> Case blanche
         0,1,2,3,4 -> Case noir avec un chiffre
 
-        Les cases sont numérotées de 0 à n
+        Les cases sont numérotées de 1 à n
     */
     public Grille(int[][] grille){
         this.grille = grille;
         nbColonnes = grille.length;
         nbLignes = nbColonnes;
-
-
-    }
-
-
-    /* 
-        Création d'une grille à partir d'une definition de la grille sous forme d'un String 
-        (Pas de format définie pour le moment)
-    */ 
-    public Grille(String definition, int lignes, int colonnes){
-        grille = new int[colonnes-1][lignes-1];
-        nbLignes = lignes;
-        nbColonnes = colonnes;
-        remplirGrille(definition);
-
-    }
-
-
-    /*
-        Permet de remplir une grille à partir de sa définition sous forme d'un String
-        (Pas de format définie pour le moment)
-    */
-    private void remplirGrille(String definition) {
-        //TODO
-
-        
     }
 
 
@@ -198,10 +172,10 @@ public class Grille {
     }
 
 
-/*
-    Prend un tableau d'entier ainsi qu'un entier appartenant au tableau, puis renvoie le tableau sans cet entier
-    Schèma de recherche
-*/ 
+    /*
+        Prend un tableau d'entier ainsi qu'un entier appartenant au tableau, puis renvoie le tableau sans cet entier
+        Schèma de recherche
+    */ 
     private int[] supprimerElementTab(int[] tab, int e){
         int i = 0;
         int pos = 0;
@@ -219,33 +193,29 @@ public class Grille {
 
 
 
-/*
-    Renvoie la formule correspondant à la première règle
-    On fait la conjonction, de la disjonction, de toutes les cases adjacentes des cases blanches
-*/  
+    /*
+        Renvoie la formule correspondant à la première règle
+        On fait la conjonction, de la disjonction, de toutes les cases adjacentes des cases blanches
+    */  
     public Formule regle1(){
 
-        Formule resRegle1 = new Formule();                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
+        Formule resRegle1 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
         int i =1;
-        while(i <= nbColonnes*nbLignes){                             //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){ //Si la case est une case blanche
+        while(i <= nbColonnes*nbLignes){                                //On parcours toutes les cases
+            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){     //Si la case est une case blanche
 
                 int j = 0;
-                int[] adjacent = adjacent(i);                       //On récupère la liste des cases adjacentes
+                int[] adjacent = adjacent(i); //On récupère la liste des cases adjacentes
 
-                String[] tabClause = new String[100];
-                tabClause[0] = ""+i;
-                int posTabClause = 1;
-
+                Clause c = new Clause();
+                c.disjonction(i);
 
                 while(j < adjacent.length){                         //Pour toutes les cases adjacente à la case blanche
-                    tabClause[posTabClause] = ""+adjacent[j];       //On fait la disjonction de toutes les cases adjacentes
-                    posTabClause++;
+                    c.disjonction(adjacent[j]);                     //On fait la disjonction de toutes les cases adjacentes
                     j++;
                 }
-                Clause c = new Clause(tabClause, posTabClause);
 
-                resRegle1.conjonction(c);                           //On fait la disjonction de cette clause avec les autres 
+                resRegle1.conjonction(c);                           //On fait la conjonction de cette clause avec les autres 
             }
             i++;
         }
@@ -256,15 +226,15 @@ public class Grille {
 
 
 
-/*
-    Renvoie la formule correspondant à la quatrième règle
-    On fait la conjonction de la négation de toutes les cases noires
-*/  
+    /*
+        Renvoie la formule correspondant à la quatrième règle
+        On fait la conjonction de la négation de toutes les cases noires
+    */  
     public Formule regle4(){
         Formule resRegle4 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
 
         int i =1;
-        while(i <= nbColonnes*nbLignes){                                 //On parcours toutes les cases
+        while(i <= nbColonnes*nbLignes){                                //On parcours toutes les cases
             if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){     //Si la case est une case noire
                 Clause caseN = new Clause("(-" + i +")");               // On crée une nouvelle clause correpondant à la règle pour la case
                 resRegle4.conjonction(caseN);                           // On fait la conjonction de cette clause avec les autres dans la formule
@@ -285,7 +255,7 @@ public class Grille {
     public Formule regle2(){
         Formule resRegle2 = new Formule();                                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
         int i =1;
-        while(i <= nbColonnes*nbLignes){                                             //On parcours toutes les cases
+        while(i <= nbColonnes*nbLignes){                                            //On parcours toutes les cases
             if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){                 //Si la case est une case blanche
 
                 int j = 0;

@@ -27,7 +27,7 @@ public class GrilleTest {
 
     @Test
     public void entierGrilleTest(){
-        Grille f = new Grille("Truc", 3, 3);
+        Grille f = new Grille(grille);
 
         assertTrue(f.entierGrille(0,0) == (1));
         assertTrue(f.entierGrille(1,0)== (4));

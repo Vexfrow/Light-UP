@@ -31,34 +31,6 @@ public class FormuleTest {
 
 
     @Test
-    public void remplirListeVariableTest(){
-        Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
-        Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
-        Formule f3 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0 + -1)");
-
-        assert(f1.tabVar[0].equals("-20"));
-        assert(f1.tabVar[1].equals("-27"));
-        assert(f1.tabVar[2].equals("-0"));
-        assert(f1.tabVar[3].equals("-2"));
-        assert(f1.posTabVar == 4);
-
-        assert(f2.tabVar[0].equals("-20"));
-        assert(f2.tabVar[1].equals("-27"));
-        assert(f2.tabVar[2].equals("-0"));
-        assert(f2.tabVar[3].equals("-2"));
-        assert(f2.posTabVar == 4);
-
-        assert(f3.tabVar[0].equals("-20"));
-        assert(f3.tabVar[1].equals("-27"));
-        assert(f3.tabVar[2].equals("-0"));
-        assert(f3.tabVar[3].equals("-2"));
-        assert(f3.tabVar[4].equals("-1"));
-        assert(f3.posTabVar == 5);
-
-
-    }
-
-    @Test
     public void remplirTabClauseTest(){
         Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
         Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
