@@ -303,7 +303,7 @@ public class Grille {
                 
                 
                 
-                else if(typeC == adj.length-1){    //Si il y a une case de + que le numéro indiqué
+                else if(typeC == adj.length-1 && typeC != CASE_NOIR_CHIFFRE4){    //Si il y a une case de + que le numéro indiqué
                     Clause c = new Clause();
                     int j = 0;
                     while(j < adj.length){
@@ -328,7 +328,7 @@ public class Grille {
                 
                 
                 
-                else if(typeC == adj.length-2){       //Si il y a deux case de + que le numéro indiqué
+                else if(typeC == adj.length-2 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3){       //Si il y a deux cases de + que le numéro indiqué
                     
                     if(typeC == CASE_NOIR_CHIFFRE1){
                         Clause c = new Clause();
@@ -392,7 +392,7 @@ public class Grille {
                 
                 
                 
-                else if(typeC == adj.length-3){        //Si il y a deux case de + que le numéro indiqué
+                else if(typeC == adj.length-3 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3 && typeC != CASE_NOIR_CHIFFRE2){        //Si il y a trois cases de + que le numéro indiqué
                     Clause c = new Clause();
                     int j = 0;
                     while(j < adj.length){
@@ -412,7 +412,15 @@ public class Grille {
                         }
                         j++;
                     }
-                } 
+                } else{     //Dans le cas où on ne rentre pas dans les critères précedent, cela veut dire que la grille n'est pas résolvable car il existe une case noir avec un chiffre qui n'a pas assez de case adjacente
+                    Clause c = new Clause();    //Dans ce cas là, on crée deux clause contradictoire qui serront reperer pas le sat solver. (Ce n'est pas la manière la + optimale, ça ressemble + à du bricolage mais ça fait le taf)
+                    c.disjonction(1);
+                    res.conjonction(c);
+                    c = new Clause();
+                    c.disjonction(-1);
+                    res.conjonction(c);
+
+                }
 
 
 
