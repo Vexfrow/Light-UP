@@ -146,7 +146,6 @@ public class GridController
             String id = bouton.getId();
             
             String style = bouton.getStyle();
-            System.out.println(style);
             String texte = bouton.getText();
             int j = id.charAt(1) - 48;
             int i = id.charAt(2) - 48;
