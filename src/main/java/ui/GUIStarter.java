@@ -4,9 +4,7 @@ public class GUIStarter {
 
 
     /*
-        NE PAS SUPPRIMER
-        CETTE CLASSE PERMET DE LANCER L'APPLICATION A PARTIT D'UN JAR 
-        AFIN DE CREE UN EXECUTABLE
+        Cette classe sert à créer un executable JAR.
     */
 
     public static void main(final String[] args){

@@ -66,6 +66,11 @@ public class GridController
                     {-2, -2, -2, -2, -2, -2, -2},
                     {-2, -2, -2, -2, -2, -2, -2}};
 
+    /*
+    SPÉCIFICATION submited
+    submited : booléen qui indique si on a appuyé sur le bouton soumettre.
+    */
+    boolean submited;
   
     /*---------------------------- METHODES -----------------------------*/
 
@@ -135,57 +140,59 @@ public class GridController
     */
     public void clickDetected(Event event)
     {
-
-        Button bouton = (Button) event.getSource();
-        String id = bouton.getId();
-        
-        String style = bouton.getStyle();
-        System.out.println(style);
-        String texte = bouton.getText();
-        int j = id.charAt(1) - 48;
-        int i = id.charAt(2) - 48;
-        switch(style)
+        if(submited == false)
         {
-            case("-fx-background-color : white; -fx-background-radius : 0px;"):
-                bouton.setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
-                tab[i][j] = -1;
-                break;
+            Button bouton = (Button) event.getSource();
+            String id = bouton.getId();
+            
+            String style = bouton.getStyle();
+            System.out.println(style);
+            String texte = bouton.getText();
+            int j = id.charAt(1) - 48;
+            int i = id.charAt(2) - 48;
+            switch(style)
+            {
+                case("-fx-background-color : white; -fx-background-radius : 0px;"):
+                    bouton.setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
+                    tab[i][j] = -1;
+                    break;
 
-            case("-fx-background-color : black; -fx-background-radius : 0px;"):
-                switch(texte)
-                {
-                    case(""):
-                        bouton.setText("0");
-                        tab[i][j] = 0;
-                        break;
+                case("-fx-background-color : black; -fx-background-radius : 0px;"):
+                    switch(texte)
+                    {
+                        case(""):
+                            bouton.setText("0");
+                            tab[i][j] = 0;
+                            break;
 
-                    case("0"):
-                        bouton.setText("1");
-                        tab[i][j] = 1;
-                        break;
+                        case("0"):
+                            bouton.setText("1");
+                            tab[i][j] = 1;
+                            break;
 
-                    case("1"):
-                        bouton.setText("2");
-                        tab[i][j] = 2;
-                        break;
+                        case("1"):
+                            bouton.setText("2");
+                            tab[i][j] = 2;
+                            break;
 
-                    case("2"):
-                        bouton.setText("3");
-                        tab[i][j] = 3;
-                        break;
+                        case("2"):
+                            bouton.setText("3");
+                            tab[i][j] = 3;
+                            break;
 
-                    case("3"):
-                        bouton.setText("4");
-                        tab[i][j] = 4;
-                        break;
+                        case("3"):
+                            bouton.setText("4");
+                            tab[i][j] = 4;
+                            break;
 
-                    case("4"):
-                        tab[i][j] = -2;
-                        bouton.setText("");
-                        bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-                        break;
-                }
-                break;   
+                        case("4"):
+                            tab[i][j] = -2;
+                            bouton.setText("");
+                            bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                            break;
+                    }
+                    break;   
+            }
         }
     }
 
@@ -198,6 +205,7 @@ public class GridController
     */
     public void submit() throws IOException, InterruptedException
     {
+        submited = true;
         Grille grid = new Grille(tab);
         String stringDimacs = grid.allRules().formuleDIMACS();
         fnc.setText(grid.allRules().toString());
@@ -219,6 +227,7 @@ public class GridController
     */
     public void reset()
     {
+        submited = false;
         Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int k = 0;
         while(k < tabButton.length)
