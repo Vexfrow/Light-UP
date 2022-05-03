@@ -39,7 +39,7 @@
          <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                <children>
-                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ECECEC; -fx-border-width: 1px; -fx-border-radius: 2px; -fx-border-color: #CECECE;" text="Veuillez saisir votre formule dans le champ suivant" textAlignment="CENTER">
+                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ECECEC; -fx-border-width: 1px; -fx-border-radius: 2px; -fx-border-color: #CECECE;" text="Veuillez saisir votre formule normale conjonctive dans le champ suivant" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
