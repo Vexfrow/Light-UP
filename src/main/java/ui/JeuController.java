@@ -1,10 +1,7 @@
 package ui;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import formalisation.Grille;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,7 +10,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import jeu.gridGenerator;
 import lecteur.LecteurStringParMot;
-import satsolver.DPLL;
 
 public class JeuController {
     /* a) RECUPERATION DE L'ATTRIBUT STAGE */
@@ -158,51 +154,18 @@ public class JeuController {
             String id = bouton.getId();
             
             String style = bouton.getStyle();
-            String texte = bouton.getText();
             int j = id.charAt(1) - 48;
             int i = id.charAt(2) - 48;
+
             switch(style)
             {
                 case("-fx-background-color : white; -fx-background-radius : 0px;"):
-                    bouton.setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
-                    tab[i][j] = -1;
+                    bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
                     break;
 
-                case("-fx-background-color : black; -fx-background-radius : 0px;"):
-                    switch(texte)
-                    {
-                        case(""):
-                            bouton.setText("0");
-                            tab[i][j] = 0;
-                            break;
-
-                        case("0"):
-                            bouton.setText("1");
-                            tab[i][j] = 1;
-                            break;
-
-                        case("1"):
-                            bouton.setText("2");
-                            tab[i][j] = 2;
-                            break;
-
-                        case("2"):
-                            bouton.setText("3");
-                            tab[i][j] = 3;
-                            break;
-
-                        case("3"):
-                            bouton.setText("4");
-                            tab[i][j] = 4;
-                            break;
-
-                        case("4"):
-                            tab[i][j] = -2;
-                            bouton.setText("");
-                            bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-                            break;
-                    }
-                    break;   
+                case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
+                    bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                    break;  
             }
         }
     }
@@ -216,16 +179,7 @@ public class JeuController {
     */
     public void submit() throws IOException, InterruptedException
     {
-        submited = true;
-        Grille grid = new Grille(tab);
-        String stringDimacs = grid.allRules().formuleDIMACS();
-        BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
-        bw.write(stringDimacs);
-        bw.flush();
-        bw.close();
-        DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
-        String resultat = sat.resultat();
-        resultGrid(resultat);
+        
     }
 
 

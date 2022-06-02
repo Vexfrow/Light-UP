@@ -86,6 +86,24 @@ public class SatSolverController
         alerte.show();
     }
 
+
+
+    /*
+    SPÉCIFICATION jouer
+    jouer : Action déclenchée lors de l'activation du bouton "Jouer".
+    Permet l'ouverture de la fenêtre du même nom.
+    */
+    public void jouer() throws IOException
+    {
+        stage.setResizable(true);
+        stage.setTitle("Grille jouable");
+            
+        App.newScene("jeux");
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.centerOnScreen();
+    }
+
     /*
     SPÉCIFICATION submit
     submit : Action déclenchée lors de l'activation du bouton "Soumettre".

@@ -3,8 +3,6 @@ package ui;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-
 
 import formalisation.Grille;
 import javafx.event.Event;
@@ -13,8 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import lecteur.LecteurStringParMot;
 import satsolver.DPLL;
@@ -118,6 +114,23 @@ public class GridController
         alerte.setHeight(600);
         alerte.setContentText("• Définissez votre grille en cliquant sur les cases\n\n• Appuyez sur le bouton \"Soumettre\" pour consulter le résultat\n\n• Appuyez sur le bouton \"Réinitialiser\" pour vider la grille et les champs de texte");
         alerte.show();
+    }
+
+
+    /*
+    SPÉCIFICATION jouer
+    jouer : Action déclenchée lors de l'activation du bouton "Jouer".
+    Permet l'ouverture de la fenêtre du même nom.
+    */
+    public void jouer() throws IOException
+    {
+        stage.setResizable(true);
+        stage.setTitle("Grille jouable");
+            
+        App.newScene("jeux");
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.centerOnScreen();
     }
 
     /* b) METHODES GERANT LES BOUTONS PROPRES A CETTE FENETRE */

@@ -31,6 +31,26 @@ public class Grille {
     }
 
 
+    public Grille(int taille){
+        this.grille = new int[taille][taille];
+        nbColonnes = taille;
+        nbLignes = taille;
+    }
+
+    public int[][] getGrille(){
+        return grille;
+    }
+
+
+    public void setValues(int value, int position){
+        grille[getLigne(position)][getColonne(position)] = value; 
+    }
+
+
+    public int getValues(int position){
+        return grille[getLigne(position)][getColonne(position)]; 
+    }
+
     /*
         Renvoie la liste de toutes les cases adjacentes à la case mise en paramètre.
         Une case est dîtes adjacente à une autre si elles sont sur la même ligne/colonne et ne sont pas séparrées par une case noire (il n'y a pas d'histoire de distance)
