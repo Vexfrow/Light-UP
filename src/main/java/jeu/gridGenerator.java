@@ -27,7 +27,9 @@ public class gridGenerator {
     private int compteur3 = 0;
     private int compteur4 = 0;
 
-    private int compteur3et4 = 0;
+    public String resultatSolveur = "";
+    public String formatDimacs = "";
+
 
     public gridGenerator(int taille){
         this.taille = taille;
@@ -36,9 +38,9 @@ public class gridGenerator {
 
 
     public void generate() throws InterruptedException, IOException{
-        String resultat = "Insatisfaisable";
+        resultatSolveur = "Insatisfaisable";
 
-        while(resultat.equals("Insatisfaisable")){
+        while(resultatSolveur.equals("Insatisfaisable")){
             int i = 1;
 
             while(i <= taille*taille){
@@ -59,11 +61,13 @@ public class gridGenerator {
 
             }
             BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
-            bw.write(grid.allRules().formuleDIMACS());
+            formatDimacs = grid.allRules().formuleDIMACS();
+            bw.write(formatDimacs);
             bw.flush();
             bw.close();
+
             DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
-            resultat = sat.resultat();
+            resultatSolveur = sat.resultat();
 
         }
     }
@@ -148,40 +152,14 @@ public class gridGenerator {
     }
 
 
-    public static void main(String[] args) throws InterruptedException, IOException{
 
-        gridGenerator g = new gridGenerator(7);
-        g.generate();
+    public String getResultatSolveur() {
+        return resultatSolveur;
+    }
 
-        int i =1;
-        int col = 0;
-        int ligne = 0;
-        int count = 0;
 
-        while(ligne < g.taille){
-            while(col < g.taille){
-                System.out.print("|\t");
-                System.out.print(g.grid.getValues(i)+ "\t");
-                if(g.grid.getValues(i) == 3 || g.grid.getValues(i) == 4){
-                    count++;
-                }
-                col++;
-                i++;
-            }
-
-            System.out.print("| \n");
-
-            int l = 0;
-            while(l < g.taille*16){
-                System.out.print("-");
-                l++;
-            }
-            System.out.print("-\n");
-            ligne++;
-            col = 0;
-        }
-        System.out.print("Count : " + count + '\n');
-
+    public String getFormatDimacs() {
+        return formatDimacs;
     }
 
 

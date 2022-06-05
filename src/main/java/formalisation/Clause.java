@@ -6,7 +6,7 @@ public class Clause {
     public int[] tabVariable = new int[100];
     public int posTabVar;
 
-    //Tableau des variables différentes (variables pos == variable négatif) ; Ainsi que que l'indicateur de sa taille.
+    //Tableau des variables différentes (variables pos == variable négatif) ; Ainsi que l'indicateur de sa taille.
     public int[] tabVarDiff = new int[100];
     public int posTabVarDiff;
 
@@ -35,7 +35,6 @@ public class Clause {
     public Clause(){
         posTabVar = 0;
         posTabVarDiff = 0;
-
     }
 
 
@@ -170,9 +169,9 @@ public class Clause {
 
 
     /*
-        Permet de savoir si deux clauses sont équivalentes. Deux clauses sont dîtes équivalentes si elles ont exactement les mêmes varaibles, l'ordre importe peu.
-        Algorithme : On parcours la liste des variables de la clause actuels et on regarde si ces variables sont dans la liste de variable de la clause mise en paramètre.
-        On compart seulement si les deux clauses ont la même taille.
+        Permet de savoir si deux clauses sont équivalentes. Deux clauses sont dîtes équivalentes si elles ont exactement les mêmes variables, l'ordre importe peu.
+        Algorithme : On parcours la liste des variables de la clause actuelle et on regarde si ces variables sont dans la liste des variables de la clause mise en paramètre.
+        On compare seulement si les deux clauses ont la même taille.
     */
     public boolean equivalent(Clause c){
         boolean equal;

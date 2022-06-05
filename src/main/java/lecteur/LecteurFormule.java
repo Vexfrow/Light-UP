@@ -23,7 +23,7 @@ public class LecteurFormule implements AccesSequentielModele1<String>{
     }
 
 
-    @Override
+    
     public void avancer() {
         elementActuel = "";
         while(i < formule.length() && formule.charAt(i) != '*' && formule.charAt(i) != '&' && formule.charAt(i) != '^' ){
@@ -36,13 +36,13 @@ public class LecteurFormule implements AccesSequentielModele1<String>{
     }
 
 
-    @Override
+    
     public boolean finDeSequence() {
         return (i == formule.length() && elementActuel.equals(""));
     }
 
 
-    @Override
+    
     public String elementCourant() {
         return elementActuel;
     }

@@ -43,7 +43,7 @@ public class LecteurStringParMot implements AccesSequentielModele1<String>{
         ligne = lig;
         debut = 0;
         fin = 0;
-        separateurs = " \t";
+        separateurs = " \t \n";
     }
 
     /**

@@ -1,23 +1,28 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
+
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import jeu.gridGenerator;
 import lecteur.LecteurStringParMot;
 
 public class JeuController {
-    /* a) RECUPERATION DE L'ATTRIBUT STAGE */
+
     Stage stage = App.stage;
 
 
-
-    //Récupération des boutons qui correspondent aux cases de la grille
     @FXML Button b00; @FXML Button b01; @FXML Button b02; @FXML Button b03; @FXML Button b04; @FXML Button b05; @FXML Button b06;
     @FXML Button b10; @FXML Button b11; @FXML Button b12; @FXML Button b13; @FXML Button b14; @FXML Button b15; @FXML Button b16;
     @FXML Button b20; @FXML Button b21; @FXML Button b22; @FXML Button b23; @FXML Button b24; @FXML Button b25; @FXML Button b26;
@@ -26,24 +31,14 @@ public class JeuController {
     @FXML Button b50; @FXML Button b51; @FXML Button b52; @FXML Button b53; @FXML Button b54; @FXML Button b55; @FXML Button b56;
     @FXML Button b60; @FXML Button b61; @FXML Button b62; @FXML Button b63; @FXML Button b64; @FXML Button b65; @FXML Button b66;
 
-    /* c) Attributs de la classe */
-    /*
-    SPÉCIFICATION tab
-    tab : tableau à deux dimension d'entiers qui représente la grille.
-    Il sera donné en paramètre pour à la partie Logique de ce programme pour créer les résultats finaux.
-    */
-    gridGenerator g = new gridGenerator(7);
+
+    gridGenerator grille;
+
+    int[] resultTab = new int[49];
 
 
-    int[][] tab;
-
-
-    /*
-    SPÉCIFICATION submited
-    submited : booléen qui indique si on a appuyé sur le bouton soumettre.
-    */
-    boolean submited;
-
+    String resultatSolveur = "";
+    String formuleDimacs = "";
 
 
     /*---------------------------- METHODES -----------------------------*/
@@ -146,40 +141,125 @@ public class JeuController {
     PARAMETRES :
     •   event de type Event : permet de récupérer l'objet sur lequel a été effectué le clic.
     */
-    public void clickDetected(Event event)
-    {
-        if(submited == false)
-        {
-            Button bouton = (Button) event.getSource();
-            String id = bouton.getId();
+    public void clickDetected(Event event){
+        Button bouton = (Button) event.getSource();
             
-            String style = bouton.getStyle();
-            int j = id.charAt(1) - 48;
-            int i = id.charAt(2) - 48;
+        String style = bouton.getStyle();
 
-            switch(style)
-            {
-                case("-fx-background-color : white; -fx-background-radius : 0px;"):
-                    bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
-                    break;
 
-                case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
-                    bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-                    break;  
-            }
+        switch(style){
+
+            case("-fx-background-color : white; -fx-background-radius : 0px;"):
+                bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                break;
+
+            case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
+                bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                break;  
         }
+        
     }
+
+
 
     /*
     SPÉCIFICATION submit
     submit : Action déclenchée lors de l'activation du bouton "Soumettre".
-    Permet de valider et de lancer le programme.
-    Concrètement on donne tab à la partie "logique" du projet puis on affiche 
-    le résultat.
     */
-    public void submit() throws IOException, InterruptedException
-    {
+    public void submit() throws IOException, InterruptedException{
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        int k = 0;
+
+        while(k < tabButton.length){
+            if(tabButton[k].getStyle().equals("-fx-background-color : #F0B20F; -fx-background-radius : 300px;")){
+                resultTab[k] = k+1;
+            }else{
+                resultTab[k] = -(k+1);
+            }
+            k++;
+        }
+
+
+        LecteurStringParMot lect = new LecteurStringParMot(formuleDimacs);
+        lect.demarrer();
+        lect.avancer();
+        lect.avancer();
+        lect.avancer();
+        lect.avancer();
+
+        boolean correct = true;
+        while(!lect.finDeSequence() && correct){
+            correct = false;
+            int i = Integer.parseInt(lect.elementCourant());
+
+            while(i != 0 && !correct && !lect.finDeSequence()){
+                
+                correct = estContenue(i);
+                lect.avancer();
+                i = Integer.parseInt(lect.elementCourant());
+
+            }
+            if(correct){
+                while(i != 0 && !lect.finDeSequence()){
+                    lect.avancer();
+                    i = Integer.parseInt(lect.elementCourant());
+                }
+            }
+            lect.avancer();
+        }
+
+        Alert alerte = new Alert(AlertType.INFORMATION);
+        alerte.setTitle("Resultat");
+        if(correct){
+
+            File file = new File("./src/main/resources/content/congratulation.mp4");
+            Media media = new Media(file.toURI().toString());
+            MediaPlayer mp = new MediaPlayer(media);
+            mp.setAutoPlay(true);
+            MediaView mv = new MediaView(mp);
+            mv.setFitWidth(500);
+            mv.setFitHeight(300);
+
+            alerte.setWidth(mv.getFitWidth());
+            alerte.setHeight(mv.getFitHeight()+100);
+            alerte.setHeaderText(null);
+            alerte.setGraphic(null);
+            alerte.getDialogPane().setContent(mv);
+            alerte.setOnCloseRequest(e -> mp.stop());
+            alerte.show();
+
+        }else{
+
+            File file = new File("./src/main/resources/content/wrong.mp4");
+            Media media = new Media(file.toURI().toString());
+            MediaPlayer mp = new MediaPlayer(media);
+            mp.setAutoPlay(true);
+            MediaView mv = new MediaView(mp);
+            mv.setFitWidth(200);
+            mv.setFitHeight(300);
+
+            alerte.setWidth(mv.getFitWidth());
+            alerte.setHeight(mv.getFitHeight()+100);
+            alerte.setHeaderText(null);
+            alerte.setGraphic(null);
+            alerte.getDialogPane().setContent(mv);
+            alerte.setOnCloseRequest(e -> mp.stop());
+            alerte.show();
+        }
+
+
+
         
+    }
+
+    private boolean estContenue(int i){
+        int k = 1;
+        boolean result = false;
+        while(k <= resultTab.length && !result){
+            result = (i == resultTab[k-1]);
+            k++;
+        }
+        return result;
     }
 
 
@@ -189,8 +269,7 @@ public class JeuController {
         int i = 0;
         LecteurStringParMot lect = new LecteurStringParMot(resultat);
         lect.demarrer();
-        while(!lect.finDeSequence())
-        {
+        while(!lect.finDeSequence()){
             
             if(lect.elementCourant().charAt(0) != '-' && estChiffre(lect.elementCourant().charAt(0)))
             {
@@ -210,7 +289,6 @@ public class JeuController {
     }
 
     public boolean estChiffre (char c){
-
         return ( c >= '0' && c <= '9');
     }
 
@@ -223,8 +301,8 @@ public class JeuController {
 
 
     public void generateGrid() throws InterruptedException, IOException{
-        gridGenerator gg = new gridGenerator(7);
-        gg.generate();
+        grille = new gridGenerator(7);
+        grille.generate();
 
         Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int k = 0;
@@ -232,12 +310,12 @@ public class JeuController {
 
         while(k < tabButton.length){
 
-            if(gg.grid.getValues(k+1) == -2){
+            if(grille.grid.getValues(k+1) == -2){
                 tabButton[k].setText("");
                 tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(false);
             }else{
-                tabButton[k].setText(""+gg.grid.getValues(k+1));
+                tabButton[k].setText(""+grille.grid.getValues(k+1));
                 tabButton[k].setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(true);
             }
@@ -251,6 +329,9 @@ public class JeuController {
             k++;
 
         }
+
+        resultatSolveur = grille.getResultatSolveur();
+        formuleDimacs = grille.getFormatDimacs();
     }
 
 
