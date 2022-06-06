@@ -6,11 +6,9 @@ import java.io.IOException;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -30,6 +28,8 @@ public class JeuController {
     @FXML Button b40; @FXML Button b41; @FXML Button b42; @FXML Button b43; @FXML Button b44; @FXML Button b45; @FXML Button b46;
     @FXML Button b50; @FXML Button b51; @FXML Button b52; @FXML Button b53; @FXML Button b54; @FXML Button b55; @FXML Button b56;
     @FXML Button b60; @FXML Button b61; @FXML Button b62; @FXML Button b63; @FXML Button b64; @FXML Button b65; @FXML Button b66;
+
+    Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
 
 
     gridGenerator grille;
@@ -131,13 +131,8 @@ public class JeuController {
     Entraîne une modification du bouton en fonction de sa couleur et de son texte initial,
     et modifie le tableau tab en fonction. (→ : représente un clic sur le bouton)
     Une configuration sera représenté par un triplet : (couleur ; texte ; valeur dans tab)
-    •   (blanc ; "" ; -2)   →   (noir ; "" ; -1)         
+    •   (blanc ; "" ; -2)   →   (jaune ; "" ; -1)         
     •   (noir ; "" ; -1)    →   (noir ; "0" ; 0)
-    •   (noir ; "0" ; 0)    →   (noir ; "1" ; 1)
-    •   (noir ; "1" ; 1)    →   (noir ; "2" ; 2)
-    •   (noir ; "2" ; 2)    →   (noir ; "3" ; 3)
-    •   (noir ; "3" ; 3)    →   (noir ; "4" ; 4)
-    •   (noir ; "4" ; 4)    →   (blanc ; "" ; -2)
     PARAMETRES :
     •   event de type Event : permet de récupérer l'objet sur lequel a été effectué le clic.
     */
@@ -166,8 +161,7 @@ public class JeuController {
     SPÉCIFICATION submit
     submit : Action déclenchée lors de l'activation du bouton "Soumettre".
     */
-    public void submit() throws IOException, InterruptedException{
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+    public void submit(){
         int k = 0;
 
         while(k < tabButton.length){
@@ -187,13 +181,13 @@ public class JeuController {
         lect.avancer();
         lect.avancer();
 
+
         boolean correct = true;
         while(!lect.finDeSequence() && correct){
             correct = false;
             int i = Integer.parseInt(lect.elementCourant());
 
             while(i != 0 && !correct && !lect.finDeSequence()){
-                
                 correct = estContenue(i);
                 lect.avancer();
                 i = Integer.parseInt(lect.elementCourant());
@@ -210,20 +204,25 @@ public class JeuController {
 
         Alert alerte = new Alert(AlertType.INFORMATION);
         alerte.setTitle("Resultat");
+        alerte.setHeaderText(null);
+        alerte.setGraphic(null);
+
+        Media media;
+        MediaPlayer mp;
+        MediaView mv;
+
         if(correct){
 
             File file = new File("./src/main/resources/content/congratulation.mp4");
-            Media media = new Media(file.toURI().toString());
-            MediaPlayer mp = new MediaPlayer(media);
+            media = new Media(file.toURI().toString());
+            mp = new MediaPlayer(media);
             mp.setAutoPlay(true);
-            MediaView mv = new MediaView(mp);
+            mv = new MediaView(mp);
             mv.setFitWidth(500);
             mv.setFitHeight(300);
 
             alerte.setWidth(mv.getFitWidth());
             alerte.setHeight(mv.getFitHeight()+100);
-            alerte.setHeaderText(null);
-            alerte.setGraphic(null);
             alerte.getDialogPane().setContent(mv);
             alerte.setOnCloseRequest(e -> mp.stop());
             alerte.show();
@@ -231,17 +230,15 @@ public class JeuController {
         }else{
 
             File file = new File("./src/main/resources/content/wrong.mp4");
-            Media media = new Media(file.toURI().toString());
-            MediaPlayer mp = new MediaPlayer(media);
+            media = new Media(file.toURI().toString());
+            mp = new MediaPlayer(media);
             mp.setAutoPlay(true);
-            MediaView mv = new MediaView(mp);
+            mv = new MediaView(mp);
             mv.setFitWidth(200);
             mv.setFitHeight(300);
 
             alerte.setWidth(mv.getFitWidth());
             alerte.setHeight(mv.getFitHeight()+100);
-            alerte.setHeaderText(null);
-            alerte.setGraphic(null);
             alerte.getDialogPane().setContent(mv);
             alerte.setOnCloseRequest(e -> mp.stop());
             alerte.show();
@@ -265,7 +262,6 @@ public class JeuController {
 
 
     public void resultGrid(String resultat){
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int i = 0;
         LecteurStringParMot lect = new LecteurStringParMot(resultat);
         lect.demarrer();
@@ -295,18 +291,17 @@ public class JeuController {
 
 
     @FXML 
-    private void initialize() throws InterruptedException, IOException{
+    private void initialize(){
         generateGrid();
     }
 
 
-    public void generateGrid() throws InterruptedException, IOException{
+
+    public void generateGrid(){
         grille = new gridGenerator(7);
-        grille.generate();
+        grille.generateGrid();
 
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int k = 0;
-
 
         while(k < tabButton.length){
 

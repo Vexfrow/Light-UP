@@ -2,13 +2,13 @@ package formalisation;
 
 public class Grille {
 
-    private static int CASE_NOIR_SANS_CHIFFRE = -1;
-    private static int CASE_BLANCHE = -2;
-    private static int CASE_NOIR_CHIFFRE0 = 0;
-    private static int CASE_NOIR_CHIFFRE1 = 1;
-    private static int CASE_NOIR_CHIFFRE2 = 2;
-    private static int CASE_NOIR_CHIFFRE3 = 3;
-    private static int CASE_NOIR_CHIFFRE4 = 4;
+    private final int CASE_NOIR_SANS_CHIFFRE = -1;
+    private final int CASE_BLANCHE = -2;
+    private final int CASE_NOIR_CHIFFRE0 = 0;
+    private final int CASE_NOIR_CHIFFRE1 = 1;
+    private final int CASE_NOIR_CHIFFRE2 = 2;
+    private final int CASE_NOIR_CHIFFRE3 = 3;
+    private final int CASE_NOIR_CHIFFRE4 = 4;
 
     private int[][] grille;
     private int nbLignes;

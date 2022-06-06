@@ -14,15 +14,9 @@ public class DPLL {
         public String tab[]; // Liste des clauses
         public int var[]; // Liste des valeurs des litteraux 0 ou 1(var[i] = litteral i+1 : ex = var[2] = n°3 = 0 ou 1 )
         public String isoles[]; // Liste des litteraux isole (a mettre a jour)
-        public static void main (String[] args) throws InterruptedException, IOException{
-            //Preparer les constructeur et lire le fichiers DIMACS
-            DPLL sat = new DPLL("./Dimac.txt");
-            boolean sortie = sat.dpll();
-
-        }
 
         
-        public String resultat () throws IOException, InterruptedException{
+        public String resultat () throws IOException{
             boolean sortie = this.dpll();
             String res = "";
             int i = 0;
@@ -40,7 +34,9 @@ public class DPLL {
             }
             return "Insatisfaisable";
         }
-    //zone constructeurs
+
+
+        //zone constructeurs
         public DPLL (String fichier) throws IOException{
             File file = new File(fichier);
             BufferedReader buffer = new BufferedReader(new FileReader(file));
@@ -79,6 +75,8 @@ public class DPLL {
             buffer.close();
         }
 
+
+
         public DPLL ( int n2, int l2, int z2,boolean absurde2,String tab2[],int var2[], String[] isoles2 ){
             this.n = n2; 
             this.l = l2; 
@@ -99,9 +97,11 @@ public class DPLL {
             this.isoles = isoles2;
         }
         
+
+
         //algorithme dpll : si renvoie false alors il n'y a pas de solution
         //                  si renvoie true alors renvoie la solution
-        public boolean dpll () throws InterruptedException, IOException{
+        public boolean dpll (){
             boolean estModele = false; // variable local
             if(this.absurde){ // l'ensemble des clauses contient une clause vide (soit une clause mise a 0 donc il ne peut pas y avoir de solution)
                 return false;
@@ -135,8 +135,10 @@ public class DPLL {
     
         }
         
+
+
         //Supprime les clauses sontenu dans d'autre
-        public void suppContenu() throws IOException{
+        public void suppContenu(){
             int i = 0;
             int j = 0;
             while(i < n){
@@ -168,6 +170,8 @@ public class DPLL {
             }
         }
    
+
+
         //version avec des tableau de string
         public boolean  estContenu(String[] inclus, String[] dans){ 
             int l = inclus.length;
@@ -193,8 +197,10 @@ public class DPLL {
             return contient;
         }
     
+
+
         //Supprime les clauses contenant des litteraux isoles (ajouter l'appel a DPLL)
-        public boolean suppIsole() throws IOException{
+        public boolean suppIsole(){
             isoleList();
             int i = 0;
             int j = 0;
@@ -219,8 +225,11 @@ public class DPLL {
             return estChange;
         }
     
+
+
+
         //applique la resolution unitaire
-        public boolean resUnitaire() throws NumberFormatException, IOException{
+        public boolean resUnitaire() throws NumberFormatException{
             int i = 0;
             String sol = "";
             boolean estChange = false;
@@ -254,7 +263,10 @@ public class DPLL {
             return estChange;
         }
     
-        public boolean choix(int pos, int val, String[] copie) throws InterruptedException, IOException{            
+
+
+
+        public boolean choix(int pos, int val, String[] copie){            
             //Si on trouve une variable à instancier
             DPLL neo = new DPLL(this.n, this.l, this.z,this.absurde,copie,this.var, this.isoles);
             neo.maj(pos, val);            
@@ -272,9 +284,11 @@ public class DPLL {
             return false;            
         }
     
-        //Done
+
+
+
         //supprime un element du tabelau et remonte les autres
-        public void suppTab(int k) throws IOException{
+        public void suppTab(int k){
             int j = k+1;
             while(j < this.n){
                 this.tab[k] = this.tab[j];
@@ -283,11 +297,10 @@ public class DPLL {
             }
             this.n--;
         }
-    
-        //Done
+
+
         //Met à jour la liste des litteraux isolés (nécessaire lors de la suppression des clauses avec litteraux isolés)
-        public void isoleList ()
-        {
+        public void isoleList (){
             int j = 0;
             int i = 0;
             boolean pos = false;
@@ -331,8 +344,10 @@ public class DPLL {
             }
         }
     
+
+
         //Mettre a jour toute les clauses
-        public void maj(int pos, int valeur) throws IOException{
+        public void maj(int pos, int valeur){
             int i = 0;
             int j = 0;
             if(pos < this.l){
@@ -374,8 +389,9 @@ public class DPLL {
                             }
                             i++;
                         }
-                    }
-                    else if(this.var[j] == 1){ // si la variable est instancié à 1
+
+                    }else if(this.var[j] == 1){ // si la variable est instancié à 1
+
                         while(i < this.n){ //Pour toute les clauses
                             if (estContenu(calc,this.tab[i].split(" "))){ //Si la variable est positive (a = 1)
                                 //Pour les memes raison qu'au-dessus
@@ -410,8 +426,12 @@ public class DPLL {
             this.maj();
         }
     
+
+
+
+
         //Met a jour la variable absurde pour dire si il existe une clause vide 
-        public void maj() throws IOException{
+        public void maj(){
             
             int i = 0;
             while(i < this.n){

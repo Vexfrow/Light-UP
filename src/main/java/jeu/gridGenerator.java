@@ -11,6 +11,8 @@ public class gridGenerator {
 
     private int taille;
     public Grille grid;
+
+
     private final int count0 = 1;
     private final int countM1 = 10;
     private final int countM2 = 40;
@@ -27,17 +29,19 @@ public class gridGenerator {
     private int compteur3 = 0;
     private int compteur4 = 0;
 
-    public String resultatSolveur = "";
-    public String formatDimacs = "";
+    private String resultatSolveur;
+    private String formatDimacs;
 
 
     public gridGenerator(int taille){
         this.taille = taille;
         grid = new Grille(taille);
+        resultatSolveur = null;
+        formatDimacs = null;
     }
 
 
-    public void generate() throws InterruptedException, IOException{
+    public void generateGrid(){
         resultatSolveur = "Insatisfaisable";
 
         while(resultatSolveur.equals("Insatisfaisable")){
@@ -60,14 +64,19 @@ public class gridGenerator {
                 }
 
             }
-            BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
-            formatDimacs = grid.allRules().formuleDIMACS();
-            bw.write(formatDimacs);
-            bw.flush();
-            bw.close();
 
-            DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
-            resultatSolveur = sat.resultat();
+            try{
+                BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
+                formatDimacs = grid.allRules().formuleDIMACS();
+                bw.write(formatDimacs);
+                bw.flush();
+                bw.close();
+    
+                DPLL sat = new DPLL("src/main/resources/ui/dimacsCourant.txt");
+                resultatSolveur = sat.resultat();
+            }catch(IOException e){
+                System.out.println("Fichier introuvable !");
+            }
 
         }
     }
@@ -82,7 +91,8 @@ public class gridGenerator {
         compteur4 = 0;
     }
 
-    private boolean isPossible(int value, int position) throws InterruptedException{
+
+    private boolean isPossible(int value, int position){
         boolean compteur;
 
         switch(value){
