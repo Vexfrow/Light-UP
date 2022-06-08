@@ -81,6 +81,9 @@ public class gridGenerator {
         }
     }
 
+
+
+
     private void resetCompteur(){
         compteur0 = 0;
         compteurM1 = 0;

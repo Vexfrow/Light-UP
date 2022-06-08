@@ -29,12 +29,13 @@ public class JeuController {
     @FXML Button b50; @FXML Button b51; @FXML Button b52; @FXML Button b53; @FXML Button b54; @FXML Button b55; @FXML Button b56;
     @FXML Button b60; @FXML Button b61; @FXML Button b62; @FXML Button b63; @FXML Button b64; @FXML Button b65; @FXML Button b66;
 
-    Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
-
 
     gridGenerator grille;
 
     int[] resultTab = new int[49];
+
+    @FXML 
+    MediaView mediaView;
 
 
     String resultatSolveur = "";
@@ -138,23 +139,50 @@ public class JeuController {
     */
     public void clickDetected(Event event){
         Button bouton = (Button) event.getSource();
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
             
         String style = bouton.getStyle();
-
+        int[] listeB = grille.grid.adjacent(getPositionButton(bouton)+1);
+        int i;
 
         switch(style){
-
             case("-fx-background-color : white; -fx-background-radius : 0px;"):
+                i = 0;
+                while(i < listeB.length){
+                    tabButton[listeB[i]-1].setStyle("-fx-background-color : yellow; -fx-background-radius : 0px;");
+                    i++;
+                }
                 bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+
                 break;
 
+
             case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
+                i = 0;
+                while(i < listeB.length){
+                    tabButton[listeB[i]-1].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                    i++;
+                }
                 bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
                 break;  
+
+
+            case("-fx-background-color : yellow; -fx-background-radius : 0px;"):
+                bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                break;
         }
         
     }
 
+
+    private int getPositionButton(Button b){
+        int i = 0;
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        while( i < tabButton.length && !b.equals(tabButton[i])){
+            i++;
+        }
+        return i;
+    }
 
 
     /*
@@ -163,6 +191,7 @@ public class JeuController {
     */
     public void submit(){
         int k = 0;
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
 
         while(k < tabButton.length){
             if(tabButton[k].getStyle().equals("-fx-background-color : #F0B20F; -fx-background-radius : 300px;")){
@@ -202,67 +231,45 @@ public class JeuController {
             lect.avancer();
         }
 
-        Alert alerte = new Alert(AlertType.INFORMATION);
-        alerte.setTitle("Resultat");
-        alerte.setHeaderText(null);
-        alerte.setGraphic(null);
-
         Media media;
         MediaPlayer mp;
-        MediaView mv;
 
         if(correct){
-
             File file = new File("./src/main/resources/content/congratulation.mp4");
             media = new Media(file.toURI().toString());
             mp = new MediaPlayer(media);
             mp.setAutoPlay(true);
-            mv = new MediaView(mp);
-            mv.setFitWidth(500);
-            mv.setFitHeight(300);
-
-            alerte.setWidth(mv.getFitWidth());
-            alerte.setHeight(mv.getFitHeight()+100);
-            alerte.getDialogPane().setContent(mv);
-            alerte.setOnCloseRequest(e -> mp.stop());
-            alerte.show();
+            mediaView.setMediaPlayer(mp);
+            mediaView.setFitWidth(400);
+            mediaView.setFitHeight(250);
+            generateGrid();
 
         }else{
-
             File file = new File("./src/main/resources/content/wrong.mp4");
             media = new Media(file.toURI().toString());
             mp = new MediaPlayer(media);
             mp.setAutoPlay(true);
-            mv = new MediaView(mp);
-            mv.setFitWidth(200);
-            mv.setFitHeight(300);
-
-            alerte.setWidth(mv.getFitWidth());
-            alerte.setHeight(mv.getFitHeight()+100);
-            alerte.getDialogPane().setContent(mv);
-            alerte.setOnCloseRequest(e -> mp.stop());
-            alerte.show();
+            mediaView.setMediaPlayer(mp);
+            mediaView.setFitWidth(200);
+            mediaView.setFitHeight(250);
         }
-
-
-
-        
+ 
     }
+
 
     private boolean estContenue(int i){
         int k = 1;
-        boolean result = false;
-        while(k <= resultTab.length && !result){
-            result = (i == resultTab[k-1]);
+        while(k <= resultTab.length && i != resultTab[k-1]){
             k++;
         }
-        return result;
+        return k <= resultTab.length;
     }
 
 
 
     public void resultGrid(String resultat){
         int i = 0;
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         LecteurStringParMot lect = new LecteurStringParMot(resultat);
         lect.demarrer();
         while(!lect.finDeSequence()){
@@ -302,7 +309,8 @@ public class JeuController {
         grille.generateGrid();
 
         int k = 0;
-
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        
         while(k < tabButton.length){
 
             if(grille.grid.getValues(k+1) == -2){
@@ -330,5 +338,42 @@ public class JeuController {
     }
 
 
+
+    public void showSolution(){
+
+
+    }
+
+
+
+
+
+    public void reset(){
+        int k = 0;
+        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        
+        while(k < tabButton.length){
+
+            if(grille.grid.getValues(k+1) == -2){
+                tabButton[k].setText("");
+                tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                tabButton[k].setDisable(false);
+            }else{
+                tabButton[k].setText(""+grille.grid.getValues(k+1));
+                tabButton[k].setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
+                tabButton[k].setDisable(true);
+            }
+            
+            tabButton[k].setMaxWidth(40);
+            tabButton[k].setPrefWidth(40);
+            tabButton[k].setMinWidth(40);
+            tabButton[k].setMaxHeight(40);
+            tabButton[k].setPrefHeight(40);
+            tabButton[k].setMinHeight(40);
+            k++;
+
+        }
+
+    }
 
 }
