@@ -44,14 +44,8 @@ public class SatSolverController
     backToWelcome : Action déclenchée lors de l'activation du bouton "Accueil".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void backToWelcome() throws IOException
-    {
-        stage.setTitle("Acceuil");
+    public void backToWelcome() throws IOException{
         App.newScene("welcome");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.setResizable(false);
-        stage.centerOnScreen();
     }
 
     /*
@@ -59,15 +53,8 @@ public class SatSolverController
     openLightUpSolver: Action déclenchée lors de l'activation du bouton "Solveur de Light Up".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void openLightUpSolver() throws IOException
-    {
-            stage.setResizable(true);
-            stage.setTitle("Solveur de Light Up");
-            
+    public void openLightUpSolver() throws IOException{
             App.newScene("grid");
-            stage.setHeight(432);
-            stage.setWidth(1000);
-            stage.centerOnScreen();
     }
 
 
@@ -76,8 +63,7 @@ public class SatSolverController
     help : Action déclenchée lors de l'activation du bouton "Aide".
     Entraîne l'apparition d'une alerte indiquant une aide.
     */
-    public void help()
-    {
+    public void help(){
         Alert alerte = new Alert(AlertType.INFORMATION);
         alerte.setHeaderText("Aide pour utiliser cet outil");
         alerte.setWidth(500);
@@ -93,16 +79,20 @@ public class SatSolverController
     jouer : Action déclenchée lors de l'activation du bouton "Jouer".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void jouer() throws IOException
-    {
-        stage.setResizable(true);
-        stage.setTitle("Grille jouable");
-            
+    public void jouer() throws IOException{  
         App.newScene("jeux");
+    }
+
+
+    @FXML
+    public void initialize(){
+        stage.setResizable(true);
+        stage.setTitle("SAT-Solver");
         stage.setHeight(432);
         stage.setWidth(1000);
         stage.centerOnScreen();
     }
+
 
     /*
     SPÉCIFICATION submit
@@ -112,8 +102,7 @@ public class SatSolverController
     puis on la donne à la partie "logique" du projet et on affiche 
     le résultat.
     */
-    public void submit() throws IOException, InterruptedException
-    {
+    public void submit() throws IOException{
         Formule formuleSaisie = new Formule(formule.getText());
         String stringDimacs = formuleSaisie.formuleDIMACS();
         dimacs.setText(stringDimacs);
@@ -132,8 +121,7 @@ public class SatSolverController
     reset : Action déclenchée lors de l'activation du bouton "Réinitialiser".
     Permet de remettre les champs de texte dans leur état inital.
     */
-    public void reset()
-    {
+    public void reset(){
         formule.setText("");
         dimacs.setText("");
         satsolver.setText("");

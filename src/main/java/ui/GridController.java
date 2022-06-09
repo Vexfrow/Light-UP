@@ -76,14 +76,8 @@ public class GridController
     backToWelcome : Action déclenchée lors de l'activation du bouton "Accueil".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void backToWelcome() throws IOException
-    {
-        stage.setTitle("Acceuil");
+    public void backToWelcome() throws IOException{
         App.newScene("welcome");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.setResizable(false);
-        stage.centerOnScreen();
     }
 
     /*
@@ -122,15 +116,8 @@ public class GridController
     jouer : Action déclenchée lors de l'activation du bouton "Jouer".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void jouer() throws IOException
-    {
-        stage.setResizable(true);
-        stage.setTitle("Grille jouable");
-            
+    public void jouer() throws IOException{
         App.newScene("jeux");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
     }
 
     /* b) METHODES GERANT LES BOUTONS PROPRES A CETTE FENETRE */
@@ -237,8 +224,7 @@ public class GridController
     reset : Action déclenchée lors de l'activation du bouton "Réinitialiser".
     Permet de remettre la grille, tab et les champs de texte dans leur état inital.
     */
-    public void reset()
-    {
+    public void reset(){
         submited = false;
         Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int k = 0;
@@ -254,59 +240,7 @@ public class GridController
             tabButton[k].setMinHeight(40);
             k++;
         }
-        //Façon de faire un peu bourrine pour reset les boutons j'y reflechirai ultérieurement :
-        //Donc là c'est pour enlever le texte dans les boutons et les remettre en 
-        /*
-        b00.setText(""); b00.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b01.setText(""); b01.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b02.setText(""); b02.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b03.setText(""); b03.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b04.setText(""); b04.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b05.setText(""); b05.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b06.setText(""); b06.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b10.setText(""); b10.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b11.setText(""); b11.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b12.setText(""); b12.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b13.setText(""); b13.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b14.setText(""); b14.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b15.setText(""); b15.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b16.setText(""); b16.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b20.setText(""); b20.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b21.setText(""); b21.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b22.setText(""); b22.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b23.setText(""); b23.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b24.setText(""); b24.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b25.setText(""); b25.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b26.setText(""); b26.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b30.setText(""); b30.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b31.setText(""); b31.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b32.setText(""); b32.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b33.setText(""); b33.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b34.setText(""); b34.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b35.setText(""); b35.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b36.setText(""); b36.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b40.setText(""); b40.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b41.setText(""); b41.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b42.setText(""); b42.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b43.setText(""); b43.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b44.setText(""); b44.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b45.setText(""); b45.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b46.setText(""); b46.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b50.setText(""); b50.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b51.setText(""); b51.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b52.setText(""); b52.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b53.setText(""); b53.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b54.setText(""); b54.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b55.setText(""); b55.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b56.setText(""); b56.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b60.setText(""); b60.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b61.setText(""); b61.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b62.setText(""); b62.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b63.setText(""); b63.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b64.setText(""); b64.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b65.setText(""); b65.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        b66.setText(""); b66.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-        */
+       
         //Ici on réinitialise le tableau tab avec des -2 partout :
         int i = 0;
         int j = 0;
@@ -360,6 +294,14 @@ public class GridController
   
 
 
+    @FXML 
+    public void initialize(){
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.centerOnScreen();
+        stage.setResizable(true);
+        stage.setTitle("Solveur de Light Up");
+    }
     
 
 

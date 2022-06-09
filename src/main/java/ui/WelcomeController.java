@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -26,15 +27,8 @@ public class WelcomeController
     openLightUpSolver: Action déclenchée lors de l'activation du bouton "Solveur de Light Up".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void openLightUpSolver() throws IOException
-    {
-            stage.setResizable(true);
-            stage.setTitle("Solveur de Light Up");
-            
+    public void openLightUpSolver() throws IOException{
             App.newScene("grid");
-            stage.setHeight(432);
-            stage.setWidth(1000);
-            stage.centerOnScreen();
     }
 
     /*
@@ -42,14 +36,8 @@ public class WelcomeController
     openSatSolver: Action déclenchée lors de l'activation du bouton "SAT-Solver".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void openSatSolver() throws IOException
-    {
-        stage.setResizable(true);
-        stage.setTitle("SAT-Solver");
+    public void openSatSolver() throws IOException{
         App.newScene("satSolver");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
     }
     
     /*
@@ -57,8 +45,7 @@ public class WelcomeController
     help : Action déclenchée lors de l'activation du bouton "Aide".
     Entraîne l'apparition d'une alerte indiquant une aide.
     */
-    public void help()
-    {
+    public void help(){
         Alert alerte = new Alert(AlertType.INFORMATION);
         alerte.setHeaderText("Aide");
         alerte.setContentText("Utiliser la barre d'outil pour changer de fenêtre");
@@ -71,15 +58,17 @@ public class WelcomeController
     jouer : Action déclenchée lors de l'activation du bouton "Jouer".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void jouer() throws IOException
-    {
-        stage.setResizable(true);
-        stage.setTitle("Grille jouable");
-            
+    public void jouer() throws IOException{  
         App.newScene("jeux");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
     }
     
+
+    @FXML
+    public void initialize(){
+        stage.setTitle("Acceuil");
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+    }
 }

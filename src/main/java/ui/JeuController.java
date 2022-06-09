@@ -32,14 +32,24 @@ public class JeuController {
 
     gridGenerator grille;
 
+    Button[] tabButton;
+
     int[] resultTab = new int[49];
 
     @FXML 
     MediaView mediaView;
 
+    @FXML
+    Button button_reset;
 
-    String resultatSolveur = "";
-    String formuleDimacs = "";
+    @FXML
+    Button button_submit;
+
+    boolean enable;
+
+
+    String resultatSolveur;
+    String formuleDimacs;
 
 
     /*---------------------------- METHODES -----------------------------*/
@@ -51,12 +61,7 @@ public class JeuController {
     Permet l'ouverture de la fenêtre du même nom.
     */
     public void backToWelcome() throws IOException{
-        stage.setTitle("Acceuil");
         App.newScene("welcome");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.setResizable(false);
-        stage.centerOnScreen();
     }
 
     /*
@@ -65,12 +70,7 @@ public class JeuController {
     Permet l'ouverture de la fenêtre du même nom.
     */
     public void openSatSolver() throws IOException{
-        stage.setResizable(true);
-        stage.setTitle("SAT-Solver");
         App.newScene("satSolver");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
     }
 
     /*
@@ -78,15 +78,8 @@ public class JeuController {
     openLightUpSolver: Action déclenchée lors de l'activation du bouton "Solveur de Light Up".
     Permet l'ouverture de la fenêtre du même nom.
     */
-    public void openLightUpSolver() throws IOException
-    {
-        stage.setResizable(true);
-        stage.setTitle("Solveur de Light Up");
-            
+    public void openLightUpSolver() throws IOException{  
         App.newScene("grid");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
     }
 
 
@@ -107,23 +100,6 @@ public class JeuController {
 
 
 
-    /*
-    SPÉCIFICATION jouer
-    jouer : Action déclenchée lors de l'activation du bouton "Jouer".
-    Permet l'ouverture de la fenêtre du même nom.
-    */
-    public void jouer() throws IOException{
-        stage.setResizable(true);
-        stage.setTitle("Solveur de Light Up");
-            
-        App.newScene("jeux");
-        stage.setHeight(432);
-        stage.setWidth(1000);
-        stage.centerOnScreen();
-    }
-
-
-
     /* b) METHODES GERANT LES BOUTONS PROPRES A CETTE FENETRE */
 
     /*
@@ -138,46 +114,43 @@ public class JeuController {
     •   event de type Event : permet de récupérer l'objet sur lequel a été effectué le clic.
     */
     public void clickDetected(Event event){
-        Button bouton = (Button) event.getSource();
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
+        if(enable){
+            Button bouton = (Button) event.getSource();
             
-        String style = bouton.getStyle();
-        int[] listeB = grille.grid.adjacent(getPositionButton(bouton)+1);
-        int i;
-
-        switch(style){
-            case("-fx-background-color : white; -fx-background-radius : 0px;"):
-                i = 0;
-                while(i < listeB.length){
-                    tabButton[listeB[i]-1].setStyle("-fx-background-color : yellow; -fx-background-radius : 0px;");
-                    i++;
-                }
-                bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
-
-                break;
-
-
-            case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
-                i = 0;
-                while(i < listeB.length){
-                    tabButton[listeB[i]-1].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-                    i++;
-                }
-                bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-                break;  
-
-
-            case("-fx-background-color : yellow; -fx-background-radius : 0px;"):
-                bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
-                break;
-        }
-        
+            String style = bouton.getStyle();
+            int[] listeB = grille.grid.adjacent(getPositionButton(bouton)+1);
+            int i;
+    
+            switch(style){
+                case("-fx-background-color : white; -fx-background-radius : 0px;"):
+                    i = 0;
+                    while(i < listeB.length){
+                        tabButton[listeB[i]-1].setStyle("-fx-background-color : yellow; -fx-background-radius : 0px;");
+                        i++;
+                    }
+                    bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                    break;
+    
+                case("-fx-background-color : #F0B20F; -fx-background-radius : 300px;"):
+                    i = 0;
+                    while(i < listeB.length){
+                        tabButton[listeB[i]-1].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                        i++;
+                    }
+                    bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                    break;  
+    
+    
+                case("-fx-background-color : yellow; -fx-background-radius : 0px;"):
+                    bouton.setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                    break;
+            }
+        }  
     }
 
 
     private int getPositionButton(Button b){
         int i = 0;
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         while( i < tabButton.length && !b.equals(tabButton[i])){
             i++;
         }
@@ -191,7 +164,6 @@ public class JeuController {
     */
     public void submit(){
         int k = 0;
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
 
         while(k < tabButton.length){
             if(tabButton[k].getStyle().equals("-fx-background-color : #F0B20F; -fx-background-radius : 300px;")){
@@ -269,7 +241,6 @@ public class JeuController {
 
     public void resultGrid(String resultat){
         int i = 0;
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         LecteurStringParMot lect = new LecteurStringParMot(resultat);
         lect.demarrer();
         while(!lect.finDeSequence()){
@@ -299,6 +270,13 @@ public class JeuController {
 
     @FXML 
     private void initialize(){
+        stage.setHeight(432);
+        stage.setWidth(1000);
+        stage.centerOnScreen();
+        stage.setResizable(true);
+        stage.setTitle("Grille jouable");
+        enable = true;
+        tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         generateGrid();
     }
 
@@ -309,7 +287,6 @@ public class JeuController {
         grille.generateGrid();
 
         int k = 0;
-        Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         
         while(k < tabButton.length){
 
@@ -318,29 +295,55 @@ public class JeuController {
                 tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(false);
             }else{
-                tabButton[k].setText(""+grille.grid.getValues(k+1));
+                String nb = (grille.grid.getValues(k+1) == -1) ? "" : ""+grille.grid.getValues(k+1);
+                tabButton[k].setText(nb);
                 tabButton[k].setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(true);
             }
-            
-            tabButton[k].setMaxWidth(40);
-            tabButton[k].setPrefWidth(40);
-            tabButton[k].setMinWidth(40);
-            tabButton[k].setMaxHeight(40);
-            tabButton[k].setPrefHeight(40);
-            tabButton[k].setMinHeight(40);
+            tabButton[k].setMaxWidth(50);
+            tabButton[k].setPrefWidth(50);
+            tabButton[k].setMinWidth(50);
+            tabButton[k].setMaxHeight(50);
+            tabButton[k].setPrefHeight(50);
+            tabButton[k].setMinHeight(50);
             k++;
 
         }
 
         resultatSolveur = grille.getResultatSolveur();
         formuleDimacs = grille.getFormatDimacs();
+        button_reset.setDisable(false);
+        button_submit.setDisable(false);
+
     }
 
 
 
     public void showSolution(){
-
+        reset();
+        int i = 0;
+        LecteurStringParMot lect = new LecteurStringParMot(resultatSolveur);
+        lect.demarrer();
+        while(!lect.finDeSequence())
+        {
+            
+            if(lect.elementCourant().charAt(0) != '-' && estChiffre(lect.elementCourant().charAt(0)))
+            {
+                tabButton[i].setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+                tabButton[i].setMaxWidth(30);
+                tabButton[i].setPrefWidth(30);
+                tabButton[i].setMinWidth(30);
+                tabButton[i].setMaxHeight(30);
+                tabButton[i].setPrefHeight(30);
+                tabButton[i].setMinHeight(30);
+                
+            }
+            i++;
+            lect.avancer();
+        }
+        button_reset.setDisable(true);
+        button_submit.setDisable(true);
+        enable = false;
 
     }
 
@@ -359,17 +362,11 @@ public class JeuController {
                 tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(false);
             }else{
-                tabButton[k].setText(""+grille.grid.getValues(k+1));
+                String nb = (grille.grid.getValues(k+1) == -1) ? "" : ""+grille.grid.getValues(k+1);
+                tabButton[k].setText(nb);
                 tabButton[k].setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
                 tabButton[k].setDisable(true);
             }
-            
-            tabButton[k].setMaxWidth(40);
-            tabButton[k].setPrefWidth(40);
-            tabButton[k].setMinWidth(40);
-            tabButton[k].setMaxHeight(40);
-            tabButton[k].setPrefHeight(40);
-            tabButton[k].setMinHeight(40);
             k++;
 
         }

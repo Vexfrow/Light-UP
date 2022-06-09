@@ -11,7 +11,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.JeuController">
+<VBox xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.JeuController">
    <children>
       <ToolBar>
          <items>
@@ -46,267 +46,267 @@
          <children>
             <VBox>
                <children>
-                  <GridPane gridLinesVisible="true" layoutX="100.0" layoutY="100.0" maxHeight="353.0" maxWidth="280.0" minHeight="280.0" minWidth="280.0" prefHeight="280.0" prefWidth="291.0">
+                  <GridPane gridLinesVisible="true" layoutX="100.0" layoutY="100.0" maxHeight="350.0" maxWidth="350.0" minHeight="280.0" minWidth="280.0" prefHeight="350.0" prefWidth="350.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="40.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="50.0" prefWidth="50.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="NEVER" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="b00" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b00" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b01" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b01" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b02" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b02" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b03" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b03" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b04" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b04" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b05" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b05" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b06" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b06" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b10" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b10" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b11" layoutX="10.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b11" layoutX="10.0" layoutY="10.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b12" layoutX="10.0" layoutY="10.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b12" layoutX="10.0" layoutY="10.0" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b13" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b13" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b14" maxHeight="47.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="47.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b14" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b15" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b15" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b16" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b16" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b20" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b20" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b21" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b21" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b22" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b22" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b23" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b23" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b24" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b24" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b25" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b25" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b26" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b26" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b30" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b30" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b31" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b31" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b32" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b32" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b33" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b33" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b34" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b34" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b35" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b35" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b36" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b36" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b40" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b40" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b41" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b41" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b42" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b42" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b43" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b43" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b44" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b44" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b45" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b45" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b46" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b46" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b50" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b50" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b51" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b51" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b52" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b52" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b53" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b53" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b54" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b54" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b55" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b55" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b56" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b56" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b60" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="b60" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b61" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Button fx:id="b61" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b62" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="b62" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b63" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                        <Button fx:id="b63" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b64" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="b64" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b65" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <Button fx:id="b65" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="b66" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <Button fx:id="b66" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#clickDetected" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color : white; -fx-background-radius : 0px;" textFill="WHITE" GridPane.columnIndex="6" GridPane.rowIndex="6">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
@@ -317,7 +317,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" minWidth="150.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button minHeight="40.0" minWidth="200.0" mnemonicParsing="false" onAction="#submit" text="Soumettre solution">
+                  <Button fx:id="button_submit" minHeight="40.0" minWidth="200.0" mnemonicParsing="false" onAction="#submit" text="Soumettre solution">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -333,7 +333,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button minHeight="40.0" minWidth="200.0" mnemonicParsing="false" onAction="#reset" text="Reset">
+                  <Button fx:id="button_reset" minHeight="40.0" minWidth="200.0" mnemonicParsing="false" onAction="#reset" text="Reset">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -351,7 +351,7 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets left="20.0" right="10.0" top="10.0" />
                </HBox.margin></VBox>
             <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0">
                <children>
