@@ -7,7 +7,7 @@ import java.util.Random;
 import formalisation.Grille;
 import satsolver.*;
 
-public class gridGenerator {
+public class gridGenerator{
 
     private int taille;
     public Grille grid;

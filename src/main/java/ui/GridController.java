@@ -47,6 +47,7 @@ public class GridController
     @FXML Button b40; @FXML Button b41; @FXML Button b42; @FXML Button b43; @FXML Button b44; @FXML Button b45; @FXML Button b46;
     @FXML Button b50; @FXML Button b51; @FXML Button b52; @FXML Button b53; @FXML Button b54; @FXML Button b55; @FXML Button b56;
     @FXML Button b60; @FXML Button b61; @FXML Button b62; @FXML Button b63; @FXML Button b64; @FXML Button b65; @FXML Button b66;
+
  
     /* c) Attributs de la classe */
     /*
@@ -68,6 +69,18 @@ public class GridController
     */
     boolean submited;
   
+
+    /* d) CONSTANTES DE LA CLASSE */
+
+    //Constante pour la taille des cases
+    private final int tailleCase = 40;
+
+    //Constantes pour le style des cases 
+    private final String styleBlanc = "-fx-background-color : white; -fx-background-radius : 0px;";
+    private final String styleNoir = "-fx-background-color : black; -fx-background-radius : 0px;";
+    private final String styleJaunePoint = "-fx-background-color : #F0B20F; -fx-background-radius : 300px;";
+
+
     /*---------------------------- METHODES -----------------------------*/
 
     /* a) METHODES GERANT LA BARRE D'OUTIL */
@@ -151,14 +164,13 @@ public class GridController
             int i = id.charAt(2) - 48;
             switch(style)
             {
-                case("-fx-background-color : white; -fx-background-radius : 0px;"):
-                    bouton.setStyle("-fx-background-color : black; -fx-background-radius : 0px;");
+                case(styleBlanc):
+                    bouton.setStyle(styleNoir);
                     tab[i][j] = -1;
                     break;
 
-                case("-fx-background-color : black; -fx-background-radius : 0px;"):
-                    switch(texte)
-                    {
+                case(styleNoir):
+                    switch(texte){
                         case(""):
                             bouton.setText("0");
                             tab[i][j] = 0;
@@ -185,9 +197,9 @@ public class GridController
                             break;
 
                         case("4"):
-                            tab[i][j] = -2;
                             bouton.setText("");
-                            bouton.setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
+                            tab[i][j] = -2;
+                            bouton.setStyle(styleBlanc);
                             break;
                     }
                     break;   
@@ -228,27 +240,24 @@ public class GridController
         submited = false;
         Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int k = 0;
-        while(k < tabButton.length)
-        {
+        while(k < tabButton.length){
             tabButton[k].setText("");
-            tabButton[k].setStyle("-fx-background-color : white; -fx-background-radius : 0px;");
-            tabButton[k].setMaxWidth(40);
-            tabButton[k].setPrefWidth(40);
-            tabButton[k].setMinWidth(40);
-            tabButton[k].setMaxHeight(40);
-            tabButton[k].setPrefHeight(40);
-            tabButton[k].setMinHeight(40);
+            tabButton[k].setStyle(styleBlanc);
+            tabButton[k].setMaxWidth(tailleCase);
+            tabButton[k].setPrefWidth(tailleCase);
+            tabButton[k].setMinWidth(tailleCase);
+            tabButton[k].setMaxHeight(tailleCase);
+            tabButton[k].setPrefHeight(tailleCase);
+            tabButton[k].setMinHeight(tailleCase);
             k++;
         }
        
         //Ici on réinitialise le tableau tab avec des -2 partout :
         int i = 0;
         int j = 0;
-        while(i < 7)
-        {
+        while(i < 7){
             j = 0;
-            while(j < 7)
-            {
+            while(j < 7){
                 tab[i][j] = -2;
                 j++;
             }
@@ -261,25 +270,20 @@ public class GridController
         satsolver.setText("");
     }
 
-    public void resultGrid(String resultat)
-    {
+    public void resultGrid(String resultat){
         Button[] tabButton = new Button[] {b00,b10,b20,b30,b40,b50,b60,b01,b11,b21,b31,b41,b51,b61,b02,b12,b22,b32,b42,b52,b62,b03,b13,b23,b33,b43,b53,b63,b04,b14,b24,b34,b44,b54,b64,b05,b15,b25,b35,b45,b55,b65,b06,b16,b26,b36,b46,b56,b66};
         int i = 0;
         LecteurStringParMot lect = new LecteurStringParMot(resultat);
         lect.demarrer();
-        while(!lect.finDeSequence())
-        {
-            
-            if(lect.elementCourant().charAt(0) != '-' && estChiffre(lect.elementCourant().charAt(0)))
-            {
-                tabButton[i].setStyle("-fx-background-color : #F0B20F; -fx-background-radius : 300px;");
+        while(!lect.finDeSequence()){
+            if(lect.elementCourant().charAt(0) != '-' && estChiffre(lect.elementCourant().charAt(0))){
+                tabButton[i].setStyle(styleJaunePoint);
                 tabButton[i].setMaxWidth(30);
                 tabButton[i].setPrefWidth(30);
                 tabButton[i].setMinWidth(30);
                 tabButton[i].setMaxHeight(30);
                 tabButton[i].setPrefHeight(30);
                 tabButton[i].setMinHeight(30);
-                
             }
             i++;
             lect.avancer();
