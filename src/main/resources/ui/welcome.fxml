@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.WelcomeController">
+<VBox alignment="TOP_CENTER" prefHeight="432.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.WelcomeController">
    <children>
       <ToolBar>
          <items>
@@ -46,6 +46,9 @@
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Label alignment="CENTER" text="Ce programme a été réalisé dans le cadre d'un projet étudiant à l'UGA. Les auteurs sont Thomas Grégoire, Vial Fabien, Bolbènes Lucas, Combe Gaëtan et El Kbabty Mouad. " wrapText="true" />
+      <Label fx:id="text_welcome" alignment="CENTER" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
    </children>
 </VBox>
