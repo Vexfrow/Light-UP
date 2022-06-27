@@ -1,7 +1,7 @@
 # Light-UP SOLVER Version Française (English version lower)
 
 Il s'agit d'un programme qui permet de résoudre des grilles de jeu de **Light-Up** (ou **Akari**).  
-Le processus est simple : On a modélisé les régles du jeu (voir plus bas) sous forme d'une formule en [logique propositionnelle](https://fr.wikipedia.org/wiki/Formule_propositionnelle#:~:text=En%20logique%20propositionnelle%20classique%2C%20une,de%20v%C3%A9rit%C3%A9%20peut%20%C3%AAtre%20d%C3%A9termin%C3%A9e.), puis transformé cette formule en un fichier de format [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html) que l'on a résolu grâce à un [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver), implémenté par nos soin grâce à l'algorithme du DPLL.
+Le processus est simple : On a modélisé les régles du jeu (voir plus bas) sous forme d'une formule en [logique propositionnelle](https://fr.wikipedia.org/wiki/Formule_propositionnelle), puis transformé cette formule en un fichier de format [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html) que l'on a résolu grâce à un [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver), implémenté par nos soin grâce à l'algorithme du DPLL.
 
 
 ## Les règles  
@@ -23,7 +23,7 @@ Il suffit seulement de télécharger le code source, puis de soit lancer la clas
 # Light-UP SOLVER English version (Version française au-dessus)
 
 The objective of this project is to provides a solution to every solvable **Light-Up** (or **Akari**) grid.
-The processus is rather simple : We have modelized the game's rules (see lower) in a formula in [propositionnal logical](https://fr.wikipedia.org/wiki/Formule_propositionnelle#:~:text=En%20logique%20propositionnelle%20classique%2C%20une,de%20v%C3%A9rit%C3%A9%20peut%20%C3%AAtre%20d%C3%A9termin%C3%A9e.), then we have transformed this formula in a [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html)'s file, a file that we can solves thanks to a [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver). The SAT-SOLVER used was also implemented by ourselves using the DPLL algorithm.
+The processus is rather simple : We have modelized the game's rules (see lower) in a formula in [propositionnal formula](https://en.wikipedia.org/wiki/Propositional_formula), then we have transformed this formula in a [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html)'s file, a file that we can solves thanks to a [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver). The SAT-SOLVER used was also implemented by ourselves using the DPLL algorithm.
 
 
 ## The rules
