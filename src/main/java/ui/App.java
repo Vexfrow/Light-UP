@@ -17,11 +17,9 @@ public class App extends Application {
     static Stage stage;
 
     @Override
-    public void start(Stage stage) throws IOException 
-    {
-        try
-        {
-            this.stage = stage;
+    public void start(Stage stage) throws IOException{
+        try{
+            App.stage = stage;
             Parent root = FXMLLoader.load(getClass().getResource("welcome.fxml"));
             scene = new Scene(root);
             stage.setResizable(false);
@@ -32,13 +30,12 @@ public class App extends Application {
             stage.show();
      
         }
-        catch(Exception e)
-        {
+        catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         launch(args);
     }
 

@@ -1,26 +1,40 @@
-# Light-UP SOLVER
+# Light-UP SOLVER Version Française (English version lower)
 
-Il s'agit d'un programme qui permet de résoudre des grille de jeu de **Light-Up** (ou **Akari**).  
-Le processus est simple : On a modélisé les régles du jeu (voir plus bas) en [logique propositionnelle](https://fr.wikipedia.org/wiki/Formule_propositionnelle#:~:text=En%20logique%20propositionnelle%20classique%2C%20une,de%20v%C3%A9rit%C3%A9%20peut%20%C3%AAtre%20d%C3%A9termin%C3%A9e.), puis transformé cette formule en un fichier de format [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html) que l'on a résolu grâce à un [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver), implémenté par nos soin grâce à l'alorithme du DPLL.
+Il s'agit d'un programme qui permet de résoudre des grilles de jeu de **Light-Up** (ou **Akari**).  
+Le processus est simple : On a modélisé les régles du jeu (voir plus bas) sous forme d'une formule en [logique propositionnelle](https://fr.wikipedia.org/wiki/Formule_propositionnelle#:~:text=En%20logique%20propositionnelle%20classique%2C%20une,de%20v%C3%A9rit%C3%A9%20peut%20%C3%AAtre%20d%C3%A9termin%C3%A9e.), puis transformé cette formule en un fichier de format [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html) que l'on a résolu grâce à un [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver), implémenté par nos soin grâce à l'algorithme du DPLL.
 
 
 ## Les règles  
 La grille est composée de 3 types de cases : des cases blanches, des cases noires sans chiffre et des cases noires avec.  
 Les règles du jeu sont assez simples :  
 
-- Toutes les cases blanches doivent être allumées, pour ce faire il faut qu'il y ait une ampoule située sur la même ligne ou la même colonne et qu'il n'y ait pas de case noire entre la case blanche et l'ampoule.  
-- Il ne peut n'y avoir qu'une seule ampoule par ligne/colonne, sauf si elles sont séparées par une case noire.  
-- Il ne peut pas y avoir d'ampoule sur les cases noires.  
-- Il doit y avoir autant d'ampoule autour des cases noires chiffrées que le chiffre indiqué. Par exemple, si ce chiffre est 1, il ne doit pas y avoir qu'une seule ampoule autour de cette case (pas une de +, pas une de -). Cela ne fonctionne pas si l'ampoule est placée en diagonale.  
+- Chaque case blanche doit être éclairée. Une case blanche est dîtes éclairée si il y a une ampoule sur la même ligne/colonne et qu'il n'y a pas de case noire entre la case blanche et l'ampoule.
+- Il ne peut y avoir d'ampoule sur une case noire.
+- Certaines cases noires contiennent un chiffre. Celui-ci est toujours compris entre 0 et 4. Il s’agit du nombre de cases adjacentes (horizontalement ou verticalement, mais pas en oblique) contenant une ampoule.
+- Une ampoule ne peut pas en éclairer une autre (le rayon lumineux diffusé par une ampoule ne peut pas atteindre une case occupée par une autre ampoule).  
 
 
 ## Comment lancer le programme 
 Il suffit seulement de télécharger le code source, puis de soit lancer la classe "GUIStarter.java" ou alors de créer un JAR du code source en utilisant la classe "GUIStarter.java" en tant que point d'entrée du programme.  
 
 
-## Ce qui est prévue
-- Version anglaise de ce README
-- Possibilité de jouer au jeu  
 
 
+# Light-UP SOLVER English version (Version française au-dessus)
 
+The objective of this project is to provides a solution to every solvable **Light-Up** (or **Akari**) grid.
+The processus is rather simple : We have modelized the game's rules (see lower) in a formula in [propositionnal logical](https://fr.wikipedia.org/wiki/Formule_propositionnelle#:~:text=En%20logique%20propositionnelle%20classique%2C%20une,de%20v%C3%A9rit%C3%A9%20peut%20%C3%AAtre%20d%C3%A9termin%C3%A9e.), then we have transformed this formula in a [DIMACS](https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html)'s file, a file that we can solves thanks to a [SAT-Solver](https://en.wikipedia.org/wiki/SAT_solver). The SAT-SOLVER used was also implemented by ourselves using the DPLL algorithm.
+
+
+## The rules
+The grid is composed of 3 types of cells : white, black whitout number and black with.
+Here are the rules : 
+
+The player places light bulbs in white cells such that no two bulbs shine on each other, until the entire grid is lit up.  
+A bulb sends rays of light horizontally and vertically, illuminating its entire row and column unless its light is blocked by a black cell.  
+A black cell may have a number on it from 0 to 4, indicating how many bulbs must be placed adjacent to its four sides; for example, a cell with a 4 must have four bulbs around it, one on each side, and a cell with a 0 cannot have a bulb next to any of its sides.  
+An unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count.
+
+
+## How to start the programm
+You just need to download the ZIP, then to compile and execute the "GUIStarter.java" class. 
