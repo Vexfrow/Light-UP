@@ -355,10 +355,10 @@
                </HBox.margin></VBox>
             <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0">
                <HBox.margin>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
                <children>
-                  <TextArea fx:id="text_rules" editable="false" prefHeight="329.0" prefWidth="400.0" wrapText="true" />
+                  <TextArea fx:id="text_rules" editable="false" prefHeight="397.0" prefWidth="400.0" wrapText="true" />
                </children>
             </VBox>
          </children>
