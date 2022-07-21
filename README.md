@@ -14,8 +14,8 @@ Les règles du jeu sont assez simples :
 - Une ampoule ne peut pas en éclairer une autre (le rayon lumineux diffusé par une ampoule ne peut pas atteindre une case occupée par une autre ampoule).  
 
 
-## Comment lancer le programme 
-Il suffit seulement de télécharger le code source, puis de soit lancer la classe "GUIStarter.java" ou alors de créer un JAR du code source en utilisant la classe "GUIStarter.java" en tant que point d'entrée du programme.  
+## Télécharger
+Il suffit seulement de télécharger le JAR à partir de [ce lien](https://mega.nz/file/QPMnkZzL#Rn1Yo4PHYkSw5Vlzo_gC9re9RTKLlVHgjXW7pgFQMSc).
 
 
 
@@ -36,5 +36,5 @@ A black cell may have a number on it from 0 to 4, indicating how many bulbs must
 An unnumbered black cell may have any number of light bulbs adjacent to it, or none. Bulbs placed diagonally adjacent to a numbered cell do not contribute to the bulb count.
 
 
-## How to start the programm
-You just need to download the ZIP, then to compile and execute the "GUIStarter.java" class. 
+## Download
+You just need to download the JAR from [this link](https://mega.nz/file/QPMnkZzL#Rn1Yo4PHYkSw5Vlzo_gC9re9RTKLlVHgjXW7pgFQMSc). 
