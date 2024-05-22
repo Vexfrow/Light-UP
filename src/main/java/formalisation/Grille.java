@@ -1,5 +1,7 @@
 package formalisation;
 
+import javafx.geometry.Point2D;
+
 public class Grille {
 
     private final int CASE_NOIR_SANS_CHIFFRE = -1;
@@ -53,7 +55,7 @@ public class Grille {
 
     /*
         Renvoie la liste de toutes les cases adjacentes à la case mise en paramètre.
-        Une case est dîtes adjacente à une autre si elles sont sur la même ligne/colonne et ne sont pas séparrées par une case noire (il n'y a pas d'histoire de distance)
+        Une case est dîte adjacente à une autre si elles sont sur la même ligne/colonne et ne sont pas séparées par une case noire (il n'y a pas d'histoire de distance)
     */
     public int[] adjacent(int CASE){
         int posLigne = getLigne(CASE);
@@ -63,6 +65,8 @@ public class Grille {
         int j=posCol;
 
         int pos = 0;
+        //Todo : Tab dynamique ?
+        //Todo : Utilise un objet Point au lieu d'un entier pour indiquer une position
         int[] truc = new int[nbLignes+nbColonnes]; //Crée une liste avec une taille maximale
         //Liste que l'on va remplir plus bas
 
@@ -300,7 +304,8 @@ public class Grille {
     /*
         Renvoie la formule correspondant à la troisième règle
         On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
-    */  
+    */
+    //Todo : faire une réele transformation disjonction to conjonction
     public Formule regle3(){
         Formule res = new Formule();
         int i =1;

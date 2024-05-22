@@ -7,6 +7,8 @@ import java.util.Random;
 import formalisation.Grille;
 import satsolver.*;
 
+//Todo : Remplacer par un autre système de génération de Grille.
+//Todo : Grille pré-générée ???
 public class gridGenerator{
 
     private int taille;
@@ -42,6 +44,7 @@ public class gridGenerator{
 
 
     public void generateGrid(){
+        //Todo : Remplacer résultat par un entier correspondant à une constante
         resultatSolveur = "Insatisfaisable";
 
         while(resultatSolveur.equals("Insatisfaisable")){

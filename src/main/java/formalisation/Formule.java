@@ -5,12 +5,12 @@ import lecteur.LecteurFormule;
 
 public class Formule {
 
-    //Tableau des variables "differentes" : -x = x dans ce cas là ; Ainsi que que l'indicateur de sa taille
-    public int[] tabVarDiff;
+    //Tableau des variables "differentes" : -x = x dans ce cas là ; Ainsi que l'indicateur de sa taille
+    public int[] tabVarDiff; //Todo : Tab dynamic ?
     public int posTabVarDiff;
 
-    //Tableau des clauses ; Ainsi que que l'indicateur de sa taille
-    public Clause[] tabClause;
+    //Tableau des clauses ; Ainsi que l'indicateur de sa taille
+    public Clause[] tabClause; //Todo : Tab dynamic ?
     public int posTabClause;
 
 
@@ -35,8 +35,6 @@ public class Formule {
 
         remplirTabClause(s);
         remplirTabVarDiff();
-
-
     }
 
 
@@ -58,8 +56,8 @@ public class Formule {
 
     /*
         Permet de remplir la liste de clauses à partir d'une formule sous forme d'un string
-        Algorithme : On parcours le string grâce à un lecteur de String spécifique (voir la classe "LecteurFormule") qui separt la formule en differente clause
-        et on range ces clauses dans le tableau correspondants (ont on augmente la taille)
+        Algorithme : On parcourt le string grâce à un lecteur de String spécifique (voir la classe "LecteurFormule") qui sépare la formule en différente clause
+        et on range ces clauses dans le tableau correspondant (on en augmente la taille)
     */
     private void remplirTabClause(String formule){
         LecteurFormule lectF = new LecteurFormule(formule);
@@ -78,8 +76,8 @@ public class Formule {
 
 
     /*
-        Remplis la liste des variables différentes (variable negatif == variable positif)
-        Algorithme : On parcours toutes les variables de toutes les clauses du tableau de clause. Si une variable n'est pas déjà dans le tableau -> On le rajoute
+        Remplis la liste des variables différentes (variable négatif == variable positif)
+        Algorithme : On parcourt toutes les variables de toutes les clauses du tableau de clause. Si une variable n'est pas déjà dans le tableau -> On le rajoute
         Sinon on ne fait rien.
     */
     private void remplirTabVarDiff() {
@@ -102,8 +100,8 @@ public class Formule {
 
 
     /*
-        Permet de verifier si une variable est presente dans la liste des variables différentes
-        Algorithme : On parcours le tableau de variable et on compare l'élément courant du tableau avec l'élément mis en paramètre
+        Permet de verifier si une variable est présente dans la liste des variables différentes
+        Algorithme : On parcourt le tableau de variable et on compare l'élément courant du tableau avec l'élément mis en paramètre
     */
     public boolean appartient(int x){
         int i = 0;
@@ -120,10 +118,11 @@ public class Formule {
 
 
     /*
-        Transforme notre formule disjontive en une formule DIMACS.
-        Algorithme : On parcours la liste des clauses, que l'on écrit sous forme d'un string.
+        Transforme notre formule disjonctive en une formule DIMACS.
+        Algorithme : On parcourt la liste des clauses, que l'on écrit sous forme d'un string.
     */
     public String formuleDIMACS() {
+        //Todo : Use StringBuilder instead of String
         String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause );
         int i = 0;
 
@@ -145,14 +144,14 @@ public class Formule {
         if(!c.appartientTabClause(tabClause, posTabClause)){
             tabClause[posTabClause] = c;
             posTabClause++;
-            remplirTabVarDiff();
+            remplirTabVarDiff(); //Todo : Modifier pour ne rajouter que les élements de la nouvelle clause
         }
     }
 
 
     /*
-        Prend une autre formule, puis fait la conjonction entre la formule actuel et la nouvelle.
-        Algorithme : On parcours la liste des clauses de la formule passée en paramètre et on fait la conjonction de ces clauses avec la formule actuelle.
+        Prend une autre formule, puis fait la conjonction entre la formule actuelle et la nouvelle.
+        Algorithme : On parcourt la liste des clauses de la formule passée en paramètre et on fait la conjonction de ces clauses avec la formule actuelle.
     */
     public void conjonction(Formule f){
         int i = 0;
@@ -166,8 +165,9 @@ public class Formule {
     /*
         Permet d'écrire l'objet formule sous la forme d'un String du même format que celui récupéré en paramètre par le constructeur.
     */
-
+    //Todo : Modifier pour utiliser le "toString" de la classe Clause
     public String toString(){
+        //Todo : Use StringBuilder instead of String
         String s = "";
         int i = 0;
 

@@ -3,16 +3,16 @@ package formalisation;
 public class Clause {
 
     //Tableau des variables (variables pos != variable négatif) ; Ainsi que que l'indicateur de sa taille.
-    public int[] tabVariable = new int[100];
+    public int[] tabVariable = new int[100]; //TODO : Dynamic array ?
     public int posTabVar;
 
     //Tableau des variables différentes (variables pos == variable négatif) ; Ainsi que l'indicateur de sa taille.
-    public int[] tabVarDiff = new int[100];
+    public int[] tabVarDiff = new int[100];//TODO : Dynamic array ?
     public int posTabVarDiff;
 
     //Différents tableaux de caractères qui correspondent aux différentes manières d'écrire la formule. 
     //Exemple : On peut représenter la disjonction par '+', '|' ou 'v'
-    private static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'};
+    private static char[] caractereVar = {'1','2','3','4','5','6','7','8','9', '0'}; //TODO : Se baser sur le code ASCII
     private static char[] disjonction = {'+','|','v'};
     private static char[] negation = {'!', '-'};
 
@@ -23,6 +23,7 @@ public class Clause {
         Exemple : (x + x)
     */
     public Clause(String clauseText){
+        //TODO : Deplacer initialisation tableaux ici
         posTabVar = 0;
         posTabVarDiff = 0;
         remplirListesVariable(clauseText);
@@ -30,7 +31,7 @@ public class Clause {
 
 
     /*
-        Permet de crée un objet clause vide.
+        Permet de créer un objet clause vide.
     */
     public Clause(){
         posTabVar = 0;
@@ -42,9 +43,9 @@ public class Clause {
 
     /* 
         Remplis la liste des variables de la clause à partir d'un String.
-        Algorithme : On parcours chaque caractère du String, 
+        Algorithme : On parcourt chaque caractère du String,
         si c'est une variable (représenté sous forme d'un int) -> On la récupère
-        sinon (c'est une des représentation de la disjonction) -> On regarde si la variable que l'on a récuperrée est déjà présente ou non dans les deux tableaux. Si ce n'est pas le cas, on l'ajoute.
+        sinon (c'est une des représentations de la disjonction) -> On regarde si la variable que l'on a récupérée est déjà présente ou non dans les deux tableaux. Si ce n'est pas le cas, on l'ajoute.
     */
     public void remplirListesVariable(String formule){
         int i = 0;
@@ -173,6 +174,7 @@ public class Clause {
         Algorithme : On parcours la liste des variables de la clause actuelle et on regarde si ces variables sont dans la liste des variables de la clause mise en paramètre.
         On compare seulement si les deux clauses ont la même taille.
     */
+    //todo : Override "equals" directement ?
     public boolean equivalent(Clause c){
         boolean equal;
         if(posTabVar == c.posTabVar){
@@ -194,7 +196,7 @@ public class Clause {
     /*
         Permet de représenter l'objet Clause sous forme d'un String
     */
-
+    //todo : Utiliser StringBuilder à la place
     public String toString(){
         int i = 0;
         String res = "";
