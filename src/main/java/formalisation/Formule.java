@@ -85,9 +85,10 @@ public class Formule {
         while(i < posTabClause){
             int j = 0;
             Clause c = tabClause[i];
-            while(j < c.posTabVarDiff){
-                if(!appartient(c.tabVarDiff[j])){
-                    tabVarDiff[posTabVarDiff] = c.tabVarDiff[j];
+            int size = c.tabVarDiff.size();
+            while(j < size){
+                if(!appartient(c.tabVarDiff.get(j))){
+                    tabVarDiff[posTabVarDiff] = c.tabVarDiff.get(j);
                     posTabVarDiff++;
                 }
                 j++;
@@ -174,10 +175,11 @@ public class Formule {
         while(i < posTabClause){
             int j = 0;
             s = s+ "(";
-            while(j < tabClause[i].posTabVar){
-                s = s + tabClause[i].tabVariable[j];
+            int size = tabClause[i].tabVariable.size();
+            while(j < size){
+                s = s + tabClause[i].tabVariable.get(j);
                 j++;
-                if(j < tabClause[i].posTabVar){
+                if(j < size){
                     s = s + " + ";
                 }
 

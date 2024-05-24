@@ -29,10 +29,10 @@ public class GrilleTest {
     public void entierGrilleTest(){
         Grille f = new Grille(grille);
 
-        assertTrue(f.entierGrille(0,0) == (1));
-        assertTrue(f.entierGrille(1,0)== (4));
-        assertTrue(f.entierGrille(0,1)== (2));
-        assertTrue(f.entierGrille(1,2)== (6));
+        assertEquals((1), f.entierGrille(0, 0));
+        assertEquals((4), f.entierGrille(1, 0));
+        assertEquals((2), f.entierGrille(0, 1));
+        assertEquals((6), f.entierGrille(1, 2));
     }
 
 }

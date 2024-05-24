@@ -4,6 +4,7 @@ module ui {
     requires transitive javafx.base;
     requires transitive javafx.graphics;
     requires javafx.media;
+    requires jmh.core;
 
     opens ui to javafx.fxml;
     exports ui;

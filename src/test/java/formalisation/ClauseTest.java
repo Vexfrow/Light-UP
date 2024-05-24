@@ -2,6 +2,7 @@ package formalisation;
 
 import org.junit.Test;
 
+
 import static org.junit.Assert.*;
 
 public class ClauseTest {
@@ -19,8 +20,8 @@ public class ClauseTest {
         c2.disjonction(-2);
         c2.disjonction(-3);
 
-        assertTrue(c.toString().equals("19 9 3 "));
-        assertTrue(c2.toString().equals("-1 -2 -3 "));
+        assertEquals("19 9 3 ", c.toString());
+        assertEquals("-1 -2 -3 ", c2.toString());
     }
 
 
@@ -33,14 +34,14 @@ public class ClauseTest {
         Clause c = new Clause(s);
         Clause c2 = new Clause(s1);
 
-        assertTrue(c.tabVariable[1] == -27);
-        assertTrue(c.tabVariable[0] == -20);
+        assertEquals(-27, (int)c.tabVariable.get(1));
+        assertEquals(-20, (int)c.tabVariable.get(0));
 
-        assertTrue(c2.tabVariable[0] == -1);
-        assertTrue(c2.tabVariable[1] == -2);
+        assertEquals(-1, (int)c2.tabVariable.get(0));
+        assertEquals(-2, (int)c2.tabVariable.get(1));
 
-        assertTrue(c2.tabVarDiff[0] == 1);
-        assertTrue(c2.tabVarDiff[1] == 2);
+        assertEquals(1, (int)c2.tabVarDiff.get(0));
+        assertEquals(2, (int)c2.tabVarDiff.get(1));
     }
 
 
@@ -57,10 +58,10 @@ public class ClauseTest {
         Clause c2 = new Clause(s2);
         Clause c3 = new Clause(s3);
 
-        assertTrue(c.equivalent(c));
-        assertTrue(!c.equivalent(c1));
-        assertTrue(c1.equivalent(c2));
-        assertTrue(!c2.equivalent(c3));
+        assertTrue(c.equals(c));
+        assertFalse(c.equals(c1));
+        assertTrue(c1.equals(c2));
+        assertFalse(c2.equals(c3));
 
     }
 
@@ -88,7 +89,7 @@ public class ClauseTest {
         assertTrue(c.appartientTabClause(tabC, tabC.length));
         assertTrue(c1.appartientTabClause(tabC, tabC.length));
         assertTrue(c2.appartientTabClause(tabC, tabC.length));
-        assertTrue(!c3.appartientTabClause(tabC, tabC.length));
+        assertFalse(c3.appartientTabClause(tabC, tabC.length));
         assertTrue(c4.appartientTabClause(tabC, tabC.length));
     }
 

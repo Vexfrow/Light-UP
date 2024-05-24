@@ -1,14 +1,14 @@
 package formalisation;
 
+import java.util.ArrayList;
+
 public class Clause {
 
     //Tableau des variables (variables pos != variable négatif) ; Ainsi que que l'indicateur de sa taille.
-    public int[] tabVariable = new int[100]; //TODO : Dynamic array ?
-    public int posTabVar;
+    public ArrayList<Integer> tabVariable;
 
     //Tableau des variables différentes (variables pos == variable négatif) ; Ainsi que l'indicateur de sa taille.
-    public int[] tabVarDiff = new int[100];//TODO : Dynamic array ?
-    public int posTabVarDiff;
+    public ArrayList<Integer> tabVarDiff;
 
     //Différents tableaux de caractères qui correspondent aux différentes manières d'écrire la formule. 
     //Exemple : On peut représenter la disjonction par '+', '|' ou 'v'
@@ -18,30 +18,27 @@ public class Clause {
 
 
 
-    /*
-        Permet de crée un objet clause à partir d'un String qui représente cette clause.
-        Exemple : (x + x)
-    */
-    public Clause(String clauseText){
-        //TODO : Deplacer initialisation tableaux ici
-        posTabVar = 0;
-        posTabVarDiff = 0;
-        remplirListesVariable(clauseText);
-    }
-
 
     /*
         Permet de créer un objet clause vide.
     */
     public Clause(){
-        posTabVar = 0;
-        posTabVarDiff = 0;
+        tabVariable = new ArrayList<>();
+        tabVarDiff = new ArrayList<>();
+    }
+
+    /*
+        Permet de créer un objet clause à partir d'un String qui représente cette clause.
+        Exemple : (x + x)
+    */
+    public Clause(String clauseText){
+        this();
+        remplirListesVariable(clauseText);
     }
 
 
 
-
-    /* 
+    /*
         Remplis la liste des variables de la clause à partir d'un String.
         Algorithme : On parcourt chaque caractère du String,
         si c'est une variable (représenté sous forme d'un int) -> On la récupère
@@ -67,17 +64,14 @@ public class Clause {
 
             }else if(appartient(formule.charAt(i), disjonction)){
                 if(neg && !appartientTabVar(-actuel)){
-                    tabVariable[posTabVar] = -actuel;
-                    posTabVar ++;
+                    tabVariable.add(-actuel);
                     neg = false;
                 }else if(!neg && !appartientTabVar(actuel)){
-                    tabVariable[posTabVar] = actuel;
-                    posTabVar ++;
+                    tabVariable.add(actuel);
                 }
 
                 if(!appartientTabVarDiff(actuel)){
-                    tabVarDiff[posTabVarDiff] = actuel;
-                    posTabVarDiff++;
+                    tabVarDiff.add(actuel);
                 }
                 vide = true;
             }
@@ -85,15 +79,12 @@ public class Clause {
             i++;
         }
         if(neg && !appartientTabVar(-actuel) && !vide){
-            tabVariable[posTabVar] = -actuel;
-            posTabVar ++;
+            tabVariable.add(-actuel);
         }else if(!neg && !appartientTabVar(actuel) && !vide){
-            tabVariable[posTabVar] = actuel;
-            posTabVar ++;
+            tabVariable.add(actuel);
         }
         if(!appartientTabVarDiff(actuel) && !vide){
-            tabVarDiff[posTabVarDiff] = actuel;
-            posTabVarDiff++;
+            tabVarDiff.add(actuel);
         }
 
     }
@@ -121,15 +112,7 @@ public class Clause {
         Algorithme : On parours la liste des variables et on compare avec la variable mise en paramètre
     */
     public boolean appartientTabVar(int x){
-        int i = 0;
-        while(i<posTabVar){
-            if(x == tabVariable[i]){
-                return true;
-            }
-            i++;
-        }
-        return false;
-
+        return tabVariable.contains(x);
     }
 
 
@@ -139,15 +122,7 @@ public class Clause {
         Algorithme : On parours la liste des variables différentes et on compare avec la variable mise en paramètre
     */
     public boolean appartientTabVarDiff(int x){
-        int i = 0;
-        while(i<posTabVarDiff){
-            if(x == tabVarDiff[i]){
-                return true;
-            }
-            i++;
-        }
-        return false;
-
+        return tabVarDiff.contains(x);
     }
 
     /* 
@@ -158,7 +133,7 @@ public class Clause {
     public boolean appartientTabClause(Clause[] x, int posTabC){
         int i = 0;
         while(i<posTabC){
-            if(this.equivalent(x[i])){
+            if(equals(x[i])){
                 return true;
             }
             i++;
@@ -175,15 +150,16 @@ public class Clause {
         On compare seulement si les deux clauses ont la même taille.
     */
     //todo : Override "equals" directement ?
-    public boolean equivalent(Clause c){
+    public boolean equals(Clause c){
         boolean equal;
-        if(posTabVar == c.posTabVar){
+        if(c.tabVariable.size() == this.tabVariable.size()){
             equal = true;
             int i = 0;
-            while(i < posTabVar && appartientTabVar(c.tabVariable[i])){
+            int size = c.tabVariable.size();
+            while(i < size && appartientTabVar(c.tabVariable.get(i))){
                 i++;
             }
-            if(i < posTabVar){
+            if(i < size){
                 equal = false;
             }
         }else{
@@ -196,16 +172,12 @@ public class Clause {
     /*
         Permet de représenter l'objet Clause sous forme d'un String
     */
-    //todo : Utiliser StringBuilder à la place
     public String toString(){
-        int i = 0;
-        String res = "";
-        while(i < posTabVar){
-            res = res + tabVariable[i] + " ";
-            i++;
+        StringBuilder res = new StringBuilder();
+        for(int e : tabVariable){
+            res.append(e).append(" ");
         }
-        return res;
-
+        return res.toString();
     }
 
 
@@ -215,18 +187,11 @@ public class Clause {
     */
     public void disjonction(int var){
         if(!appartientTabVar(var)){
-            tabVariable[posTabVar] = var;
-            posTabVar++;
+            tabVariable.add(var);
 
             if(!appartientTabVarDiff(var)){
-                if( var < 0){
-                    tabVarDiff[posTabVarDiff] = -var;
-                }else{
-                    tabVarDiff[posTabVarDiff] = var;
-                }
-                posTabVarDiff++;
+                tabVarDiff.add(Math.abs(var));
             }
-
         }
     }
 
