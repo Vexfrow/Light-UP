@@ -2,16 +2,16 @@ package formalisation;
 
 import lecteur.LecteurFormule;
 
+import java.util.ArrayList;
+
 
 public class Formule {
 
-    //Tableau des variables "differentes" : -x = x dans ce cas là ; Ainsi que l'indicateur de sa taille
-    public int[] tabVarDiff; //Todo : Tab dynamic ?
-    public int posTabVarDiff;
+    //Tableau des variables "différentes" : -x = x dans ce cas-là
+    public ArrayList<Integer> tabVarDiff;
 
-    //Tableau des clauses ; Ainsi que l'indicateur de sa taille
-    public Clause[] tabClause; //Todo : Tab dynamic ?
-    public int posTabClause;
+    //Tableau des clauses
+    public ArrayList<Clause> tabClause;
 
 
     /* 
@@ -20,18 +20,22 @@ public class Formule {
     */
 
 
+    /*
+        Constructeur sans paramètre (Formule vide)
+        Crée un objet formule vide
+    */
+    public Formule() {
+        tabVarDiff = new ArrayList<>();
+        tabClause = new ArrayList<>();
+    }
+
 
     /*
     Constructeur avec paramètre
-    Crée un objet formule à partir du string formule fournis et dont le format ressemble à : (x + x + -x) * (x + -x) * ....
+    Crée un objet formule à partir du string formule fourni et dont le format ressemble à : (x + x + -x) * (x + -x) * ....
     */
-    public Formule(String s){
-
-        tabVarDiff = new int[100];
-        posTabVarDiff = 0;
-
-        tabClause = new Clause[1000];
-        posTabClause = 0;
+    public Formule(String s) {
+        this();
 
         remplirTabClause(s);
         remplirTabVarDiff();
@@ -39,112 +43,54 @@ public class Formule {
 
 
     /*
-        Constructeur sans paramètre (Formule vide)
-        Crée un objet formule vide 
-    */
-    public Formule(){
-        tabClause = new Clause[1000];
-        posTabClause = 0;
-
-        tabVarDiff = new int[100];
-        posTabVarDiff = 0;
-
-    }
-
-
-
-
-    /*
         Permet de remplir la liste de clauses à partir d'une formule sous forme d'un string
         Algorithme : On parcourt le string grâce à un lecteur de String spécifique (voir la classe "LecteurFormule") qui sépare la formule en différente clause
         et on range ces clauses dans le tableau correspondant (on en augmente la taille)
     */
-    private void remplirTabClause(String formule){
-        LecteurFormule lectF = new LecteurFormule(formule);
+    private void remplirTabClause(String formule) {
+        LecteurFormule lecteurF = new LecteurFormule(formule);
 
-        lectF.demarrer();
-        while(!lectF.finDeSequence()){
-            Clause c =  new Clause (lectF.elementCourant());
-            if(!c.appartientTabClause(tabClause, posTabClause)){
-                tabClause[posTabClause] =  new Clause (lectF.elementCourant());
-                posTabClause++;
-            }
-            lectF.avancer();
+        lecteurF.demarrer();
+        while (!lecteurF.finDeSequence()) {
+            Clause c = new Clause(lecteurF.elementCourant());
+            if (!c.appartientTabClause(tabClause)) tabClause.add(c);
+            lecteurF.avancer();
         }
     }
-
 
 
     /*
         Remplis la liste des variables différentes (variable négatif == variable positif)
-        Algorithme : On parcourt toutes les variables de toutes les clauses du tableau de clause. Si une variable n'est pas déjà dans le tableau -> On le rajoute
+        Algorithme : On parcourt toutes les variables de toutes les clauses du tableau de clause. Si une variable n'est pas déjà dans le tableau → On le rajoute
         Sinon on ne fait rien.
     */
     private void remplirTabVarDiff() {
-        int i = 0;
-        while(i < posTabClause){
-            int j = 0;
-            Clause c = tabClause[i];
-            int size = c.tabVarDiff.size();
-            while(j < size){
-                if(!appartient(c.tabVarDiff.get(j))){
-                    tabVarDiff[posTabVarDiff] = c.tabVarDiff.get(j);
-                    posTabVarDiff++;
-                }
-                j++;
-            }
-            i++;
+        for (Clause c : tabClause) {
+            for (Integer var : c.tabVarDiff)
+                if (!tabVarDiff.contains(var)) tabVarDiff.add(var);
         }
     }
-
-
-
-
-    /*
-        Permet de verifier si une variable est présente dans la liste des variables différentes
-        Algorithme : On parcourt le tableau de variable et on compare l'élément courant du tableau avec l'élément mis en paramètre
-    */
-    public boolean appartient(int x){
-        int i = 0;
-        while(i<posTabVarDiff){
-            if(x == tabVarDiff[i]){
-                return true;
-            }
-            i++;
-        }
-        return false;
-    }
-
-
-
 
     /*
         Transforme notre formule disjonctive en une formule DIMACS.
         Algorithme : On parcourt la liste des clauses, que l'on écrit sous forme d'un string.
     */
-    public String formuleDIMACS() {
-        //Todo : Use StringBuilder instead of String
-        String formuleDIMACS = ("p cnf " + posTabVarDiff + " " + posTabClause );
-        int i = 0;
+    public String toFormuleDIMACS() {
+        StringBuilder formuleDIMACS = new StringBuilder(("p cnf " + tabVarDiff.size() + " " + tabClause.size()));
+        for (Clause c : tabClause)
+            formuleDIMACS.append('\n').append(c.toString()).append('0');
 
-        while(i < posTabClause){
-            formuleDIMACS = formuleDIMACS + '\n' + tabClause[i].toString() + '0';
-            i++;
-        }
-        return formuleDIMACS;
+        return formuleDIMACS.toString();
     }
-
-
 
 
     /*
         Prend une clause, puis fait la conjonction entre la formule et la clause.
         Algorithme : Si la clause n'est pas déjà dans le tableau de clause (voir dans la Classe "CLause.java"), on rajoute cette clause à la liste
     */
-    public void conjonction(Clause c){
-        if(!c.appartientTabClause(tabClause, posTabClause)){
-            tabClause[posTabClause] = c;
-            posTabClause++;
+    public void conjonction(Clause c) {
+        if (!c.appartientTabClause(tabClause)) {
+            tabClause.add(c);
             remplirTabVarDiff(); //Todo : Modifier pour ne rajouter que les élements de la nouvelle clause
         }
     }
@@ -154,10 +100,10 @@ public class Formule {
         Prend une autre formule, puis fait la conjonction entre la formule actuelle et la nouvelle.
         Algorithme : On parcourt la liste des clauses de la formule passée en paramètre et on fait la conjonction de ces clauses avec la formule actuelle.
     */
-    public void conjonction(Formule f){
+    public void conjonction(Formule f) {
         int i = 0;
-        while(i < f.posTabClause){
-            conjonction(f.tabClause[i]);
+        while (i < f.tabClause.size()) {
+            conjonction(f.tabClause.get(i));
             i++;
         }
     }
@@ -166,34 +112,33 @@ public class Formule {
     /*
         Permet d'écrire l'objet formule sous la forme d'un String du même format que celui récupéré en paramètre par le constructeur.
     */
-    //Todo : Modifier pour utiliser le "toString" de la classe Clause
-    public String toString(){
-        //Todo : Use StringBuilder instead of String
-        String s = "";
+//Todo : Modifier pour utiliser le "toString" de la classe Clause
+    // TODO : Revoir la manière dont le string est construit
+    public String toString() {
+        StringBuilder s = new StringBuilder();
         int i = 0;
 
-        while(i < posTabClause){
+        while (i < tabClause.size()) {
             int j = 0;
-            s = s+ "(";
-            int size = tabClause[i].tabVariable.size();
-            while(j < size){
-                s = s + tabClause[i].tabVariable.get(j);
+            s.append("(");
+            int size = tabClause.get(i).tabVariable.size();
+            while (j < size) {
+                s.append(tabClause.get(i).tabVariable.get(j));
                 j++;
-                if(j < size){
-                    s = s + " + ";
+                if (j < size) {
+                    s.append(" + ");
                 }
 
             }
-            s = s + ")";
+            s.append(")");
             i++;
-            if(i < posTabClause){
-                s = s + " * ";
+            if (i < tabClause.size()) {
+                s.append(" * ");
             }
         }
 
-        return s;
+        return s.toString();
     }
 
-    
-    
+
 }

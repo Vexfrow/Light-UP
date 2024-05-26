@@ -36,39 +36,37 @@ public class FormuleTest {
         Formule f2 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0)");
         Formule f3 = new Formule("(-20 + -27) * (-0 + -2) * (-2 + -0 + -1)");
 
-        assert(f1.tabClause[0].toString().equals(c.toString()));
-        assert(f1.tabClause[1].toString().equals(c1.toString()));
-        assert(f1.posTabClause == 2);
+        assert(f1.tabClause.get(0).toString().equals(c.toString()));
+        assert(f1.tabClause.get(1).toString().equals(c1.toString()));
+        assert(f1.tabClause.size() == 2);
 
-        assert(f2.tabClause[0].toString().equals(c.toString()));
-        assert(f2.tabClause[1].toString().equals(c1.toString()));
-        assert(f2.posTabClause == 2);
+        assert(f2.tabClause.get(0).toString().equals(c.toString()));
+        assert(f2.tabClause.get(1).toString().equals(c1.toString()));
+        assert(f2.tabClause.size() == 2);
 
-        assert(f3.tabClause[0].toString().equals(c.toString()));
-        assert(f3.tabClause[1].toString().equals(c1.toString()));
-        assert(f3.tabClause[2].toString().equals(c3.toString()));
-        assert(f3.posTabClause == 3);
-
-
+        assert(f3.tabClause.get(0).toString().equals(c.toString()));
+        assert(f3.tabClause.get(1).toString().equals(c1.toString()));
+        assert(f3.tabClause.get(2).toString().equals(c3.toString()));
+        assert(f3.tabClause.size() == 3);
     }
     
 
-
+    @Test
     public void conjonctionTest(){
         Formule f1 = new Formule("(-20 + -27) * (-0 + -2)");
 
-        assert(f1.posTabClause == 2);
+        assert(f1.tabClause.size() == 2);
 
         f1.conjonction(c);
-        assert(!(f1.posTabClause == 3));
-        assert(f1.posTabClause == 2);
+        assert(!(f1.tabClause.size() == 3));
+        assert(f1.tabClause.size() == 2);
 
         f1.conjonction(c2);
-        assert(!(f1.posTabClause == 3));
-        assert(f1.posTabClause == 2);
+        assert(!(f1.tabClause.size() == 3));
+        assert(f1.tabClause.size() == 2);
 
-        f1.conjonction(c4);
-        assert(f1.posTabClause == 3);
+        f1.conjonction(c3);
+        assert(f1.tabClause.size() == 3);
     }
 
 

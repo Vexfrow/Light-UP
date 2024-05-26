@@ -66,20 +66,17 @@ public class Clause {
 
                 if (!tabVariable.contains(actuel)) {
                     tabVariable.add(actuel);
-                    if (!tabVarDiff.contains(Math.abs(actuel)))
-                        tabVarDiff.add(Math.abs(actuel));
+                    if (!tabVarDiff.contains(Math.abs(actuel))) tabVarDiff.add(Math.abs(actuel));
                 }
 
                 vide = true;
             }
         }
-        if (neg)
-            actuel = -actuel;
+        if (neg) actuel = -actuel;
 
         if (!tabVariable.contains(actuel)) {
             tabVariable.add(actuel);
-            if (!tabVarDiff.contains(Math.abs(actuel)))
-                tabVarDiff.add(Math.abs(actuel));
+            if (!tabVarDiff.contains(Math.abs(actuel))) tabVarDiff.add(Math.abs(actuel));
         }
 
     }
@@ -107,10 +104,10 @@ public class Clause {
         Algorithme : On parcourt la liste des clauses et on compare avec la clause mise en paramètre
     */
 
-    public boolean appartientTabClause(Clause[] x, int posTabC) {
+    public boolean appartientTabClause(ArrayList<Clause> listeClauses) {
         int i = 0;
-        while (i < posTabC) {
-            if (equals(x[i])) {
+        while (i < listeClauses.size()) {
+            if (equals(listeClauses.get(i))) {
                 return true;
             }
             i++;

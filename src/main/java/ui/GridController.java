@@ -218,7 +218,7 @@ public class GridController
     {
         submited = true;
         Grille grid = new Grille(tab);
-        String stringDimacs = grid.allRules().formuleDIMACS();
+        String stringDimacs = grid.allRules().toFormuleDIMACS();
         fnc.setText(grid.allRules().toString());
         dimacs.setText(stringDimacs);
         BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));

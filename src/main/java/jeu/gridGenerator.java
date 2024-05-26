@@ -70,7 +70,7 @@ public class gridGenerator{
 
             try{
                 BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
-                formatDimacs = grid.allRules().formuleDIMACS();
+                formatDimacs = grid.allRules().toFormuleDIMACS();
                 bw.write(formatDimacs);
                 bw.flush();
                 bw.close();

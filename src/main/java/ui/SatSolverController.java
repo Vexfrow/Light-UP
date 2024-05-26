@@ -104,7 +104,7 @@ public class SatSolverController
     */
     public void submit() throws IOException{
         Formule formuleSaisie = new Formule(formule.getText());
-        String stringDimacs = formuleSaisie.formuleDIMACS();
+        String stringDimacs = formuleSaisie.toFormuleDIMACS();
         dimacs.setText(stringDimacs);
         BufferedWriter bw = new BufferedWriter(new FileWriter("src/main/resources/ui/dimacsCourant.txt"));
         bw.write(stringDimacs);

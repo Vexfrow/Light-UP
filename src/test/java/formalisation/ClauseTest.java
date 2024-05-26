@@ -3,6 +3,8 @@ package formalisation;
 import org.junit.Test;
 
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class ClauseTest {
@@ -80,17 +82,17 @@ public class ClauseTest {
         Clause c3 = new Clause(s3);
         Clause c4 = new Clause(s4);
 
-        Clause[] tabC = new Clause[3];
-        tabC[0] = c;
-        tabC[1] = c1;
-        tabC[2] = c2;
+        ArrayList<Clause> tabC = new ArrayList<>();
+        tabC.add(c);
+        tabC.add(c1);
+        tabC.add(c2);
 
 
-        assertTrue(c.appartientTabClause(tabC, tabC.length));
-        assertTrue(c1.appartientTabClause(tabC, tabC.length));
-        assertTrue(c2.appartientTabClause(tabC, tabC.length));
-        assertFalse(c3.appartientTabClause(tabC, tabC.length));
-        assertTrue(c4.appartientTabClause(tabC, tabC.length));
+        assertTrue(c.appartientTabClause(tabC));
+        assertTrue(c1.appartientTabClause(tabC));
+        assertTrue(c2.appartientTabClause(tabC));
+        assertFalse(c3.appartientTabClause(tabC));
+        assertTrue(c4.appartientTabClause(tabC));
     }
 
     
