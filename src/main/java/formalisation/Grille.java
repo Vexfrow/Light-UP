@@ -1,7 +1,5 @@
 package formalisation;
 
-import javafx.geometry.Point2D;
-
 public class Grille {
 
     private final int CASE_NOIR_SANS_CHIFFRE = -1;
@@ -12,105 +10,101 @@ public class Grille {
     private final int CASE_NOIR_CHIFFRE3 = 3;
     private final int CASE_NOIR_CHIFFRE4 = 4;
 
-    private int[][] grille;
-    private int nbLignes;
-    private int nbColonnes;
+    private final int[][] grille;
+    private final int taille;
 
 
-
-    /*  
+    /*
     On part du principe que les grilles sont carrées
-        -1 -> Case noir sans chiffre
-        -2 -> Case blanche
-        0,1,2,3,4 -> Case noir avec un chiffre
+        -1 → Case noir sans chiffre
+        -2 → Case blanche
+        0,1,2,3,4 → Case noir avec un chiffre
 
-        Les cases sont numérotées de 1 à n
+        Les cases sont numérotées de 1 à "n"
     */
-    public Grille(int[][] grille){
+    public Grille(int[][] grille) {
         this.grille = grille;
-        nbColonnes = grille.length;
-        nbLignes = nbColonnes;
+        taille = grille.length;
     }
 
 
-    public Grille(int taille){
+    public Grille(int taille) {
         this.grille = new int[taille][taille];
-        nbColonnes = taille;
-        nbLignes = taille;
+        this.taille = taille;
     }
 
-    public int[][] getGrille(){
+    public int[][] getGrille() {
         return grille;
     }
 
 
-    public void setValues(int value, int position){
-        grille[getLigne(position)][getColonne(position)] = value; 
+    public void setValues(int value, int position) {
+        grille[getLigne(position)][getColonne(position)] = value;
     }
 
 
-    public int getValues(int position){
-        return grille[getLigne(position)][getColonne(position)]; 
+    public int getValues(int position) {
+        return grille[getLigne(position)][getColonne(position)];
     }
 
     /*
         Renvoie la liste de toutes les cases adjacentes à la case mise en paramètre.
         Une case est dîte adjacente à une autre si elles sont sur la même ligne/colonne et ne sont pas séparées par une case noire (il n'y a pas d'histoire de distance)
     */
-    public int[] adjacent(int CASE){
+    public int[] adjacent(int CASE) {
         int posLigne = getLigne(CASE);
         int posCol = getColonne(CASE);
 
-        int i=posLigne;
-        int j=posCol;
+        int i = posLigne;
+        int j = posCol;
 
         int pos = 0;
         //Todo : Tab dynamique ?
         //Todo : Utilise un objet Point au lieu d'un entier pour indiquer une position
-        int[] truc = new int[nbLignes+nbColonnes]; //Crée une liste avec une taille maximale
+        int[] truc = new int[taille*2]; //Crée une liste avec une taille maximale
         //Liste que l'on va remplir plus bas
 
 
-        j = posCol-1;
+        j = posCol - 1;
 
-        while(j >= 0 && grille[i][j] == CASE_BLANCHE){  //Récupère les cases adjacentes situées à gauche de notre case 
-            truc[pos] = entierGrille(i,j);
+        while (j >= 0 && grille[i][j] == CASE_BLANCHE) {  //Récupère les cases adjacentes situées à gauche de notre case
+            truc[pos] = entierGrille(i, j);
             pos++;
-            
-            j = j-1;
+
+            j = j - 1;
         }
 
-        j = posCol+1;
+        j = posCol + 1;
 
-        while(j < nbColonnes && grille[i][j] == CASE_BLANCHE){ //Récupère les cases adjacentes situées à droite de notre case 
-            truc[pos] = entierGrille(i,j);
+        while (j < taille && grille[i][j] == CASE_BLANCHE) { //Récupère les cases adjacentes situées à droite de notre case
+            truc[pos] = entierGrille(i, j);
             pos++;
-            
+
             j++;
         }
 
-        i =posLigne+1;
+        i = posLigne + 1;
         j = posCol;
 
-        while(i < nbLignes && grille[i][j] == CASE_BLANCHE){ //Récupère les cases adjacentes situées en bas de notre case 
-            truc[pos] = entierGrille(i,j);
+        while (i < taille && grille[i][j] == CASE_BLANCHE) { //Récupère les cases adjacentes situées en bas de notre case
+            truc[pos] = entierGrille(i, j);
             pos++;
-        
+
             i++;
         }
 
-        i = posLigne-1;
-        while(i >= 0 && grille[i][j] == CASE_BLANCHE){   //Récupère les cases adjacentes situées en haut de notre case
-            truc[pos] = entierGrille(i,j);
+        i = posLigne - 1;
+        while (i >= 0 && grille[i][j] == CASE_BLANCHE) {   //Récupère les cases adjacentes situées en haut de notre case
+            truc[pos] = entierGrille(i, j);
             pos++;
-            
-            i = i-1;
+
+            i = i - 1;
         }
 
-        
+
         int[] res = new int[pos];    //Recrée une liste avec une taille définie et la remplie (pour éviter des éléments vides)
         int m = 0;
-        while(m < pos){
+        while (m < pos) {
             res[m] = truc[m];
             m++;
         }
@@ -122,11 +116,11 @@ public class Grille {
     /*
         Renvoie le numéro de la ligne correspondant à la case mise en paramètre
     */
-    public int getLigne(int CASE){
-        int res = CASE/nbLignes;
+    public int getLigne(int CASE) {
+        int res = CASE / taille;
 
-        if(CASE%nbLignes == 0){
-            res = res-1;
+        if (CASE % taille == 0) {
+            res = res - 1;
         }
         return res;
     }
@@ -135,11 +129,11 @@ public class Grille {
     /*
         Renvoie le numéro de la colonne correspondant à la case mise en paramètre
     */
-    public int getColonne(int CASE){
-        int res = CASE%nbColonnes-1;
+    public int getColonne(int CASE) {
+        int res = CASE % taille - 1;
 
-        if(CASE%nbColonnes == 0){
-            res = nbColonnes-1;
+        if (CASE % taille == 0) {
+            res = taille - 1;
         }
         return res;
     }
@@ -148,46 +142,45 @@ public class Grille {
     /*
         Renvoie l'entier correspondant aux coordonnées mises en paramètre
     */
-    public int entierGrille(int ligne, int colonne){
-        return (ligne*nbLignes+colonne+1);
+    public int entierGrille(int ligne, int colonne) {
+        return (ligne * taille + colonne + 1);
     }
-
 
 
     /*
         Renvoie la liste de toutes les cases adjacentes unique à la case mise en paramètre.
-        Une case est dîtes adjacente unique à une autre si elles sont sur la même ligne/colonne et ne sont pas séparrées par une case noire (les cases doivent être cote à cote)
+        Une case est dites adjacente unique à une autre si elles sont sur la même ligne/colonne et ne sont pas séparées par une case noire (les cases doivent être côte à côte)
     */
-    public int[] adjacenteUnique(int CASE){
+    public int[] adjacenteUnique(int CASE) {
         int posLigne = getLigne(CASE);
         int posCol = getColonne(CASE);
 
         int pos = 0;
         int[] truc = new int[4];
 
-       if(posLigne-1 >= 0 && grille[posLigne-1][posCol]==CASE_BLANCHE){ //Récupère la case adjacente situé en haut de notre case 
-            truc[pos] = entierGrille(posLigne-1, posCol);
+        if (posLigne - 1 >= 0 && grille[posLigne - 1][posCol] == CASE_BLANCHE) { //Récupère la case adjacente située en haut de notre case
+            truc[pos] = entierGrille(posLigne - 1, posCol);
             pos++;
         }
 
-       if(posLigne+1 < nbLignes && grille[posLigne+1][posCol]==CASE_BLANCHE){ //Récupère la case adjacente situé en bas de notre case 
-            truc[pos] = entierGrille(posLigne+1,posCol);
+        if (posLigne + 1 < taille && grille[posLigne + 1][posCol] == CASE_BLANCHE) { //Récupère la case adjacente située en bas de notre case
+            truc[pos] = entierGrille(posLigne + 1, posCol);
             pos++;
         }
 
-        if(posCol-1 >= 0 && grille[posLigne][posCol-1]==CASE_BLANCHE){ //Récupère la case adjacente situé à gauche de notre case 
-            truc[pos] = entierGrille(posLigne,posCol-1);
+        if (posCol - 1 >= 0 && grille[posLigne][posCol - 1] == CASE_BLANCHE) { //Récupère la case adjacente située à gauche de notre case
+            truc[pos] = entierGrille(posLigne, posCol - 1);
             pos++;
         }
 
-        if(posCol+1 < nbColonnes && grille[posLigne][posCol+1]==CASE_BLANCHE){ //Récupère la case adjacente situé à droite de notre case 
-            truc[pos] = entierGrille(posLigne,posCol+1);
+        if (posCol + 1 < taille && grille[posLigne][posCol + 1] == CASE_BLANCHE) { //Récupère la case adjacente située à droite de notre case
+            truc[pos] = entierGrille(posLigne, posCol + 1);
             pos++;
         }
-        
+
         int[] res = new int[pos]; //Recrée une liste avec une taille définie et la remplie (pour éviter des éléments vides)
         int m = 0;
-        while(m < pos){
+        while (m < pos) {
             res[m] = truc[m];
             m++;
         }
@@ -199,13 +192,13 @@ public class Grille {
     /*
         Prend un tableau d'entier ainsi qu'un entier appartenant au tableau, puis renvoie le tableau sans cet entier
         Schèma de recherche
-    */ 
-    private int[] supprimerElementTab(int[] tab, int e){
+    */
+    private int[] supprimerElementTab(int[] tab, int e) {
         int i = 0;
         int pos = 0;
-        int[] res = new int[tab.length-1];
-        while(i < tab.length){
-            if(tab[i] != e){
+        int[] res = new int[tab.length - 1];
+        while (i < tab.length) {
+            if (tab[i] != e) {
                 res[pos] = tab[i];
                 pos++;
             }
@@ -215,18 +208,16 @@ public class Grille {
     }
 
 
-
-
     /*
         Renvoie la formule correspondant à la première règle
         On fait la conjonction, de la disjonction, de toutes les cases adjacentes des cases blanches
-    */  
-    public Formule regle1(){
+    */
+    public Formule regle1() {
 
-        Formule resRegle1 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
-        int i =1;
-        while(i <= nbColonnes*nbLignes){                                //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){     //Si la case est une case blanche
+        Formule resRegle1 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de toutes nos clauses
+        int i = 1;
+        while (i <= taille * taille) {                                //On parcourt toutes les cases
+            if (grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE) {     //Si la case est une case blanche
 
                 int j = 0;
                 int[] adjacent = adjacent(i); //On récupère la liste des cases adjacentes
@@ -234,7 +225,7 @@ public class Grille {
                 Clause c = new Clause();
                 c.disjonction(i);
 
-                while(j < adjacent.length){                         //Pour toutes les cases adjacente à la case blanche
+                while (j < adjacent.length) {                         //Pour toutes les cases adjacentes à la case blanche
                     c.disjonction(adjacent[j]);                     //On fait la disjonction de toutes les cases adjacentes
                     j++;
                 }
@@ -248,19 +239,17 @@ public class Grille {
     }
 
 
-
-
     /*
         Renvoie la formule correspondant à la quatrième règle
         On fait la conjonction de la négation de toutes les cases noires
-    */  
-    public Formule regle4(){
-        Formule resRegle4 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
+    */
+    public Formule regle4() {
+        Formule resRegle4 = new Formule();                              //On crée une formule vide où l'on va faire la conjonction de toutes nos clauses
 
-        int i =1;
-        while(i <= nbColonnes*nbLignes){                                //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE){     //Si la case est une case noire
-                Clause caseN = new Clause("(-" + i +")");               // On crée une nouvelle clause correpondant à la règle pour la case
+        int i = 1;
+        while (i <= taille * taille) {                                //On parcourt toutes les cases
+            if (grille[getLigne(i)][getColonne(i)] != CASE_BLANCHE) {     //Si la case est une case noire
+                Clause caseN = new Clause("(-" + i + ")");               // On crée une nouvelle clause correspondant à la règle pour la case
                 resRegle4.conjonction(caseN);                           // On fait la conjonction de cette clause avec les autres dans la formule
             }
             i++;
@@ -269,24 +258,21 @@ public class Grille {
     }
 
 
-
-
-
-/*
-    Renvoie la formule correspondant à la deuxième règle
-    On fait la conjonction, de la disjonction de chaque case blanche et de ses cases adjacentes
-*/  
-    public Formule regle2(){
-        Formule resRegle2 = new Formule();                                          //On crée une formule vide où l'on va faire la conjonction de tout nos clauses
-        int i =1;
-        while(i <= nbColonnes*nbLignes){                                            //On parcours toutes les cases
-            if(grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE){                 //Si la case est une case blanche
+    /*
+        Renvoie la formule correspondant à la deuxième règle
+        On fait la conjonction, de la disjonction de chaque case blanche et de ses cases adjacentes
+    */
+    public Formule regle2() {
+        Formule resRegle2 = new Formule();                                          //On crée une formule vide où l'on va faire la conjonction de toutes nos clauses
+        int i = 1;
+        while (i <= taille * taille) {                                            //On parcourt toutes les cases
+            if (grille[getLigne(i)][getColonne(i)] == CASE_BLANCHE) {                 //Si la case est une case blanche
 
                 int j = 0;
                 int[] adjacent = adjacent(i);                                       //On récupère la liste des cases adjacentes
 
-                while(j < adjacent.length){                                         //On parcours la liste des cases adjacentes
-                    Clause resCase = new Clause("(-"+i+" + -"+adjacent[j] + ")");   //On crée une clause correspondant à la règle pour la case
+                while (j < adjacent.length) {                                         //On parcourt la liste des cases adjacentes
+                    Clause resCase = new Clause("(-" + i + " + -" + adjacent[j] + ")");   //On crée une clause correspondant à la règle pour la case
                     resRegle2.conjonction(resCase);                                 //On fait la conjonction de cette clause avec les autres
                     j++;
                 }
@@ -297,109 +283,95 @@ public class Grille {
     }
 
 
-
-
-
-
     /*
         Renvoie la formule correspondant à la troisième règle
-        On fait la conjonction, de la disjonction de toutes les possibilitées d'agencement de chaque cases noires avec un chiffre
+        On fait la conjonction, de la disjonction de toutes les possibilités d'agencement de chaque cases noires avec un chiffre
     */
-    //Todo : faire une réele transformation disjonction to conjonction
-    public Formule regle3(){
+    //Todo : faire une réelle transformation disjonction to conjonction
+    public Formule regle3() {
         Formule res = new Formule();
-        int i =1;
+        int i = 1;
 
-        while(i <= nbColonnes*nbLignes){
+        while (i <= taille * taille) {
             int typeC = grille[getLigne(i)][getColonne(i)];
-            if(typeC != CASE_BLANCHE && typeC != CASE_NOIR_SANS_CHIFFRE && typeC != CASE_NOIR_CHIFFRE0){
+            if (typeC != CASE_BLANCHE && typeC != CASE_NOIR_SANS_CHIFFRE && typeC != CASE_NOIR_CHIFFRE0) {
 
                 int[] adj = adjacenteUnique(i);
 
-                if(typeC == adj.length){                //Si le numéro de la case correspond au nombre de case adjacente
+                if (typeC == adj.length) {                //Si le numéro de la case correspond au nombre de case adjacente
                     int j = 0;
-                    while(j < adj.length){
+                    while (j < adj.length) {
                         Clause c = new Clause();
                         c.disjonction(adj[j]);
                         j++;
                         res.conjonction(c);
                     }
-                }
-                
-                
-                
-                else if(typeC == adj.length-1 && typeC != CASE_NOIR_CHIFFRE4){    //Si il y a une case de + que le numéro indiqué
+                } else if (typeC == adj.length - 1 && typeC != CASE_NOIR_CHIFFRE4) {    //S'il y a une case de + que le numéro indiqué
                     Clause c = new Clause();
                     int j = 0;
-                    while(j < adj.length){
-                        c.disjonction(-adj[j]);  
+                    while (j < adj.length) {
+                        c.disjonction(-adj[j]);
                         j++;
                     }
 
                     res.conjonction(c);
 
                     j = 0;
-                    while(j < adj.length){
+                    while (j < adj.length) {
                         int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-                        for(int m = 0; m < adjSansJ.length; m++){
+                        for (int k : adjSansJ) {
                             Clause c2 = new Clause();
                             c2.disjonction(adj[j]);
-                            c2.disjonction(adjSansJ[m]);
+                            c2.disjonction(k);
                             res.conjonction(c2);
                         }
                         j++;
                     }
-                }
-                
-                
-                
-                else if(typeC == adj.length-2 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3){       //Si il y a deux cases de + que le numéro indiqué
-                    
-                    if(typeC == CASE_NOIR_CHIFFRE1){
+                } else if (typeC == adj.length - 2 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3) {       //S'il y a deux cases de + que le numéro indiqué
+
+                    if (typeC == CASE_NOIR_CHIFFRE1) {
                         Clause c = new Clause();
                         int j = 0;
-                        while(j < adj.length){
-                           c.disjonction(adj[j]);  
+                        while (j < adj.length) {
+                            c.disjonction(adj[j]);
                             j++;
                         }
                         res.conjonction(c);
 
 
                         j = 0;
-                        while(j < adj.length){
+                        while (j < adj.length) {
                             int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-                            for(int m = 0; m < adjSansJ.length; m++){
+                            for (int k : adjSansJ) {
                                 c = new Clause();
                                 c.disjonction(-adj[j]);
-                                c.disjonction(-adjSansJ[m]);
+                                c.disjonction(-k);
                                 res.conjonction(c);
                             }
                             j++;
                         }
-                            
-                            
 
 
-                    }else{
-                        Clause c = new Clause();
+                    } else {
+                        Clause c;
 
                         int j = 0;
-                        while(j < adj.length){
+                        while (j < adj.length) {
                             int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-    
+
                             int m = 0;
-                            while(m < adjSansJ.length){
+                            while (m < adjSansJ.length) {
                                 int[] adjSansM = supprimerElementTab(adjSansJ, adjSansJ[m]);
-    
-    
+
+
                                 int n = 0;
-                                while(n < adjSansM.length){
+                                while (n < adjSansM.length) {
                                     c = new Clause();
                                     c.disjonction(-adj[j]);
                                     c.disjonction(-adjSansJ[m]);
                                     c.disjonction(-adjSansM[n]);
                                     res.conjonction(c);
-    
+
                                     c = new Clause();
                                     c.disjonction(adj[j]);
                                     c.disjonction(adjSansJ[m]);
@@ -413,46 +385,40 @@ public class Grille {
                             j++;
                         }
                     }
-                }
-                
-                
-                
-                else if(typeC == adj.length-3 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3 && typeC != CASE_NOIR_CHIFFRE2){        //Si il y a trois cases de + que le numéro indiqué
+                } else if (typeC == adj.length - 3 && typeC != CASE_NOIR_CHIFFRE4 && typeC != CASE_NOIR_CHIFFRE3 && typeC != CASE_NOIR_CHIFFRE2) {        //Si il y a trois cases de + que le numéro indiqué
                     Clause c = new Clause();
                     int j = 0;
-                    while(j < adj.length){
-                        c.disjonction(adj[j]);  
+                    while (j < adj.length) {
+                        c.disjonction(adj[j]);
                         j++;
                     }
                     res.conjonction(c);
 
                     j = 0;
-                    while(j < adj.length){
+                    while (j < adj.length) {
                         int[] adjSansJ = supprimerElementTab(adj, adj[j]);
-                        for(int m = 0; m < adjSansJ.length; m++){
+                        for (int k : adjSansJ) {
                             c = new Clause();
                             c.disjonction(-adj[j]);
-                            c.disjonction(-adjSansJ[m]);
+                            c.disjonction(-k);
                             res.conjonction(c);
                         }
                         j++;
                     }
-                } else{     //Dans le cas où on ne rentre pas dans les critères précedent, cela veut dire que la grille n'est pas résolvable car il existe une case noir avec un chiffre qui n'a pas assez de case adjacente
-                    Clause c = new Clause();    //Dans ce cas là, on crée deux clause contradictoire qui serront reperer pas le sat solver. (Ce n'est pas la manière la + optimale, ça ressemble + à du bricolage mais ça fait le taf)
+                } else {     //Dans le cas où on ne rentre pas dans les critères précedent, cela veut dire que la grille n'est pas résolvable car il existe une case noire avec un chiffre qui n'a pas assez de case adjacente
+                    Clause c = new Clause();    //Dans ce cas-là, on crée deux clauses contradictoires qui seront repérées pas le sat solver. (Ce n'est pas la manière la + optimale, ça ressemble + à du bricolage, mais ça fait le taf)
                     c.disjonction(1);
                     res.conjonction(c);
                     c = new Clause();
                     c.disjonction(-1);
                     res.conjonction(c);
-
                 }
 
 
-
-            }else if(typeC == CASE_NOIR_CHIFFRE0){
+            } else if (typeC == CASE_NOIR_CHIFFRE0) {
                 int j = 0;
                 int[] adj = adjacenteUnique(i);
-                while(j < adj.length){
+                while (j < adj.length) {
                     Clause c = new Clause();
                     c.disjonction(-adj[j]);
                     res.conjonction(c);
@@ -466,9 +432,7 @@ public class Grille {
     }
 
 
-
-
-    public Formule allRules(){
+    public Formule allRules() {
         Formule allRules = new Formule();
         allRules.conjonction(regle1());
         allRules.conjonction(regle2());
@@ -477,5 +441,5 @@ public class Grille {
 
         return allRules;
     }
-    
+
 }

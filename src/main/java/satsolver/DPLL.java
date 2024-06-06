@@ -7,13 +7,13 @@ import java.io.IOException;
 public class DPLL {
 
     
-        public int n; // nombre de clause
-        public int l; // nombre de variable
-        public int z; // nombre de litteraux isoles (taille du tableau)
+        public int n; // nombre de clauses
+        public int l; // nombre de variables
+        public int z; // nombre de littéraux isolés (taille du tableau)
         public boolean absurde; // Il y a un absurde dans les clauses
-        public String tab[]; // Liste des clauses
-        public int var[]; // Liste des valeurs des litteraux 0 ou 1(var[i] = litteral i+1 : ex = var[2] = n°3 = 0 ou 1 )
-        public String isoles[]; // Liste des litteraux isole (a mettre a jour)
+        public String[] tab; // Liste des clauses
+        public int[] var; // Liste des valeurs des littéraux 0 ou 1(var[i] = littéral i+1 : ex = var[2] = n°3 = 0 ou 1 )
+        public String[] isoles; // Liste des littéraux isole (à mettre à jour)
 
         
         public String resultat () throws IOException{
@@ -77,7 +77,7 @@ public class DPLL {
 
 
 
-        public DPLL ( int n2, int l2, int z2,boolean absurde2,String tab2[],int var2[], String[] isoles2 ){
+        public DPLL (int n2, int l2, int z2, boolean absurde2, String[] tab2, int[] var2, String[] isoles2 ){
             this.n = n2; 
             this.l = l2; 
             this.z = z2;
@@ -99,8 +99,8 @@ public class DPLL {
         
 
 
-        //algorithme dpll : si renvoie false alors il n'y a pas de solution
-        //                  si renvoie true alors renvoie la solution
+        //Algorithme DPLL : si renvoie false, il n'y a pas de solution
+        //                  si renvoie true, il existe une solution et celle-ci est renvoyée
         public boolean dpll (){
             boolean estModele = false; // variable local
             if(this.absurde){ // l'ensemble des clauses contient une clause vide (soit une clause mise a 0 donc il ne peut pas y avoir de solution)
@@ -113,9 +113,9 @@ public class DPLL {
                 suppContenu();
                 if(!suppIsole() ){
                     if(!resUnitaire()){
-                        //La variable choisit doit etre la meme peut etre verifier ici
+                        //La variable choisie doit être la meme peut être verifier ici
                         int i =0;
-                        while(i < l && var[i] != 2){ // On cherche une variable non instancié
+                        while(i < l && var[i] != 2){ // On cherche une variable non instanciée
                             i++;
                         }
                         String[] copie = tab;                      
@@ -131,13 +131,13 @@ public class DPLL {
                 }
             }
 
-            return !this.absurde & estModele; // non contient absurde ET il y a un modele
+            return !this.absurde & estModele; // non contient absurde ET il y a un modèle
     
         }
         
 
 
-        //Supprime les clauses sontenu dans d'autre
+        //Supprime les clauses contenues dans d'autre
         public void suppContenu(){
             int i = 0;
             int j = 0;
@@ -172,7 +172,7 @@ public class DPLL {
    
 
 
-        //version avec des tableau de string
+        //version avec des tableaux de string
         public boolean  estContenu(String[] inclus, String[] dans){ 
             int l = inclus.length;
             int m = dans.length;
@@ -199,7 +199,7 @@ public class DPLL {
     
 
 
-        //Supprime les clauses contenant des litteraux isoles (ajouter l'appel a DPLL)
+        //Supprime les clauses contenant des littéraux isolés (ajouter l'appel à DPLL)
         public boolean suppIsole(){
             isoleList();
             int i = 0;
@@ -211,7 +211,7 @@ public class DPLL {
                 j = 0;
     
                 while(j < n){
-                    if(estContenu(iso, tab[j].split(" "))){ //Suppression des clauses contenant des litteraux isolés
+                    if(estContenu(iso, tab[j].split(" "))){ //Suppression des clauses contenant des littéraux isolés
                         suppTab(j);
                         j--;
                         estChange = true; 
@@ -236,7 +236,7 @@ public class DPLL {
             String[] unit = new String[this.n];
             int j = 0;
             int m = 0;
-            while(j < this.n){ // On parcours le tableau et on cherche la liste des classues unitaires
+            while(j < this.n){ // On parcourt le tableau et on cherche la liste des clauses unitaires
                 String[] s = tab[j].split(" ");
                 if(s.length == 1){
                     unit[m] = s[0];
@@ -287,7 +287,7 @@ public class DPLL {
 
 
 
-        //supprime un element du tabelau et remonte les autres
+        //supprime un element du tableau et remonte les autres
         public void suppTab(int k){
             int j = k+1;
             while(j < this.n){
@@ -299,7 +299,7 @@ public class DPLL {
         }
 
 
-        //Met à jour la liste des litteraux isolés (nécessaire lors de la suppression des clauses avec litteraux isolés)
+        //Met à jour la liste des littéraux isolés (nécessaire lors de la suppression des clauses avec littéraux isolés)
         public void isoleList (){
             int j = 0;
             int i = 0;
@@ -346,7 +346,7 @@ public class DPLL {
     
 
 
-        //Mettre a jour toute les clauses
+        //Mettre à jour toutes les clauses
         public void maj(int pos, int valeur){
             int i = 0;
             int j = 0;
@@ -406,7 +406,7 @@ public class DPLL {
                                 while(k < ligne.length ){
                                     // Le premier element n'obeit pas aux memes regles d'écriture
                                     if(!nega[0].equals(ligne[k])){
-                                        if(sol ==""){
+                                        if(sol == ""){
                                             sol = ligne[k];
                                         }
                                         else{
@@ -425,21 +425,21 @@ public class DPLL {
             }
             this.maj();
         }
-    
 
 
 
 
-        //Met a jour la variable absurde pour dire si il existe une clause vide 
+
+        //Met à jour la variable absurde pour dire s'il existe une clause vide
         public void maj(){
             
             int i = 0;
             while(i < this.n){
-                while(i < this.n && !this.tab[i].equals("")){
+                while(i < this.n && !this.tab[i].isEmpty()){
                     i++;
                 }
                 this.absurde = this.absurde || (i != this.n);                
-                if(i < this.n && !this.tab[i].equals("")){
+                if(i < this.n && !this.tab[i].isEmpty()){
                     this.suppTab(i);
                     i--;   
                 }

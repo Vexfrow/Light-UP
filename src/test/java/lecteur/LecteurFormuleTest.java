@@ -11,11 +11,11 @@ public class LecteurFormuleTest {
         LecteurFormule lf = new LecteurFormule(t);
 
         lf.demarrer();
-        assertTrue(lf.elementCourant().equals("(x10 + x20) "));
+        assertEquals("(x10 + x20) ", lf.elementCourant());
         lf.avancer();
-        assertTrue(lf.elementCourant().equals(" (x32 + x62)"));
+        assertEquals(" (x32 + x62)", lf.elementCourant());
         lf.avancer();
-        assertTrue(lf.elementCourant().equals(""));
+        assertEquals("", lf.elementCourant());
     }
     
 }

@@ -1,16 +1,16 @@
 package lecteur;
 
 /* Il s'agit d'une classe permettant de parcourir la formule conjonctive 
-afin de récuperer chaque formule disjonctive la constituant.
+afin de récupérer chaque formule disjonctive la constituant.
 */
 
-public class LecteurFormule implements AccesSequentielModele1<String>{
-    private String formule;
+public class LecteurFormule implements AccesSequentielModele1<String> {
+    private final String formule;
     private String elementActuel;
     private int i;
 
 
-    public LecteurFormule(String formule){
+    public LecteurFormule(String formule) {
         this.formule = formule;
         elementActuel = null;
     }
@@ -23,26 +23,23 @@ public class LecteurFormule implements AccesSequentielModele1<String>{
     }
 
 
-    
     public void avancer() {
         elementActuel = "";
-        while(i < formule.length() && formule.charAt(i) != '*' && formule.charAt(i) != '&' && formule.charAt(i) != '^' ){
+        while (i < formule.length() && formule.charAt(i) != '*' && formule.charAt(i) != '&' && formule.charAt(i) != '^') {
             elementActuel = elementActuel + formule.charAt(i);
             i++;
         }
-        if(i < formule.length()){
+        if (i < formule.length()) {
             i++;
         }
     }
 
 
-    
     public boolean finDeSequence() {
-        return (i == formule.length() && elementActuel.equals(""));
+        return (i == formule.length() && elementActuel.isEmpty());
     }
 
 
-    
     public String elementCourant() {
         return elementActuel;
     }
