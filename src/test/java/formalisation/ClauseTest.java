@@ -36,14 +36,14 @@ public class ClauseTest {
         Clause c = new Clause(s);
         Clause c2 = new Clause(s1);
 
-        assertEquals(-27, (int)c.tabVariable.get(1));
-        assertEquals(-20, (int)c.tabVariable.get(0));
+        assertEquals(-27, (int)c.tabVariableUnique.get(1));
+        assertEquals(-20, (int)c.tabVariableUnique.get(0));
 
-        assertEquals(-1, (int)c2.tabVariable.get(0));
-        assertEquals(-2, (int)c2.tabVariable.get(1));
+        assertEquals(-1, (int)c2.tabVariableUnique.get(0));
+        assertEquals(-2, (int)c2.tabVariableUnique.get(1));
 
-        assertEquals(1, (int)c2.tabVarDiff.get(0));
-        assertEquals(2, (int)c2.tabVarDiff.get(1));
+        assertEquals(1, (int)c2.tabVariablePositive.get(0));
+        assertEquals(2, (int)c2.tabVariablePositive.get(1));
     }
 
 

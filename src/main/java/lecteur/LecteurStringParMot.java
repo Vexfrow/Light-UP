@@ -60,7 +60,7 @@ public class LecteurStringParMot implements AccesSequentielModele1<String> {
     /**
      * Permet de preparer le mot suivant.
      * <br>Apres avancer <em>finDeSeq()</em> peut renvoyer vraie ;
-     * <br>Ne doit pas etre lance si <em>finDeSeq()</em> est vrai.
+     * <br>Ne doit pas être lancé si <em>finDeSeq()</em> est vrai.
      */
     public void avancer() {
         this.debut = prochaineLettre(fin); // debut doit correspondre à la position de la première lettre du prochain mot
@@ -115,8 +115,8 @@ public class LecteurStringParMot implements AccesSequentielModele1<String> {
      */
     public boolean estSeparateur(char c) {
         /*
-         * Faire une recheche de c dans
-         * la chaine de caracteres separateurs.
+         * Faire une recherche de c dans
+         * la chaine de caractères séparateurs.
          */
         int i = 0;
         while (i != separateurs.length() && c != separateurs.charAt(i)) {
@@ -137,7 +137,7 @@ public class LecteurStringParMot implements AccesSequentielModele1<String> {
     public int prochainEspace(int i) {
         /*
          * Faire une recherche dans "ligne" à partir de la position i
-         * du 1er caactere separateur.
+         * du 1er caractère séparateur.
          */
         while (i != (ligne.length()) && !estSeparateur(ligne.charAt(i))) {
             i++;

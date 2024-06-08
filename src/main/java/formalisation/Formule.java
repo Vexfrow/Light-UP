@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Formule {
 
     //Tableau des variables "différentes" : -x = x dans ce cas-là
-    public ArrayList<Integer> tabVarDiff;
+    public ArrayList<Integer> tabVariablePositive;
 
     //Tableau des clauses
     public ArrayList<Clause> tabClause;
@@ -25,7 +25,7 @@ public class Formule {
         Crée un objet formule vide
     */
     public Formule() {
-        tabVarDiff = new ArrayList<>();
+        tabVariablePositive = new ArrayList<>();
         tabClause = new ArrayList<>();
     }
 
@@ -66,8 +66,8 @@ public class Formule {
     */
     private void remplirTabVarDiff() {
         for (Clause c : tabClause) {
-            for (Integer var : c.tabVarDiff)
-                if (!tabVarDiff.contains(var)) tabVarDiff.add(var);
+            for (Integer var : c.tabVariablePositive)
+                if (!tabVariablePositive.contains(var)) tabVariablePositive.add(var);
         }
     }
 
@@ -76,7 +76,7 @@ public class Formule {
         Algorithme : On parcourt la liste des clauses, que l'on écrit sous forme d'un string.
     */
     public String toFormuleDIMACS() {
-        StringBuilder formuleDIMACS = new StringBuilder(("p cnf " + tabVarDiff.size() + " " + tabClause.size()));
+        StringBuilder formuleDIMACS = new StringBuilder(("p cnf " + tabVariablePositive.size() + " " + tabClause.size()));
         for (Clause c : tabClause)
             formuleDIMACS.append('\n').append(c.toString()).append('0');
 
@@ -86,12 +86,13 @@ public class Formule {
 
     /*
         Prend une clause, puis fait la conjonction entre la formule et la clause.
-        Algorithme : Si la clause n'est pas déjà dans le tableau de clause (voir dans la Classe "CLause.java"), on rajoute cette clause à la liste
+        Algorithme : Si la clause n'est pas déjà dans le tableau de clause (voir dans la Classe "Clause.java"), on rajoute cette clause à la liste
     */
     public void conjonction(Clause c) {
         if (!c.appartientTabClause(tabClause)) {
             tabClause.add(c);
-            remplirTabVarDiff(); //Todo : Modifier pour ne rajouter que les élements de la nouvelle clause
+            for (Integer var : c.tabVariablePositive)
+                if (!tabVariablePositive.contains(var)) tabVariablePositive.add(var);
         }
     }
 
@@ -121,9 +122,9 @@ public class Formule {
         while (i < tabClause.size()) {
             int j = 0;
             s.append("(");
-            int size = tabClause.get(i).tabVariable.size();
+            int size = tabClause.get(i).tabVariableUnique.size();
             while (j < size) {
-                s.append(tabClause.get(i).tabVariable.get(j));
+                s.append(tabClause.get(i).tabVariableUnique.get(j));
                 j++;
                 if (j < size) {
                     s.append(" + ");

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Clause {
 
     //Tableau des variables (variables pos != variable négatif)
-    public ArrayList<Integer> tabVariable;
+    public ArrayList<Integer> tabVariableUnique;
 
     //Tableau des variables différentes (variables pos == variable négatif).
-    public ArrayList<Integer> tabVarDiff;
+    public ArrayList<Integer> tabVariablePositive;
 
     //Différents tableaux de caractères qui correspondent aux différentes manières d'écrire la formule. 
     //Exemple : On peut représenter la disjonction par '+', '|' ou 'v'
@@ -20,8 +20,8 @@ public class Clause {
         Permet de créer un objet clause vide.
     */
     public Clause() {
-        tabVariable = new ArrayList<>();
-        tabVarDiff = new ArrayList<>();
+        tabVariableUnique = new ArrayList<>();
+        tabVariablePositive = new ArrayList<>();
     }
 
     /*
@@ -41,43 +41,39 @@ public class Clause {
         sinon (c'est une des représentations de la disjonction) → On regarde si la variable que l'on a récupérée est déjà présente ou non dans les deux tableaux. Si ce n'est pas le cas, on l'ajoute.
     */
     public void remplirListesVariable(String formule) {
-        int actuel = 0; //Entier actuel
-        boolean vide = true;
-        boolean neg = false;
+        int nombreActuel = 0; //Entier actuel
+        boolean estNegatif = false;
 
         for (int i = 0; i < formule.length(); i++) {
             char a = formule.charAt(i);
-            if (a >= '0' && a <= '9') {
-                if (vide) {
-                    actuel = Character.getNumericValue(a);
-                    vide = false;
-                } else {
-                    actuel = actuel * 10 + Character.getNumericValue(a);
-                }
+            if (Character.isDigit(a))
+                nombreActuel = nombreActuel * 10 + Character.getNumericValue(a);
 
-            } else if (appartient(a, negation)) {
-                neg = true;
+            else if (appartient(a, negation)) {
+                estNegatif = true;
 
             } else if (appartient(a, disjonction)) {
-                if (neg) {
-                    actuel = -actuel;
-                    neg = false;
+
+                if (!tabVariablePositive.contains(nombreActuel)) tabVariablePositive.add(nombreActuel);
+
+
+                if (estNegatif) {
+                    nombreActuel = -nombreActuel;
+                    estNegatif = false;
                 }
 
-                if (!tabVariable.contains(actuel)) {
-                    tabVariable.add(actuel);
-                    if (!tabVarDiff.contains(Math.abs(actuel))) tabVarDiff.add(Math.abs(actuel));
-                }
+                if (!tabVariableUnique.contains(nombreActuel)) tabVariableUnique.add(nombreActuel);
 
-                vide = true;
+                nombreActuel = 0;
             }
         }
-        if (neg) actuel = -actuel;
+        if (!tabVariablePositive.contains(nombreActuel)) tabVariablePositive.add(nombreActuel);
 
-        if (!tabVariable.contains(actuel)) {
-            tabVariable.add(actuel);
-            if (!tabVarDiff.contains(Math.abs(actuel))) tabVarDiff.add(Math.abs(actuel));
-        }
+
+        if (estNegatif) nombreActuel = -nombreActuel;
+
+
+        if (!tabVariableUnique.contains(nombreActuel)) tabVariableUnique.add(nombreActuel);
 
     }
 
@@ -123,11 +119,11 @@ public class Clause {
     */
     public boolean equals(Clause c) {
         boolean equal;
-        if (c.tabVariable.size() == this.tabVariable.size()) {
+        if (c.tabVariableUnique.size() == this.tabVariableUnique.size()) {
             equal = true;
             int i = 0;
-            int size = c.tabVariable.size();
-            while (i < size && tabVariable.contains(c.tabVariable.get(i))) {
+            int size = c.tabVariableUnique.size();
+            while (i < size && tabVariableUnique.contains(c.tabVariableUnique.get(i))) {
                 i++;
             }
             if (i < size) {
@@ -145,7 +141,7 @@ public class Clause {
     */
     public String toString() {
         StringBuilder res = new StringBuilder();
-        for (int e : tabVariable) {
+        for (int e : tabVariableUnique) {
             res.append(e).append(' ');
         }
         return res.toString();
@@ -157,11 +153,12 @@ public class Clause {
         Algorithme : Si la variable n'est pas déjà dans la clause, on l'ajoute à la liste des variables. Idem pour le tableau de variables différentes.
     */
     public void disjonction(int var) {
-        if (!tabVariable.contains(var)) {
-            tabVariable.add(var);
+        if (!tabVariableUnique.contains(var)) {
+            tabVariableUnique.add(var);
 
-            if (!tabVarDiff.contains(Math.abs(var))) {
-                tabVarDiff.add(Math.abs(var));
+            var = Math.abs(var);
+            if (!tabVariablePositive.contains(var)) {
+                tabVariablePositive.add(var);
             }
         }
     }
